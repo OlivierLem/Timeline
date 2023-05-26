@@ -18,35 +18,19 @@ router.post('/', async (req, res) => {
 
 router.get('/current', async (req, res) => {
     console.log('test');
-    /* const { token } = req.cookies;
-    if (token) {
-        console.log('token user trouvé');
-        try {
-            const decodedToken = jsonwebtoken.verify(token, keyPub, {
-                algorithms: "RS256",
-            });
-            //console.log({decodedToken});
+   
+})
 
-            const sql = `SELECT * FROM user WHERE idUser = '${decodedToken.sub}'`;
-
-            connection.query(sql, (err, result) => {
-                if (err) throw err;
-                if (result) {
-                    res.json(...result)
-                } else {
-                    console.log('no result');
-                    res.json(null)
-                }
-            })
-            
-        } catch (error) {
-            console.error(error)
-            res.json(null)
-        }
-    } else {
-        //console.log("il n'ya pas de token user");
-        res.json(null)
-    } */
+router.get('/', async (req, res) => {
+    try {
+        const sql = `SELECT * FROM periodes `;
+        console.log('epoques envoyé')
+        connection.query(sql, (err, result) => {
+            res.send(result)
+        })
+    } catch (error) {
+        console.error(error)
+    }
 })
 
 module.exports = router

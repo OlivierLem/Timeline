@@ -8,6 +8,13 @@ export function EventEditPage () {
     return (
         <section>
             <h1> {evenementTitle} </h1>
+            <form action="">
+                <select name="" id="">
+                    <option value="siécle des lumiéres">siécle des lumiéres</option>
+                    <option value="test">test</option>
+                </select>
+                <button>Ajouter l'évenement</button>
+            </form>
         </section>
     )
 }

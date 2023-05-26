@@ -33,4 +33,17 @@ router.post('/', async (req, res) => {
     })     
 })
 
+router.get('/', async (req, res) => {
+
+    try {
+        const sql = `SELECT * FROM evenements `;
+        console.log('evenement envoyé')
+        connection.query(sql, (err, result) => {
+            res.send(result)
+        })
+    } catch (error) {
+        console.error(error)
+    }
+})
+
 module.exports = router

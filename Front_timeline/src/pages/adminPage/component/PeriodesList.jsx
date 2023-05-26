@@ -1,14 +1,25 @@
+import { useEffect, useState } from "react";
 import Periode from "./Periode";
+import { getPeriods } from "../../../apis/period";
 
 export default function PeriodesList () {
-    const periode = {
-       name:  'Siécle des lumieres',
-       startPeriode: 1715,
-       endPeriode: 1789,
-    }
+    const [periodes, setPeriodes] = useState([]);
+    useEffect(() => {
+        getPeriods().then(p => {
+            setPeriodes(p)
+        })
+    }, []) 
     return (
         <div className='epoqueList'>
-            <Periode periode={periode} />
+            {
+                periodes ? (
+                    periodes.map(p => (
+                        <Periode key={p.idPeriode} periode={p} />
+                    ))
+                ) : (
+                    <p>pas d'époque ajouté</p>
+                )
+            }
         </div>
     )
 }

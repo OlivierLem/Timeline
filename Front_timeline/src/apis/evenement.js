@@ -22,6 +22,14 @@ export async function createEvenement(evenement) {
     }
 }
 
+export async function getEvenements () {
+    const response = await fetch(API_EVENT)
+    if(response.ok) {
+        return response.json()
+    }
+    
+}
+
 export async function associationEventAndPeriode (evenement) {
     console.log(evenement);
     /* const response = await fetch (`${API_EVENT}/association`, {
