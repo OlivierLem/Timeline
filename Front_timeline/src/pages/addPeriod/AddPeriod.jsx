@@ -34,7 +34,7 @@ export default function AddPeriod () {
         console.log(values);
         try {
             clearErrors();
-            //await createPeriod(values);
+            await createPeriod(values);
         } catch (message) {
             console.error(message)
             setError('generic', {type: "generic", message})

@@ -1,17 +1,27 @@
-const connection = require("../../database/db")
+const connection = require("../../database/db");
 
 const router = require("express").Router()
 
 router.post('/', async (req, res) => {
     const { name, startPeriod, endPeriod, color } = req.body;
 
-    const sql = `INSERT INTO periodes (noms, debutPeriode, finPeriode, color) VALUES (?, ?, ?, ?) `;
-    
-    const valuesInsert = [name, startPeriod, endPeriod, color]
+    function transformLink (value) {
+        let link= value.normalize('NFD')
+        .toLowerCase()
+        .replace(/[\u0300-\u036f]/g, "")
+        .replaceAll(' ', '_')
+        return link
+    }
 
+    const slugName = transformLink(name);
+
+    const sql = `INSERT INTO periodes (noms, slugName, debutPeriode, finPeriode, color) VALUES (?, ?, ?, ?, ?) `;
+    
+    const valuesInsert = [name, slugName, startPeriod, endPeriod, color]
+    
+    console.log('période ajouté');
     connection.query(sql, valuesInsert, (err, result) => {
         if (err) throw err;
-        console.log('ajout période');
         res.json('periode ajouter');
     })    
 })

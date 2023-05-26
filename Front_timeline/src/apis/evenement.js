@@ -30,6 +30,14 @@ export async function getEvenements () {
     
 }
 
+export async function getOneEvenement (slugName) {
+    const response = await fetch (`${API_EVENT}/current?slugName=${slugName} `)
+    if (response.ok) {
+        
+        return response.json()
+    }
+}
+
 export async function associationEventAndPeriode (evenement) {
     console.log(evenement);
     /* const response = await fetch (`${API_EVENT}/association`, {
@@ -39,6 +47,5 @@ export async function associationEventAndPeriode (evenement) {
         },
         body: JSON.stringify(evenement)
     }) */
-
 }
 

@@ -1,9 +1,7 @@
 import { NavLink } from "react-router-dom";
-import transformLink from "../../../assets/script/transformLink";
 
-export default function Evenement ({evenement: {name, date}}) {
+export default function Evenement ({evenement: {name, date, slugName}}) {
 
-    const nameLink = transformLink(name)
     
     const dateFormat = new Date(date).toLocaleDateString("fr")
 
@@ -12,7 +10,7 @@ export default function Evenement ({evenement: {name, date}}) {
             <p>{name}</p>
             <p className="date"><span>Date: </span> {dateFormat} </p>
             <p>La news n'a pas encore était créer</p>
-            <NavLink to={`/admin/evenements/${nameLink}`} className='edit'><i className="fa-solid fa-pen-to-square"></i></NavLink>
+            <NavLink to={`/admin/evenements/${slugName}`} className='edit'><i className="fa-solid fa-pen-to-square"></i></NavLink>
         </div>
     )
 }

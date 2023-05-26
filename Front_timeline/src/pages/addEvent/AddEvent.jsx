@@ -89,9 +89,9 @@ export default function AddEvent () {
 
             values.image = base64
             let {date} = values
-            values.date = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+            values.date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
 
-            console.log(values.date)
+            console.log(date)
             try {
                 clearErrors();
                 await createEvenement(values);
