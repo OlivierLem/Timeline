@@ -1,28 +1,28 @@
 const connection = require("../../database/db")
-
 const router = require("express").Router()
 
 router.post('/', async (req, res) => {
     const { name, date, image } = req.body;
 
-    const sqlInsertEvent = `INSERT INTO evenement (name, date) VALUES (?, ?) `;
+    const sqlInsertEvent = `INSERT INTO evenements (name, date) VALUES ('${name}', '${date}') `;
     
-    const valuesInsert = [name, date]
-
-    connection.query(sqlInsertEvent, valuesInsert, (err, result) => {
+    //const valuesInsert = [name, date]
+    console.log(date)
+    connection.query(sqlInsertEvent, (err, result) => {
         if (err) throw err;
 
-       const sqlSelect = `SELECT idEvenement FROM evenement WHERE name = ${name} `
-        const idEvenement = result.id
+        const sqlSelect = `SELECT idEvenement FROM evenements WHERE name = '${name}' `
+        
+        let idEvenement = result.insertId
         
         connection.query(sqlSelect, (err, result) => {
             if (err) throw err;
             
             if(result) {
-                const sqlInsertImage = `INSERT INTO images (url, imagesPrincipal, idEvenement) VALUES (?, ?, ?)`;
+                const sqlInsertImage = `INSERT INTO images (url, miniature,idEvenement) VALUES ('${image}', 1 ,'${idEvenement}')`;
                 
                 const valuesImageInsert = [image, 1, idEvenement]
-                connection.query(sqlInsertImage, valuesImageInsert, (err, result) => {
+                connection.query(sqlInsertImage, (err, result) => {
                     if (err) throw err;
 
                     console.log('évenement ajouté');

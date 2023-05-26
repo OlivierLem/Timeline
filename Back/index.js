@@ -12,7 +12,7 @@ app.use(cookie())
 
 // limitation de la taille des fichiers
 //si erreur vérifier votre fichier ini dans XAMPP et augmenter les tailles
-app.use(bodyParser.json({ limit: "5mb" }));
+app.use(bodyParser.json({ limit: "15mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "15mb" }));
 
 app.use(routes)

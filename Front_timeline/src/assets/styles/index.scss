@@ -1,0 +1,12 @@
+@use "./component/base";
+@use "./component/debug";
+@use "./component/flex";
+@use "./component/themes";
+@use "./component/utils";
+@use "./component/variables";
+
+body {
+    background-color: var(--background-body);
+    color: var(--white);
+    box-sizing: border-box;
+}

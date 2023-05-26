@@ -1,0 +1,50 @@
+.formField {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+    margin: auto;
+    border: solid 2px var(--white);
+    padding: 2rem;
+}
+
+.formField > div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    font-size: 1.3rem;
+    color: var(--white);
+}
+
+.formField > div input:not([type='file']) {
+    height: 2rem;
+    border: solid 3px var(--primary);
+    border-radius: 2rem;
+    padding: 1rem .5rem;
+}
+
+.formField button {
+    background-color: var(--primary);
+    border: none;
+    color: var(--white);
+    width: fit-content;
+    margin: auto;
+    padding: .5rem 2rem;
+    font-size: 1.3rem;
+    border-radius: 5px;
+
+    &:hover {
+        background-color: var(--secondary);
+    }
+}
+
+.form-error {
+    color: var(--error);
+    margin: auto;
+
+    i {
+        margin-right: 1rem;
+    }
+}
