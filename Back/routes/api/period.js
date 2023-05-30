@@ -32,6 +32,10 @@ router.get('/current', async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
+
+    const { eventYear } = req.query()
+    console.log(eventYear);
+
     try {
         const sql = `SELECT * FROM periodes `;
         console.log('epoques envoyé')

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { createEvenement } from "../../apis/evenement.js";
 import { useState } from "react";
+import moment from 'moment';
 import './AddEvent.scss';
 
 export default function AddEvent () {
@@ -89,9 +90,9 @@ export default function AddEvent () {
 
             values.image = base64
             let {date} = values
-            values.date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-
-            console.log(date)
+            //values.date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+            date = moment(date, 'DD-MM-YYYY')
+            console.log(date.format('YYYY-MM-DD'));
             try {
                 clearErrors();
                 await createEvenement(values);
