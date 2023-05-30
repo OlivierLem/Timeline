@@ -27,21 +27,50 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/current', async (req, res) => {
-    console.log('test');
+    const { slugName } = req.query;
+
+    console.log(slugName);
+
+    const sql = `SELECT * FROM periodes    
+    INNER JOIN
+        periode_evenement ON periodes.idPeriode = periode_evenement.idPeriode
+    LEFT JOIN
+        evenements ON periode_evenement.idEvenement = evenements.idEvenement
+    INNER JOIN
+        images ON evenements.idEvenement = images.idEvenement
+    WHERE periodes.slugName = '${slugName}'
+    `
+    connection.query(sql, (err, result) => {
+        if(err) throw err;
+        console.log(result);
+        res.send(result)
+    })
    
 })
 
 router.get('/', async (req, res) => {
 
-    const { eventYear } = req.query()
+    const { eventYear } = req.query
     console.log(eventYear);
 
     try {
-        const sql = `SELECT * FROM periodes `;
-        console.log('epoques envoyé')
-        connection.query(sql, (err, result) => {
+        if (eventYear) {
+            const sql = `SELECT * FROM periodes WHERE debutPeriode <= '${eventYear}' AND finPeriode >= '${eventYear}' `;
+            console.log('epoques avec dateEvent envoyé')
+            connection.query(sql, (err, result) => {
+                if (err) throw err;
+                console.log(result);
+                res.send(result)
+            })
+        } 
+        else {
+            const sql = `SELECT * FROM periodes `;
+            console.log('epoques envoyé')
+            connection.query(sql, (err, result) => {
             res.send(result)
-        })
+            })
+        }
+        
     } catch (error) {
         console.error(error)
     }

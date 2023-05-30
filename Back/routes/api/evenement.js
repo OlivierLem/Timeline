@@ -14,14 +14,14 @@ router.post('/', async (req, res) => {
 
     const slugName = transformLink(name);
 
-    const sqlInsertEvent = `INSERT INTO evenements (name, slugName, date) VALUES ('${name}', '${slugName}', '${date}') `;
+    const sqlInsertEvent = `INSERT INTO evenements (name, slugName, date) VALUES ("${name}", "${slugName}", '${date}') `;
     
     //const valuesInsert = [name, date]
     console.log(date)
     connection.query(sqlInsertEvent, (err, result) => {
         if (err) throw err;
 
-        const sqlSelect = `SELECT idEvenement FROM evenements WHERE name = '${name}' `
+        const sqlSelect = `SELECT idEvenement FROM evenements WHERE name = "${name}" `
         
         let idEvenement = result.insertId
         
@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
             if (err) throw err;
             
             if(result) {
-                const sqlInsertImage = `INSERT INTO images (url, miniature,idEvenement) VALUES ('${image}', 1 ,'${idEvenement}')`;
+                const sqlInsertImage = `INSERT INTO images (url, miniature,idEvenement) VALUES ("${image}", 1 ,'${idEvenement}')`;
                 
                 const valuesImageInsert = [image, 1, idEvenement]
                 console.log('événement envoyé');
@@ -62,10 +62,10 @@ router.get('/current', async (req, res) => {
     console.log(slugName);
     try {
         const sql = `
-            SELECT evenements.name, evenements.date, images.url 
+            SELECT evenements.idEvenement, evenements.name, evenements.date, images.url 
             FROM evenements 
             JOIN images ON evenements.idEvenement = images.idEvenement 
-            WHERE evenements.slugName = '${slugName}' `;
+            WHERE evenements.slugName = "${slugName}" `;
             
         console.log('evenement ajouté')
         connection.query(sql, (err, result) => {
@@ -76,6 +76,24 @@ router.get('/current', async (req, res) => {
     } catch (error) {
         console.error(error)
     }
+})
+
+router.post('/association', async (req, res) => {
+    const { event, periode } = req.body;
+    console.log(req.body);
+    //! Where à ajouté
+    // WHERE idEvenement <> '${event}' AND idPeriode <> '${periode}'
+    const sql = `
+        INSERT INTO periode_evenement (idEvenement, idPeriode) 
+        VALUES ('${event}', '${periode}')  `;
+
+    connection.query(sql, (err, result) => {
+        if (err) {
+            res.status(400).json('le lien entre les 2 tables existe déja')
+        }
+        console.log('lien créer entre les 2 tables');
+        res.json('lien créer entre les 2 tables')
+    })
 })
 
 module.exports = router

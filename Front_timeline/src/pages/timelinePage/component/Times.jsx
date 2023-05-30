@@ -1,22 +1,22 @@
+import moment from "moment";
 import { NavLink } from "react-router-dom";
 
-export default function Time ({date, children}) {
+export default function Time ({evenements}) {
 
-    let event = children.replaceAll('_', ' ')
-    event = event.charAt(0).toUpperCase() + event.slice(1)
+    const { name, slugName, date, year} = evenements
     return (
     <div className="time">
         <img src="assets/images/sacre_de_louis_xv.jpg" alt="sacre_de_louis_xv" />
         <div className="timeDisplay">
-            <p>1722</p>
+            <p> {year} </p>
             <span></span>
         </div>
         <div className="timeText">
-            <p>24 septembre</p>
+            <p>{date} </p>
             <p className="event">
-                Sacre de Louis XV
+                {name}
             </p>
-            <NavLink to={`/articles/${children}`}>En voir plus</NavLink>
+            <NavLink to={`/articles/${slugName}`}>En voir plus</NavLink>
         </div>
     </div>
     )

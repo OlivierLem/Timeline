@@ -40,12 +40,12 @@ export async function getOneEvenement (slugName) {
 
 export async function associationEventAndPeriode (evenement) {
     console.log(evenement);
-    /* const response = await fetch (`${API_EVENT}/association`, {
+    const response = await fetch (`${API_EVENT}/association`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(evenement)
-    }) */
+    })
 }
 

@@ -5,7 +5,7 @@ export default function Evenement ({evenement: {name, date, slugName}}) {
 
     
     //const dateFormat = new Date(date).toLocaleDateString("fr")
-    const dateFormat = moment(date, 'DD-MM-YYYY').locale('fr')
+    const dateFormat = moment(date).locale('fr')
     console.log(dateFormat);
     return (
         <div>

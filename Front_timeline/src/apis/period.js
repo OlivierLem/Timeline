@@ -23,9 +23,9 @@ export async function createPeriod(period) {
     }
 }
 
-export async function getCurrentPeriod() {
+export async function getCurrentPeriod(slugName) {
     // Récupére la période courante avec les table evenement qui lui sont liés
-    const response = await fetch(`${API_PERIOD}/current`);
+    const response = await fetch(`${API_PERIOD}/current?slugName=${slugName}`);
     console.log(response);
     return response.json();
 }
@@ -41,7 +41,7 @@ export async function getPeriodsFilter(eventYear) {
     // Récupére les périodes est récupére le nombre d'événement 
     // et de quizz quelle posséde
     console.log(eventYear);
-   /*  const response = await fetch(`${API_PERIOD}?eventYear=${eventYear}`);
+    const response = await fetch(`${API_PERIOD}?eventYear=${eventYear}`);
     console.log(response);
-    return response.json(); */
+    return response.json();
 }

@@ -1,38 +1,64 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import { getOneEvenement } from "../../apis/evenement";
+import { associationEventAndPeriode, getOneEvenement } from "../../apis/evenement";
 import { getPeriodsFilter } from "../../apis/period";
 import moment from "moment";
 import 'moment/locale/fr';
+import { useForm } from "react-hook-form";
 
 export function EventEditPage () {
     const { evenement } = useParams();
     let evenementTitle = evenement.replaceAll('_', ' ')
     evenementTitle = evenementTitle.charAt(0).toUpperCase() + evenementTitle.slice(1)
 
-    //const [previewImage, setPreviewImage] = useState(null);
+    const [previewImage, setPreviewImage] = useState(null);
     const [oneEvent, setOneEvent] = useState([])
     const [periodes, setPeriodes] = useState([]);
 
     useEffect (() => {
-        getOneEvenement(evenement).then(evenements => {
-            const img = evenements.map(ev =>{  
-                ev.url
-            })
-            // console.log(img);
+        getOneEvenement(evenement)
+            .then(evenements => {
+                const img = evenements.map(ev =>{  
+                    ev.url
+                })
+                // console.log(img);
 
-            const evenementWithImages = {
-                name:evenements[0].name,
-                date: moment(evenements[0].date, 'DD-MM-YYYY').locale('fr').format('DD MMMM YYYY'),
-                url: img
-            };
-            setOneEvent(evenementWithImages)
-
+                const evenementWithImages = {
+                    id:evenements[0].idEvenement,
+                    name:evenements[0].name,
+                    date: moment(evenements[0].date).locale('fr').format('DD MMMM YYYY'),
+                    url: img
+                };
+                setOneEvent(evenementWithImages)
+                getPeriodsFilter(moment(evenements[0].date).year()).then(ev => setPeriodes(ev))   
+                /* const imgFromBackEnd = evenements[0].url;
+                console.log(imgFromBackEnd);
+                // création d'un tableau de données binaires qui économise de la mémoire
+                const uint8Array = new Uint8Array(imgFromBackEnd);
+                console.log({ uint8Array });
+                // création d'un objet BLOB
+                const blob = new Blob([uint8Array]);
+                console.log({ blob });
+                // Création d'une url temporaire de type BLOB qui va permettre d'afficher l'image sur la page web
+                const urlImage = URL.createObjectURL(blob);
+                console.log({ urlImage });
+                // récupération sous forme de texte brut de l'URL
+                // ce texte est attribué avec le useSTate previewImage pour l'affichage
+                fetch(urlImage)
+                    .then((response) =>{ 
+                        console.log(response)
+                        response.text()
+                    })
+                    .then((text) => {
+                    console.log({ text });
+                    setPreviewImage(text);
+                    })
+                    .catch((error) => console.log(error)); */
             })
+            
     // affiche les periodes filtrer  pour ne prendre que les evenement 
     // qui ne font partis de la période
-    getPeriodsFilter(moment(oneEvent).year()).then(ev => setPeriodes(ev))   
-
+   
     }, [])
 
     /* async function handleSubmitName(e) {
@@ -43,6 +69,26 @@ export function EventEditPage () {
         }
     }  */
 
+    const defaultValues = {
+        periode: 'siecle_des_lumieres'
+    }
+
+    const {
+        register, 
+        handleSubmit, 
+    } = useForm({
+        defaultValues
+    })
+
+      const submitSelect = handleSubmit(async (values) => {
+        let idPeriodeFilter = periodes.filter(p => p.slugName === values.periode)[0].idPeriode
+        const eventAndPeriode = {
+            event: oneEvent.id,
+            periode: idPeriodeFilter
+        };
+        console.log(eventAndPeriode)
+        associationEventAndPeriode(eventAndPeriode)
+      }) 
 
     return (
         <section>
@@ -53,19 +99,29 @@ export function EventEditPage () {
             </form> */}
             <p>{oneEvent.date}</p>
             
-            
-            <form action="">
-                <select name="" id="">
-                    {
-                        periodes && (
-                            periodes.map(p => (
-                                <option key={p.idPeriode} value={p.slugName}>{p.noms}</option>
-                            ))
-                        )
-                    }
-                </select>
-                <button>Ajouter l'évenement</button>
-            </form>
+            {
+                previewImage ? (
+                    <img src={previewImage} />
+                ) : (
+                    <p>pas d'image</p>
+                )
+            }
+
+            { periodes.length > 0 ? (
+                <form action="" onSubmit={submitSelect} >
+                
+                    <select {...register(`periode`)} name="periode">
+                        {periodes.map((p, i) => (
+                            <option  key={p.idPeriode} value={p.slugName}>{p.noms}</option>
+                        ))}
+                            
+                    </select>
+                    <button>Ajouter l'évenement</button>
+                </form>
+            ) : (
+                <p>pas de timeline</p>
+            )            
+            }
         </section>
     )
 }
