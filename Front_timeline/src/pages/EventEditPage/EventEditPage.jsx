@@ -11,10 +11,10 @@ export function EventEditPage () {
     let evenementTitle = evenement.replaceAll('_', ' ')
     evenementTitle = evenementTitle.charAt(0).toUpperCase() + evenementTitle.slice(1)
 
-    const [previewImage, setPreviewImage] = useState(null);
     const [oneEvent, setOneEvent] = useState([])
     const [periodes, setPeriodes] = useState([]);
-
+    const [previewImage, setPreviewImage] = useState(null);
+    
     useEffect (() => {
         getOneEvenement(evenement)
             .then(evenements => {
@@ -31,7 +31,7 @@ export function EventEditPage () {
                 };
                 setOneEvent(evenementWithImages)
                 getPeriodsFilter(moment(evenements[0].date).year()).then(ev => setPeriodes(ev))   
-                /* const imgFromBackEnd = evenements[0].url;
+                const imgFromBackEnd = evenements[0].url;
                 console.log(imgFromBackEnd);
                 // création d'un tableau de données binaires qui économise de la mémoire
                 const uint8Array = new Uint8Array(imgFromBackEnd);
@@ -50,10 +50,10 @@ export function EventEditPage () {
                         response.text()
                     })
                     .then((text) => {
-                    console.log({ text });
-                    setPreviewImage(text);
+                        setPreviewImage(text)
+                        console.log(previewImage);
                     })
-                    .catch((error) => console.log(error)); */
+                    .catch((error) => console.log(error));
             })
             
     // affiche les periodes filtrer  pour ne prendre que les evenement 
@@ -101,10 +101,11 @@ export function EventEditPage () {
             
             {
                 previewImage ? (
-                    <img src={previewImage} />
+                    <img src={previewImage} alt="test" />
                 ) : (
-                    <p>pas d'image</p>
-                )
+                    // <img src="/assets/images/sacre_de_louis_xv.jpg" alt="sacre_de_louis_xv" />
+                    <p>Pas d'image</p>
+                    )
             }
 
             { periodes.length > 0 ? (

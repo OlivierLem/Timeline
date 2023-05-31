@@ -1,50 +1,37 @@
 import { NavLink } from 'react-router-dom';
 import './TimelinePage.scss';
 import Time from './component/Times';
-import { useEffect, useState } from 'react'
-import { getCurrentPeriod } from '../../apis/period';
-import moment from 'moment';
+import { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import 'moment/locale/fr';
+import { PeriodContext } from '../../context/PeriodContext.jsx';
 
 
 export default function TimelinePage () {
 
-    const [period, setPeriod] = useState({})
-    const [evenements, setEvenements] = useState([])
+    const { getPeriod, period, color,  evenements} = useContext(PeriodContext)
+    //const [ changeTimeline, setChangeTimeline ] = useState(false)
     useEffect(() => {
-        getCurrentPeriod('siecle_des_lumieres')
-            .then(periode => {
-                console.log(periode);
-                //* ajouter tableaux d'image
-                const evenementsMap = periode.map(p => (
-                    {
-                        id: p.idEvenement,
-                        name:  p.name,
-                        slugName: p.slugName,
-                        date: moment(p.date).locale('fr').format('DD MMMM YYYY'),
-                        year: moment(p.date).year()
-                    }
-                ))
-                setEvenements(evenementsMap)
-
-                const periodeObj = {
-                    audio: periode[0].audio,
-                    color: periode[0].color,
-                    debutPeriode: periode[0].debutPeriode,
-                    finPeriode: periode[0].finPeriode,
-                    namePeriod: periode[0].noms,
-                }
-                //console.log(periodeObj);
-                setPeriod(periodeObj)
-            })
+        getPeriod('siecle_des_lumieres')
     }, [])
 
+    useLayoutEffect(() => {
+        const r = document.querySelector(':root');
+        r.style.setProperty('--primary', color)
+    }, [color])
+  /*   const handleClick = () => {
+        
+    }
+ */
     return (
         <section>
             <h1>Époque moderne</h1>
             <div className="periodTitle">
                 <div>
-                    <h2>{period.namePeriod} <span>({period.debutPeriode}-{period.finPeriode})</span></h2>
+                    {
+                        period && (
+                            <h2>{period.name} <span>({period.debutPeriode}-{period.finPeriode})</span></h2>
+                        )
+                    }
                     <button><i className="fa-solid fa-timeline"></i></button>
                 </div>
                 <NavLink to='/quizz'>En voir plus <i className="fa-solid fa-arrow-right"></i></NavLink>
@@ -52,7 +39,7 @@ export default function TimelinePage () {
             
             <div className='timeline'>
                 <div className='timelineBlock' >
-                    {/* {
+                    {
                         evenements.length > 0 ? (
                             evenements.map(e => (
                                 <Time key={e.id} evenements={e} ></Time>
@@ -60,9 +47,10 @@ export default function TimelinePage () {
                         ) : (
                             <p>pas d'événement</p>
                         )
-                    } */}
+                    }
                 </div>
             </div>
+        
         </section>
         
     )

@@ -90,9 +90,7 @@ export default function AddEvent () {
 
             values.image = base64
             let {date} = values
-            //values.date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
             date = moment(date, 'DD-MM-YYYY')
-            console.log(date.format('YYYY-MM-DD'));
             try {
                 clearErrors();
                 await createEvenement(values);

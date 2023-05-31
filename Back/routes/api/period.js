@@ -38,11 +38,13 @@ router.get('/current', async (req, res) => {
         evenements ON periode_evenement.idEvenement = evenements.idEvenement
     INNER JOIN
         images ON evenements.idEvenement = images.idEvenement
-    WHERE periodes.slugName = '${slugName}'
+    WHERE 
+        periodes.slugName = '${slugName}' AND
+        images.miniature = 1
     `
     connection.query(sql, (err, result) => {
         if(err) throw err;
-        console.log(result);
+        //console.log(result[1].url.length);
         res.send(result)
     })
    
