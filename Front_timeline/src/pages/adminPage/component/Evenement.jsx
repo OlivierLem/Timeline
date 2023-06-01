@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import 'moment/locale/fr'  // without this line it didn't work
 export default function Evenement ({evenement: {name, date, slugName}}) {
 
-    
+
     //const dateFormat = new Date(date).toLocaleDateString("fr")
     const dateFormat = moment(date).locale('fr')
     console.log(dateFormat);

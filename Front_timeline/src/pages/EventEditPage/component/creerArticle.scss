@@ -1,0 +1,305 @@
+
+.cours {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-block: 2rem;
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 2rem;
+
+}
+
+.cours__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding-block: 2rem;
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    border: solid 2px var(--secondary);
+    border-radius: .5rem;
+    margin-bottom: 3rem;
+
+    & > input {
+        width: 100%;
+    }
+
+    & > button {
+        font-size: inherit;
+        color: white;
+        height: fit-content;
+        font-size: 1.2rem;
+        margin-left: 5rem;
+        padding: .5rem 1rem;
+        background-color: var(--primary);
+        border: none;
+        border-radius: .2rem;
+        transition: background-color ease-in .25s;
+
+        &:hover {
+            background-color: var(--secondary);
+        }
+    }
+}
+
+.cours__title button {
+    translate: 0 -1rem;
+    font-size: inherit;
+    color: inherit;
+    background-color: transparent;
+    border: none;
+}
+
+.cours__create {
+    display: flex;
+    flex-direction: column;
+    padding-left: 2rem;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: 400;
+
+    p {
+        margin: 0;
+        padding: 0;
+    }
+
+    & > div:first-of-type {
+        margin-top: .5rem;
+    }
+}
+
+.title__component, 
+.text__component {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding-inline: 3.5rem;
+    translate: -3.5rem;
+    &:hover > i {
+        display: block;
+    }
+
+    button {
+        font-size: inherit;
+        color: white;
+        height: fit-content;
+        font-size: 1.4rem;
+        background-color: transparent;
+        border: none;
+        border-radius: .2rem;
+        transition: color ease-in .25s,;
+
+        &:hover {
+            color: var(--secondary);
+        }
+    }
+}
+
+.title__component > div,
+.text__component > div{
+    /* display: none; */
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5rem;
+    gap: 2rem;
+    width: 100%;
+    height: fit-content;
+    top: 50%;
+    left: 0;
+    translate: 0 -50%;
+    transition: color ease-in .25s;
+    &:hover:first-of-type{
+        color: var(--primary);
+    }
+    button:hover:last-of-type{
+        color: var(--error);
+    }
+}
+
+.title__component {
+    margin-top: 1rem;
+}
+
+.text__component {
+    max-width: 1200px;
+    margin: auto;
+    font-size: 1.2rem;
+    margin-block: 1rem;
+}
+
+.editText {
+    width: 100%;
+    height: fit-content;
+    resize: vertical;
+    padding: .5rem;
+    font-size: 1.2rem;
+    color: inherit;
+    border: solid 2px var(--primary);
+}
+
+.editTitle {
+    width: 100%;
+    padding: .5rem;
+    font-size: inherit;
+    color: inherit;
+    border: solid 2px var(--primary);
+}
+
+
+.title-1 {
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+.title-2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.addComponent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 7rem;
+    margin-block: 2rem;
+    border: dashed 4px var(--primary);
+    border-radius: 12px;
+    transition: background-color ease-in .25s;
+
+    & > button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        font-size: 6rem;
+        font-weight: 300;
+        color: var(--primary);
+        background-color: transparent;
+        border: none;
+        transition: color ease-in .25s,
+                    transform ease-in .25s;
+    }
+    & nav {
+        display: flex;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        z-index: 20;
+    }
+    & nav > button {
+        position: relative;
+        background-color: white;
+        color: var(--primary);
+        width: 3rem;
+        height: 3rem;
+        padding: none;
+        font-size: 1.6rem;
+        border: none;
+        border-radius: 50%;
+        &::before {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 3rem;
+            height: 3rem;
+            top: -2px;
+            left: -2px;
+            border-radius: 50%;
+            background-color: transparent;
+            border: solid 2px white ;
+            transform: scale(.9) ;
+            transform-origin: center;
+            transition: transform ease-in .25s;
+            z-index: 10;
+            
+        }
+        &:hover::before {
+            transform: scale(1.1) ;
+        }
+        
+    }
+    &:hover, &.active {
+        background-color: var(--primary);
+        & > button {
+            color: white;
+            transform: scale(1.2);
+        }
+    }
+
+}
+
+.cours > div:last-of-type {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    input {
+        padding: 1rem .5rem;
+        font-size: 1.5rem;
+        color: var(--primary);
+        border: solid 2px var(--primary);
+        border-radius: 5px;
+
+        &::placeholder {
+            color: inherit;
+        }
+    }
+
+    .buttonNav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    button {
+        font-size: 1.5rem;
+        border-radius: 5px;
+        padding: .5rem 1rem ;
+        border: none;
+        transition: color ease-in .25s,
+                    border-color ease-in .25s,
+                    background-color ease-in .25s;
+
+    }
+    button:first-of-type {
+        color: white;
+        background-color:var(--primary);
+
+        &:hover {
+            background-color: var(--primary);
+        }
+    }
+    button:last-of-type {
+        background-color: var(--error);
+        color: white;
+        &:hover {
+            background-color: rgb(203, 42, 42);
+            border-color: rgb(203, 42, 42);
+        }
+    }
+}
+
+.buttonOption {
+    display: flex ;
+    align-items: center;
+    justify-content: space-between;
+    margin: auto;
+    padding: 0;
+}
+
+.buttonOption button {
+    width: fit-content;
+    height: fit-content;
+    padding: 0;
+}

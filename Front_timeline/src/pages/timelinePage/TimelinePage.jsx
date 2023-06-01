@@ -22,7 +22,8 @@ export default function TimelinePage () {
     }, [])
 
     useLayoutEffect(() => {
-        const r = document.querySelector(':root');
+        if(color) {
+            const r = document.querySelector(':root');
         // modification de la variable css primary avec la variable color de la période
         r.style.setProperty('--primary', color)
         // conversion du code couleur d'héxa à hsl
@@ -34,6 +35,7 @@ export default function TimelinePage () {
             ${colorConverter.s}%,
             ${colorConverter.l - 6}%
             )`)
+        }
     }, [color]);
 
     const handleClick = () => {

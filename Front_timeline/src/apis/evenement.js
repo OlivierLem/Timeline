@@ -47,5 +47,16 @@ export async function associationEventAndPeriode (evenement) {
         },
         body: JSON.stringify(evenement)
     })
+    return response.json()
 }
 
+export async function deleteEvent(evenement) {
+    const response = await fetch (`${API_EVENT}`, {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(evenement)
+    })
+    return response.json()
+}

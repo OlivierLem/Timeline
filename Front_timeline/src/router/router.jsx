@@ -9,6 +9,7 @@ import PeriodesList from "../pages/adminPage/component/PeriodesList";
 import EvenementList from "../pages/adminPage/component/EvenementList";
 import { PeriodEditPage } from "../pages/PeriodEditPage/PeriodEditPage";
 import { EventEditPage } from "../pages/EventEditPage/EventEditPage";
+import { EventEditArticle } from "../pages/EventEditPage/component/EventEditArticle";
 
 export const router = createBrowserRouter([
     {
@@ -39,7 +40,11 @@ export const router = createBrowserRouter([
             },
             {
                 path:'/admin/evenements/:evenement',
-                element:<EventEditPage />
+                element:<EventEditPage />,
+            },
+            {
+                path:'/admin/evenements/:evenement/article',
+                element: <EventEditArticle />
             },
             {
                 path: '/articles/:article',

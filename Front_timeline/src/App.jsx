@@ -15,13 +15,17 @@ function App() {
   let audio = new Audio('assets/audio/mozart.mp3');
 
   function playMusic() {
-    audio.play();
+    setTimeout(() => {
+      audio.play();
+    }, '1000')
     audio.loop = true;
+    
   }
   function pauseMusic() {
-    audio.pause();
+    setTimeout(() => {
+      audio.pause();
+    }, '1000')
   }
-
 
   function handleClickAudio() {
     setSound(!sound)
@@ -29,6 +33,7 @@ function App() {
     if (sound === true) {
       //console.log('play');
       playMusic()
+      
     } else {
       //console.log('pause');
       pauseMusic()

@@ -96,4 +96,23 @@ router.post('/association', async (req, res) => {
     })
 })
 
+router.delete('/', async (req, res) => {
+    const { id } = req.body;
+    console.log('test delete');
+
+    const sqlDeleteImages = `
+        DELETE FROM images WHERE idEvenement = '${id}'     
+    `
+
+    connection.query(sqlDeleteImages, (err, result) => {
+        if (err) throw err;
+        const sqlDeleteEvent = `DELETE FROM evenements WHERE idEvenement = '${id}'`
+
+        connection.query(sqlDeleteEvent, (err, result) => {
+            console.log('événements supprimer')
+            res.json('événements supprimer')
+        })
+    })
+})
+
 module.exports = router

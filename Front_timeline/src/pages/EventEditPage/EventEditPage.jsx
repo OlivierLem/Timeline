@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
-import { associationEventAndPeriode, getOneEvenement } from "../../apis/evenement";
+import { NavLink, useNavigate, useParams } from "react-router-dom"
+import { associationEventAndPeriode, deleteEvent, getOneEvenement } from "../../apis/evenement";
 import { getPeriodsFilter } from "../../apis/period";
 import moment from "moment";
 import 'moment/locale/fr';
 import { useForm } from "react-hook-form";
+import './EventEditPage.scss'
 
 export function EventEditPage () {
     const { evenement } = useParams();
     let evenementTitle = evenement.replaceAll('_', ' ')
     evenementTitle = evenementTitle.charAt(0).toUpperCase() + evenementTitle.slice(1)
-
+    const navigate = useNavigate()
     const [oneEvent, setOneEvent] = useState([])
     const [periodes, setPeriodes] = useState([]);
     const [previewImage, setPreviewImage] = useState(null);
-    
+    const [showDeleteModale, setShowDeleteModale] = useState(false)
     useEffect (() => {
         getOneEvenement(evenement)
             .then(evenements => {
@@ -26,22 +27,24 @@ export function EventEditPage () {
                 const evenementWithImages = {
                     id:evenements[0].idEvenement,
                     name:evenements[0].name,
+                    slugName: evenements[0].slugName,
                     date: moment(evenements[0].date).locale('fr').format('DD MMMM YYYY'),
                     url: img
                 };
                 setOneEvent(evenementWithImages)
+
                 getPeriodsFilter(moment(evenements[0].date).year()).then(ev => setPeriodes(ev))   
                 const imgFromBackEnd = evenements[0].url;
-                console.log(imgFromBackEnd);
+                //console.log(imgFromBackEnd);
                 // création d'un tableau de données binaires qui économise de la mémoire
                 const uint8Array = new Uint8Array(imgFromBackEnd);
-                console.log({ uint8Array });
+                //console.log({ uint8Array });
                 // création d'un objet BLOB
                 const blob = new Blob([uint8Array]);
-                console.log({ blob });
+                //console.log({ blob });
                 // Création d'une url temporaire de type BLOB qui va permettre d'afficher l'image sur la page web
                 const urlImage = URL.createObjectURL(blob);
-                console.log({ urlImage });
+                //console.log({ urlImage });
                 // récupération sous forme de texte brut de l'URL
                 // ce texte est attribué avec le useSTate previewImage pour l'affichage
                 fetch(urlImage)
@@ -55,7 +58,6 @@ export function EventEditPage () {
                     })
                     .catch((error) => console.log(error));
             })
-            
     // affiche les periodes filtrer  pour ne prendre que les evenement 
     // qui ne font partis de la période
    
@@ -69,8 +71,17 @@ export function EventEditPage () {
         }
     }  */
 
+
+    function handleShowDeleteModale () {
+        setShowDeleteModale(!showDeleteModale)
+    }
+    function handleDelete () {
+        deleteEvent(oneEvent)
+        navigate('/admin/evenements')
+    }
+
     const defaultValues = {
-        periode: 'siecle_des_lumieres'
+        periodes: ''
     }
 
     const {
@@ -97,8 +108,18 @@ export function EventEditPage () {
                 <input type="text" value={oneEvent.name} />
                 <button>Envoie</button>
             </form> */}
-            <p>{oneEvent.date}</p>
+            <nav>
+            {
+                oneEvent && (
+                    <NavLink to={`/admin/evenements/${oneEvent.slugName}/article`}>Article</NavLink>
+                )
+            }
+            </nav>
+            <div className="eventEditPage">
+            <p><span>Date:</span> {oneEvent.date}</p>
             
+            <div className="listImages">
+            <p><span>Images</span></p>
             {
                 previewImage ? (
                     <img src={previewImage} alt="test" />
@@ -107,10 +128,12 @@ export function EventEditPage () {
                     <p>Pas d'image</p>
                     )
             }
+            </div>
+            
 
             { periodes.length > 0 ? (
                 <form action="" onSubmit={submitSelect} >
-                
+                    {/* <label htmlFor="">Timeline</label> */}
                     <select {...register(`periode`)} name="periode">
                         {periodes.map((p, i) => (
                             <option  key={p.idPeriode} value={p.slugName}>{p.noms}</option>
@@ -123,7 +146,19 @@ export function EventEditPage () {
                 <p>pas de timeline</p>
             )            
             }
-            <button className="supprimerEvenement">Supprimer l'évenement</button>
+            <button onClick={handleShowDeleteModale} className="supprimerEvenement">Supprimer l'évenement</button>
+             {
+                showDeleteModale === true && (
+                    <div className="modaleDelete">
+                        <p>Voulez vous vraiment supprimer cette événement</p>
+                        <div>
+                            <button onClick={handleShowDeleteModale} className="annuler">Annuler</button>
+                            <button onClick={handleDelete} className="supprimerEvenement">Supprimer l'événement</button>
+                        </div>
+                    </div>
+                )
+             }
+            </div>
         </section>
     )
 }

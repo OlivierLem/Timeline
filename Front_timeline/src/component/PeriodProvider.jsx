@@ -12,7 +12,7 @@ export default function PeriodProvider({children}) {
     const initialUser = useLoaderData();
     const [period, setPeriod] = useState(initialUser);
     const [evenements, setEvenements] = useState([])
-    const [color, setColor] = useState('#6ff855')
+    const [color, setColor] = useState('')
 
     async function getPeriod(credentials) {
         const newPeriod = await getCurrentPeriod(credentials);
