@@ -4,7 +4,7 @@ export default function Periode ({periode: {noms, slugName, debutPeriode, finPer
 
 
     return (
-        <div>
+        <div className="card ">
             <p>{noms}</p>
             <p className="date"><span>Période:</span> {debutPeriode} - {finPeriode}</p>
             <p>Pas encore d'évenement ajouté</p>

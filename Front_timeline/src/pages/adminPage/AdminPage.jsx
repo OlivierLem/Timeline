@@ -1,9 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 import { NavLink, Outlet } from 'react-router-dom';
 import './AdminPage.scss'
+import { useState } from 'react';
 
 export default function AdminPage () {
     
+    const [showNavAdmin, setShowNavAdmin] = useState()
+
     return (
         <section className="admin">
             <h1>Admin</h1>
@@ -12,9 +15,10 @@ export default function AdminPage () {
                 <NavLink to='/admin/evenements'>Événements</NavLink>
             </nav>
             <Outlet />
-            <nav className='adminNav'>
-                <NavLink to='/ajout_evenement'>Ajouter un évenement</NavLink>
+            <nav className={`adminNav ${showNavAdmin && 'active'}`} >
                 <NavLink to='/ajout_periode'>Ajouter une période</NavLink>
+                <NavLink to='/ajout_evenement'>Ajouter un évenement</NavLink>
+                <button onClick={() => setShowNavAdmin(!showNavAdmin)}><i class="fa-solid fa-chevron-right"></i></button>
             </nav>
         </section>
     )

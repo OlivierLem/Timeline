@@ -123,6 +123,7 @@ export function EventEditPage () {
                 <p>pas de timeline</p>
             )            
             }
+            <button className="supprimerEvenement">Supprimer l'évenement</button>
         </section>
     )
 }

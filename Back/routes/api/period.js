@@ -39,7 +39,7 @@ router.get('/current', async (req, res) => {
     INNER JOIN
         images ON evenements.idEvenement = images.idEvenement
     WHERE 
-        periodes.slugName = '${slugName}' AND
+        periodes.slugName = "${slugName}" AND
         images.miniature = 1
     `
     connection.query(sql, (err, result) => {
@@ -76,6 +76,21 @@ router.get('/', async (req, res) => {
     } catch (error) {
         console.error(error)
     }
+})
+
+router.get('/withEvent', async (req, res) => {
+    const sql = `
+    SELECT DISTINCT 
+        periodes.idPeriode, periodes.noms, periodes.slugName, 
+        periodes.debutPeriode, periodes.finPeriode 
+    FROM periodes 
+    JOIN periode_evenement 
+    WHERE periodes.idPeriode = periode_evenement.idPeriode
+    ORDER BY periodes.debutPeriode`;
+    console.log('epoques envoyé')
+    connection.query(sql, (err, result) => {
+    res.send(result)
+    })
 })
 
 module.exports = router

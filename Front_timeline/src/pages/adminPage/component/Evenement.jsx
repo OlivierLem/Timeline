@@ -8,7 +8,7 @@ export default function Evenement ({evenement: {name, date, slugName}}) {
     const dateFormat = moment(date).locale('fr')
     console.log(dateFormat);
     return (
-        <div>
+        <div className="card">
             <p>{name}</p>
             <p className="date"><span>Date: </span> {dateFormat.format('DD MMMM YYYY')} {/* {dateFormat} */}  </p>
             <p>La news n'a pas encore était créer</p>

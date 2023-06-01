@@ -37,9 +37,15 @@ export async function getPeriods() {
     return response.json();
 }
 
+export async function getPeriodsWithEvent() {
+    // Récupére les périodes qui ont des événements
+    const response = await fetch(`${API_PERIOD}/withEvent`);
+    console.log(response);
+    return response.json();
+}
+
 export async function getPeriodsFilter(eventYear) {
-    // Récupére les périodes est récupére le nombre d'événement 
-    // et de quizz quelle posséde
+    // Récupére les périodes qui comprennent l'année de l'evenement
     console.log(eventYear);
     const response = await fetch(`${API_PERIOD}?eventYear=${eventYear}`);
     console.log(response);

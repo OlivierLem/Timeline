@@ -30,11 +30,13 @@ export default function PeriodProvider({children}) {
                 let nextIndex = i + 1
                 return p.name !==  newPeriod[nextIndex]?.name;
             }).map(p => { 
+                moment().locale('fr')
+                let date = `${moment(p.date).locale('fr').format('DD MMMM')} ${moment(p.date).year()}`
                 let evenement = {
                     id: p.idEvenement,
                     name:  p.name,
                     slugName: p.slugName,
-                    date: moment(p.date).locale('fr').format('DD MMMM YYYY'),
+                    date: date,
                     year: moment(p.date).year(),
                     miniature: p.url
                 };
@@ -50,7 +52,7 @@ export default function PeriodProvider({children}) {
                 } */
                 return evenement
             })
-        //console.log(evenementsMap);
+        // console.log(evenementsMap);
         setEvenements(evenementsMap);
 
         const periodeObj = {

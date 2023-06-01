@@ -5,10 +5,10 @@
     flex-direction: column;
     gap: 2rem;
     width: 50%;
-    margin: auto;
+    margin: 1rem auto 5rem;
 }
 
-.epoqueList > div {
+.epoqueList > .card {
     position: relative;
     width: 100%;
     padding: 1rem 2rem;
@@ -18,12 +18,12 @@
     border-radius: .5rem;
 }
 
-.epoqueList > div p:first-of-type {
-    font-size: 2rem;
-    font-weight: 600;
-    line-height: .5rem;
+.epoqueList > .card p:first-of-type {
+    font-size: 1.7rem;
+    font-weight: 500;
+    margin-bottom: -.2rem;
 }
-.epoqueList > div  p:last-of-type{
+.epoqueList > .card  p:last-of-type{
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -66,12 +66,56 @@
 .adminNav {
     display: flex;
     position: fixed;
-    justify-content: space-evenly;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3rem;
     align-items: center;
-    bottom: 0;
-    width: 100%;
+    width: fit-content;
+    left: 0;
+    top: 25%;
+    height: 50vh;
     max-width: 1200px;
-    height: fit-content;
-    padding-block: 2.5rem;
+    padding: 2.5rem;
     background-color: #262626;
+    transform: translateX(-100%);
+    transition: transform ease-in-out .5s;
+
+    &.active {
+        transform: translateX(0);
+    }
+
+    & > button {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        left: calc(100% - (2rem / 2));
+        top: 50%;
+        width: 2rem;
+        aspect-ratio: 1 / 1;
+        transform: translateY(-50%) translateX(100%);
+        border: none;
+        border-radius: 50%;
+        color: inherit;
+        background-color: var(--primary);
+        transition: background-color ease-in-out .25s,
+                    transform ease-in-out .55s;
+        &:hover {
+            background-color: var(--secondary);
+        }
+    }
+    &.active button {
+        transform: translateY(-50%) translateX(0);
+    }
+
+    & button i {
+        transform: rotate(0);
+        transition: transform ease-in-out .5s;
+    }
+    &.active button i {
+        transform: rotate(180deg);
+    }
+    
 }
+
+

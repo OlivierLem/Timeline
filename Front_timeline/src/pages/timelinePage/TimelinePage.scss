@@ -25,8 +25,9 @@ section > .periodTitle {
     font-size: 1.6rem;
     width: 100%;
 
-    & div {
+    & > div {
         display: flex;
+        position: relative;
         align-items: center;
         gap: 1rem;
     }
@@ -50,7 +51,7 @@ section > .periodTitle {
                     background-color ease-in .25s;
 
         &:hover {
-            background-color:  var(--primary);
+            background-color:  var(--secondary);
         }
     }
    
@@ -86,13 +87,12 @@ section > .periodTitle {
             transform: scaleX(1);
         }
         
-        & i {
-            color: var(--white);
+        & img {
             margin-left: .5rem;
             transition: transform ease-in-out .25s;
         }
 
-        &:hover i {
+        &:hover img {
             transform: translateX(1rem);
         }
     }
@@ -105,6 +105,19 @@ section > .periodTitle {
     margin: 2rem 0;
     overflow: scroll hidden;
     padding: 1rem;
+
+    &::-webkit-scrollbar-thumb {
+    background-color: var(--secondary);
+    border-radius: .3rem;
+    }
+    
+
+    &::-webkit-scrollbar {
+        width: 10px; 
+        outline: 3px solid #ccc; 
+        border-radius: .3rem; 
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2); 
+      }
 }
 
 .timelineBlock {
@@ -184,4 +197,37 @@ section > .periodTitle {
         transform: scaleX(1);
         
     }
+}
+
+
+.periodTitle .selectPeriod {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 120%;
+    width: 100%;
+    background-color: var(--primary);
+    border: solid 5px var(--secondary);
+    border-top: none ;
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+    overflow: hidden;
+    button {
+        display: block;
+        aspect-ratio: auto;
+        width: 100%;
+        font-size: 2rem;
+        font-weight: 400;
+        padding-block: .5rem;
+        border-radius: 0;
+        background-color: var(--primary);
+
+        &:hover {
+            background-color: var(--secondary);
+        }
+    }
+}
+
+.periodTitle .selectPeriod.active {
+    display: block;
 }
