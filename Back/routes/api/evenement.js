@@ -44,7 +44,7 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const sql = `SELECT * FROM evenements `;
+        const sql = `SELECT * FROM evenements ORDER BY date `;
         console.log('evenement envoyé')
         connection.query(sql, (err, result) => {
             if(err) throw err;
@@ -113,6 +113,15 @@ router.delete('/', async (req, res) => {
             res.json('événements supprimer')
         })
     })
+})
+
+router.post('/creerArticle', (req, res) => {
+    const {slugName, content} = req.body;
+    const sql = `SELECT idEvenement FROM evenements WHERE slugName = '${slugName}'`;
+
+    /* connection.query(sql, (err, result) => {
+        const sqlInsert = `INSERT INTO textcomponent (content, idEvenement) VALUES ()`
+    }) */
 })
 
 module.exports = router

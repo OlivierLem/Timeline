@@ -57,7 +57,10 @@ router.get('/', async (req, res) => {
 
     try {
         if (eventYear) {
-            const sql = `SELECT * FROM periodes WHERE debutPeriode <= '${eventYear}' AND finPeriode >= '${eventYear}' `;
+            const sql = `SELECT * FROM periodes 
+                WHERE debutPeriode <= '${eventYear}' 
+                    AND finPeriode >= '${eventYear}' 
+                ORDER BY periodes.debutPeriode`;
             console.log('epoques avec dateEvent envoyé')
             connection.query(sql, (err, result) => {
                 if (err) throw err;
@@ -66,7 +69,7 @@ router.get('/', async (req, res) => {
             })
         } 
         else {
-            const sql = `SELECT * FROM periodes `;
+            const sql = `SELECT * FROM periodes ORDER BY periodes.debutPeriode`;
             console.log('epoques envoyé')
             connection.query(sql, (err, result) => {
             res.send(result)

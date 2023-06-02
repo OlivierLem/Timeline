@@ -8,7 +8,6 @@
     max-width: 1200px;
     margin: auto;
     margin-top: 2rem;
-
 }
 
 .cours__title {
@@ -46,6 +45,10 @@
     }
 }
 
+.cours form {
+    width: 100%;
+}
+
 .cours__title button {
     translate: 0 -1rem;
     font-size: inherit;
@@ -77,33 +80,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    max-width: 1200px;
     position: relative;
     padding-inline: 3.5rem;
-    translate: -3.5rem;
     &:hover > i {
         display: block;
     }
 
-    button {
-        font-size: inherit;
-        color: white;
-        height: fit-content;
-        font-size: 1.4rem;
-        background-color: transparent;
-        border: none;
-        border-radius: .2rem;
-        transition: color ease-in .25s,;
-
-        &:hover {
-            color: var(--secondary);
-        }
-    }
 }
 
 .title__component > div,
 .text__component > div{
     /* display: none; */
-    position: absolute;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -111,16 +100,27 @@
     gap: 2rem;
     width: 100%;
     height: fit-content;
-    top: 50%;
-    left: 0;
-    translate: 0 -50%;
     transition: color ease-in .25s;
     &:hover:first-of-type{
         color: var(--primary);
     }
-    button:hover:last-of-type{
-        color: var(--error);
+    
+}
+
+.editComponent button {
+    font-size: inherit;
+    color: white;
+    height: fit-content;
+    padding: .2rem 1rem;
+    border: none;
+    border-radius: .2rem;
+    font-size: 1.4rem;
+    background-color: var(--primary);
+    transition: background-color ease-in .25s,;
+    &:hover {
+        background-color: var(--secondary);
     }
+    
 }
 
 .title__component {
@@ -140,7 +140,7 @@
     resize: vertical;
     padding: .5rem;
     font-size: 1.2rem;
-    color: inherit;
+    color: var(--primary);
     border: solid 2px var(--primary);
 }
 
@@ -170,6 +170,7 @@
     width: 100%;
     height: 7rem;
     margin-block: 2rem;
+    overflow: hidden;
     border: dashed 4px var(--primary);
     border-radius: 12px;
     transition: background-color ease-in .25s;
@@ -238,7 +239,9 @@
 
 }
 
-.cours > div:last-of-type {
+
+
+.cours form > div:last-of-type {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -292,8 +295,12 @@
 
 .buttonOption {
     display: flex ;
-    align-items: center;
+    position: absolute;
     justify-content: space-between;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
     margin: auto;
     padding: 0;
 }

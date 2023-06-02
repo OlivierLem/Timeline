@@ -60,3 +60,14 @@ export async function deleteEvent(evenement) {
     })
     return response.json()
 }
+
+export async function createArticle(article) {
+    const response = await fetch(`${API_EVENT}/creerArticle`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        }, 
+        body: JSON.stringify(article)
+    })
+    return response.json()
+}
