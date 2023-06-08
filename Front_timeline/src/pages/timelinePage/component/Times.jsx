@@ -10,7 +10,7 @@ export default function Time ({evenements}) {
     useEffect(() => {
         const uint8Array = new Uint8Array(miniature);
         //console.log({ uint8Array });
-        const blob = new Blob([uint8Array]);
+        const blob = new Blob([miniature]);
         //console.log({ blob });
         const urlImage = URL.createObjectURL(blob);
         //console.log({ urlImage });

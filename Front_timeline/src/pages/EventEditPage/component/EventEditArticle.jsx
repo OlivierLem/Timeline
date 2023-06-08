@@ -46,12 +46,15 @@ export function EventEditArticle () {
     }
 
     const submit = handleSubmit((values) => {
-        console.log(values);
-        const newValues = {
-            ...values,
-            slugName: evenement
-        }
-        createArticle(newValues)
+        const newValues = values.component.map((v, i) => (
+            {
+                content: v,
+                orderValue: i + 1
+            }
+            
+        ))
+        console.log(newValues);
+        createArticle({components: [...newValues], slugName: evenement })
     })
 
     return (
@@ -68,17 +71,20 @@ export function EventEditArticle () {
                         create === true ? (
                             <div>
                                 <nav>
-                                    <button onClick={handleClick} data-value='texte'>T</button>
-                                    <button onClick={handleClick} data-value='titre'><i className="fa-solid fa-heading"></i></button>
+                                    <button type="button" onClick={handleClick} data-value='texte'>T</button>
+                                    <button type="button" onClick={handleClick} data-value='titre'><i className="fa-solid fa-heading"></i></button>
                                 </nav>
                             </div>
                         ): (
-                            <button onClick={() => setCreate(!create)}>+</button>
+                            <button type="button" onClick={() => setCreate(!create)}>+</button>
                         )
                     }
                 </div>
             <div>
-                <div className="buttonNav"><button >Créer article</button><button>Annuler</button></div>
+                <div className="buttonNav">
+                    <button >Créer article</button>
+                    <button type="button">Annuler</button>
+                </div>
             </div>
             </form>
             

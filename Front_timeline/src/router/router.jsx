@@ -43,7 +43,7 @@ export const router = createBrowserRouter([
                 element:<EventEditPage />,
             },
             {
-                path:'/admin/evenements/:evenement/article',
+                path:'/admin/evenements/article/:evenement/',
                 element: <EventEditArticle />
             },
             {

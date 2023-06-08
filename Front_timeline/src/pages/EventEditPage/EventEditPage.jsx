@@ -31,6 +31,7 @@ export function EventEditPage () {
                     date: moment(evenements[0].date).locale('fr').format('DD MMMM YYYY'),
                     url: img
                 };
+                console.log(evenements[0]);
                 setOneEvent(evenementWithImages)
 
                 getPeriodsFilter(moment(evenements[0].date).year()).then(ev => setPeriodes(ev))   
@@ -111,7 +112,7 @@ export function EventEditPage () {
             <nav>
             {
                 oneEvent && (
-                    <NavLink to={`/admin/evenements/${oneEvent.slugName}/article`}>Article</NavLink>
+                    <NavLink to={`/admin/evenements/article/${oneEvent.slugName}`}>Article</NavLink>
                 )
             }
             </nav>

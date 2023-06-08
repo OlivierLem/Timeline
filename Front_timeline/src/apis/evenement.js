@@ -71,3 +71,8 @@ export async function createArticle(article) {
     })
     return response.json()
 }
+
+export async function getArticleEvenement(slugName) {
+    const response =  await fetch(`${API_EVENT}/getArticleEvenement?slugName=${slugName}`)
+    return response.json();
+}

@@ -38,10 +38,10 @@ export default function TextComponent ({children, order, isEdit, control}) {
                 ) : (
                     <>
                         <div className="buttonOption" >
-                            <button className="buttonEdit" onClick={() => setEdit(!edit)}>
+                            <button type="button" className="buttonEdit" onClick={() => setEdit(!edit)}>
                                 <i className="fa-solid fa-pen-to-square"></i>
                             </button>
-                            <button>
+                            <button type="button" > 
                                 <i className="fa-solid fa-x"></i>
                             </button>
                         </div>

@@ -62,7 +62,12 @@ router.get('/current', async (req, res) => {
     console.log(slugName);
     try {
         const sql = `
-            SELECT evenements.idEvenement, evenements.name, evenements.date, images.url 
+            SELECT 
+                evenements.slugName, 
+                evenements.idEvenement, 
+                evenements.name, 
+                evenements.date, 
+                images.url 
             FROM evenements 
             JOIN images ON evenements.idEvenement = images.idEvenement 
             WHERE evenements.slugName = "${slugName}" `;
@@ -99,29 +104,86 @@ router.post('/association', async (req, res) => {
 router.delete('/', async (req, res) => {
     const { id } = req.body;
     console.log('test delete');
-
+    console.log(id);
     const sqlDeleteImages = `
         DELETE FROM images WHERE idEvenement = '${id}'     
     `
 
     connection.query(sqlDeleteImages, (err, result) => {
         if (err) throw err;
-        const sqlDeleteEvent = `DELETE FROM evenements WHERE idEvenement = '${id}'`
+        const sqlDeleteLink = `DELETE FROM periode_evenement WHERE idEvenement = '${id}'`
+        
+        connection.query(sqlDeleteLink, (err, result) => {
+            const sqlDeleteEvent = `DELETE FROM evenements WHERE idEvenement = '${id}'`
 
-        connection.query(sqlDeleteEvent, (err, result) => {
-            console.log('événements supprimer')
-            res.json('événements supprimer')
+            connection.query(sqlDeleteEvent, (err, result) => {
+                if (err) throw err;
+
+                console.log('événements supprimer')
+                res.json('événements supprimer')
+            })
         })
     })
 })
 
 router.post('/creerArticle', (req, res) => {
-    const {slugName, content} = req.body;
+    const {slugName, components } = req.body;
+    console.log(req.body);
     const sql = `SELECT idEvenement FROM evenements WHERE slugName = '${slugName}'`;
 
-    /* connection.query(sql, (err, result) => {
-        const sqlInsert = `INSERT INTO textcomponent (content, idEvenement) VALUES ()`
-    }) */
+    connection.query(sql, (err, result) => {
+        if(err) throw err;
+
+        const id = result[0].idEvenement
+        //const sqlSelect = `SELECT evenements.idEvenement FROM evenements JOIN textcomponent ON evenements.idEvenement = textcomponent.idEvenement WHERE evenements.slugName = '${slugName}' AND textcomponent.idEvenement != ${id};`
+        connection.query(sqlSelect, (err, result) => {})
+        let insertValues = ''
+        //! Vérifier que l'événement n'as pas encore d'article
+        //! bug dans l'ajout d'article à vérifier
+        for (let i = 0; i < components.length; i++) {
+            const c = components[i];
+            if (i === (components.length - 1)) {
+                insertValues += `('${c.content}','${c.orderValue}','${id}')`
+            } else {
+                insertValues += `('${c.content}','${c.orderValue}','${id}'),`
+            }
+        }
+        console.log(insertValues);
+        const sqlInsertText = `INSERT INTO textComponent (content, orderValue, idEvenement) VALUES ${insertValues} `;
+
+        connection.query(sqlInsertText, (err, result) => {
+            if(err) throw err;
+            console.log('article ajouté');
+            res.send('article ajouté')
+        })
+    })
+})
+
+router.get('/getArticleEvenement', (req, res) => {
+    const { slugName } = req.query;
+    console.log('event');
+    const sql = `SELECT idEvenement FROM evenements WHERE slugName = '${slugName}'`
+    connection.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log('event query');
+
+        let id = result[0].idEvenement;
+        console.log(id);
+        const sqlSelectArticle = `
+            SELECT  
+                evenements.name, 
+                textcomponent.content, 
+                textcomponent.orderValue 
+            FROM evenements 
+            JOIN textcomponent 
+            ON evenements.idEvenement = textcomponent.idEvenement 
+            WHERE evenements.idEvenement = '${id}'`;
+        connection.query(sqlSelectArticle, (err, result) => {
+            if (err) throw err;
+            console.log('Envoie article');
+            res.send(result)
+        })
+    })
 })
 
 module.exports = router
