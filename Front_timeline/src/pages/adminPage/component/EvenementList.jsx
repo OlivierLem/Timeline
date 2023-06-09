@@ -8,15 +8,18 @@ export default function EvenementList () {
     useEffect(() => {
         getEvenements().then(ev => {
             setEvenements(ev)
+            console.log(ev);
         })
     }, []) 
     return (
         <div className='epoqueList'>
             {
                 evenements ? (
-                    evenements.map(e => (
-                        <Evenement key={e.idEvenement} evenement={e} />
-                    ))
+                    evenements
+                        .filter(e => e.hasOwnProperty('name'))
+                        .map(e => (
+                            <Evenement key={e.idEvenement} evenement={e} />
+                        ))
                 ) : (
                     <p>pas d'événement ajouté</p>
                 )

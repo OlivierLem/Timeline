@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import './ArticlePage.scss';
 import { useEffect, useState } from 'react';
 import { getArticleEvenement } from '../../apis/evenement';
@@ -26,13 +26,18 @@ export default function ArticlePage () {
                     <img src="../../assets/images/sacre_de_louis_xv.jpg" alt="sacre_de_louis_xv" />
                 </div>
                 
-                <div className='contentArticle'>
-                    {components &&
+                <div className={`contentArticle ${components.length === 0 && 'notNews'} `}>
+                    {components.length > 0 ?
                         components.sort((n1, n2) => {
                             return n1.orderValue - n2.orderValue;
                         }).map(c => (
                              <p>{c.content}</p>
-                        ))
+                        )) : (
+                            <div>
+                                <p className='notNews'>L'article n'existe pas encore</p>
+                                <NavLink to={`/admin/evenements/article/${article}`}>Créer l'article</NavLink>
+                            </div>
+                        )
                     }
                 </div>
             </div>

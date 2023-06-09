@@ -10,6 +10,7 @@ import EvenementList from "../pages/adminPage/component/EvenementList";
 import { PeriodEditPage } from "../pages/PeriodEditPage/PeriodEditPage";
 import { EventEditPage } from "../pages/EventEditPage/EventEditPage";
 import { EventEditArticle } from "../pages/EventEditPage/component/EventEditArticle";
+import QuizzPage from "../pages/QuizzPage/QuizzPage";
 
 export const router = createBrowserRouter([
     {
@@ -36,8 +37,9 @@ export const router = createBrowserRouter([
             },
             {
                 path:'/admin/periodes/:periode',
-                element:<PeriodEditPage />
+                element:<PeriodEditPage />,
             },
+            
             {
                 path:'/admin/evenements/:evenement',
                 element:<EventEditPage />,
@@ -53,6 +55,10 @@ export const router = createBrowserRouter([
             {
                 path: '/ajout_evenement',
                 element: <AddEvent />
+            },
+            {
+                path:'/periodes/:periode/quizz',
+                element:<QuizzPage />
             },
             {
                 path: '/ajout_periode',

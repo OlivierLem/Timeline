@@ -7,8 +7,8 @@ export default function Periode ({periode: {noms, slugName, debutPeriode, finPer
         <div className="card ">
             <p>{noms}</p>
             <p className="date"><span>Période:</span> {debutPeriode} - {finPeriode}</p>
-            <p>Pas encore d'évenement ajouté</p>
-            <p>Pas encore de quizz ajouté</p>
+            {/* <p>Pas encore d'évenement ajouté</p>
+            <p>Pas encore de quizz ajouté</p> */}
             <NavLink to={`/admin/periodes/${slugName}`} className='edit'><i className="fa-solid fa-pen-to-square"></i></NavLink>
         </div>
     )

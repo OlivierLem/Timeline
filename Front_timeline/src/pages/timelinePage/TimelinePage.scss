@@ -133,6 +133,11 @@ section > .periodTitle {
 .time {
     width: 25rem;
 }
+.time img {
+    height: 16rem;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+}
 
 .timeDisplay {
     display: flex;
@@ -216,7 +221,7 @@ section > .periodTitle {
         display: block;
         aspect-ratio: auto;
         width: 100%;
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-weight: 400;
         padding-block: .5rem;
         border-radius: 0;

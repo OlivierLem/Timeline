@@ -10,9 +10,11 @@
 }
 
 .epoqueList > .card {
+    display: flex;
+    flex-direction: column;
     position: relative;
     width: 100%;
-    padding: 1rem 2rem;
+    padding: .5rem 2rem;
     font-size: 1rem;
     background-color: transparent;
     border: solid 3px var(--white);
@@ -24,7 +26,23 @@
     font-weight: 500;
     margin-bottom: -.2rem;
 }
-.epoqueList > .card  p:last-of-type{
+
+.epoqueList > .card a:not(.edit) {
+    position: relative;
+    width: fit-content;
+    padding: .5rem 1rem;
+    margin-block: .5rem 1rem;
+    border-radius: 1rem;
+    border: solid 2px var(--primary);
+    color: var(--white);
+    transition: background-color ease-in .25s;
+
+    &:hover {
+        background-color: var(--primary);
+    }
+}
+
+/* .epoqueList > .card  p:last-of-type{
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -40,7 +58,7 @@
         background-color: var(--primary);
         border-radius: 50%;
     }
-}
+} */
 
 
 .epoqueList .date span {

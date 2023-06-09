@@ -8,7 +8,7 @@ export default function Time ({evenements}) {
     const [previewImage, setPreviewImage] = useState(null);
 
     useEffect(() => {
-        const uint8Array = new Uint8Array(miniature);
+        const uint8Array = new Uint8Array(miniature); // ! ne fonctionne pas
         //console.log({ uint8Array });
         const blob = new Blob([miniature]);
         //console.log({ blob });
@@ -18,7 +18,8 @@ export default function Time ({evenements}) {
             .then(response => response.text())
             .then(text => setPreviewImage(text))
             .catch(error => console.error(error))
-    }, [])
+
+    }, [evenements])
 
 
     return (

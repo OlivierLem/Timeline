@@ -48,6 +48,47 @@ router.get('/', async (req, res) => {
         console.log('evenement envoyé')
         connection.query(sql, (err, result) => {
             if(err) throw err;
+            const sqlTestJoin = `
+            SELECT DISTINCT evenements.name,
+                CASE 
+                WHEN evenements.idEvenement = textcomponent.idEvenement 
+                    THEN 1
+                END AS testJoin 
+            FROM evenements 
+            JOIN textcomponent ON evenements.idEvenement = textcomponent.idEvenement`
+            const event = result;
+
+                connection.query(sqlTestJoin, (err, result) => {
+                    const eventWithVerifArticle = event.map(e => {
+                        const evenement = {...e, testArticle: 0}
+
+                        for (const testArticle of result) {
+                            if (e.name === testArticle.name) {
+                                evenement.testArticle = 1
+                                break
+                            }
+                        }
+                        return evenement;
+                    })
+                    res.send(eventWithVerifArticle)
+                })
+        })
+    } catch (error) {
+        console.error(error)
+    }
+})
+
+router.get('/withMiniature', async (req, res) => {
+    try {
+        const sql = `
+            SELECT * FROM evenements 
+            JOIN images 
+            ON evenements.idEvenement = images.idEvenement 
+            WHERE images.miniature = 1 ORDER BY evenements.date`;
+            
+        console.log('evenement envoyé')
+        connection.query(sql, (err, result) => {
+            if(err) throw err;
 
             res.send(result)
         })
@@ -136,7 +177,6 @@ router.post('/creerArticle', (req, res) => {
 
         const id = result[0].idEvenement
         //const sqlSelect = `SELECT evenements.idEvenement FROM evenements JOIN textcomponent ON evenements.idEvenement = textcomponent.idEvenement WHERE evenements.slugName = '${slugName}' AND textcomponent.idEvenement != ${id};`
-        connection.query(sqlSelect, (err, result) => {})
         let insertValues = ''
         //! Vérifier que l'événement n'as pas encore d'article
         //! bug dans l'ajout d'article à vérifier
@@ -156,6 +196,7 @@ router.post('/creerArticle', (req, res) => {
             console.log('article ajouté');
             res.send('article ajouté')
         })
+        
     })
 })
 
