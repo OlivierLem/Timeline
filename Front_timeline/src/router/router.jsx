@@ -11,6 +11,7 @@ import { PeriodEditPage } from "../pages/PeriodEditPage/PeriodEditPage";
 import { EventEditPage } from "../pages/EventEditPage/EventEditPage";
 import { EventEditArticle } from "../pages/EventEditPage/component/EventEditArticle";
 import QuizzPage from "../pages/QuizzPage/QuizzPage";
+import CreerQuizz from "../pages/CreerQuizz/CreerQuizz";
 
 export const router = createBrowserRouter([
     {
@@ -59,6 +60,10 @@ export const router = createBrowserRouter([
             {
                 path:'/periodes/:periode/quizz',
                 element:<QuizzPage />
+            },
+            {
+                path:'/periodes/:periode/creer_quizz',
+                element:<CreerQuizz />
             },
             {
                 path: '/ajout_periode',

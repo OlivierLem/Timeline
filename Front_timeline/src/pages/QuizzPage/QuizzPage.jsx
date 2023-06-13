@@ -1,59 +1,20 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import Quizz from "./component/Quizz";
+import { useState } from "react";
 
 export default function QuizzPage () {
     //! récupérer le quizz
-    const quizz = [
-        {
-            question: 'Question',
-            reponses: [
-                {
-                    reponse: 'r1',
-                    isCorrect:false
-                },
-                {
-                    reponse: 'r2',
-                    isCorrect:false
-                },
-                {
-                    reponse: 'r3',
-                    isCorrect:true
-                },
-                {
-                    reponse: 'r4',
-                    isCorrect:false
-                },
-            ]
-        },
-        {
-            question: 'Question2',
-            reponses: [
-                {
-                    reponse: 'r1',
-                    isCorrect:false
-                },
-                {
-                    reponse: 'r2',
-                    isCorrect:false
-                },
-                {
-                    reponse: 'r3',
-                    isCorrect:true
-                },
-                {
-                    reponse: 'r4',
-                    isCorrect:false
-                },
-            ]
-        }
-    ]
+    const [quizz, setQuizz] = useState([])
+    
+    const { periode: periodeSlug} = useParams()
+
     return (
         <>
             {
-                quizz ? (
+                quizz.length > 0 ? (
                     <Quizz quizz={quizz} timer='25' />
                 ) : (
-                    <NavLink to='/creerQuizz'>Créer quizz</NavLink>
+                    <NavLink to={`/periodes/${periodeSlug}/creer_quizz`}>Créer quizz</NavLink>
                 )
             }
         </>

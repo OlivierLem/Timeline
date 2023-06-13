@@ -20,6 +20,7 @@ export default function TimelinePage () {
             //console.log(p);
             setPeriods(p)
         })
+        console.log(period);
     }, [])
 
     useEffect (() => {
@@ -104,7 +105,7 @@ export default function TimelinePage () {
 
                     </div>
                 </div>
-                {   period && (
+                {   period?.slugName && (
                     <NavLink to={`/periodes/${period.slugName}/quizz`}>En voir plus <i className="fa-solid fa-arrow-right"></i></NavLink>
                 )
 

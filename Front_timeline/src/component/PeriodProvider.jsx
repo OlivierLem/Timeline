@@ -62,6 +62,7 @@ export default function PeriodProvider({children}) {
                 debutPeriode: newPeriod[0].debutPeriode,
                 finPeriode: newPeriod[0].finPeriode,
                 name: newPeriod[0].noms,
+                slugName: newPeriod[0].slugName
             }
             console.log(periodeObj);
             setColor(newPeriod[0].color)
