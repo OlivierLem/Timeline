@@ -12,32 +12,41 @@ function App() {
   // etat qui vérifie si l'audio est muté ou non
   const [sound, setSound] = useState(false)
   const audioRef = useRef();
-  let audio = new Audio('assets/audio/mozart.mp3');
+  let audio = new Audio('assets/audio/Relaxing_NordicViking_Music - Ótroðinn.mp3');
+
+  useEffect(() => {
+    playMusic()
+  }, [])
 
   function playMusic() {
     setTimeout(() => {
       audio.play();
-    }, '1000')
+
+    }, 1000)
     audio.loop = true;
-    
+  }
+  function mutedMusic () {
+    setTimeout(() => {
+      audio.muted = true;
+    }, 1000)
   }
   function pauseMusic() {
     setTimeout(() => {
       audio.pause();
-    }, '1000')
+    }, 1000)
   }
 
   function handleClickAudio() {
-    setSound(!sound)
-    console.log(sound);
-    if (sound === true) {
+    if (sound === false) {
       //console.log('play');
-      playMusic()
-      
+      //playMusic()      
+      mutedMusic()
     } else {
       //console.log('pause');
       pauseMusic()
     }
+    setSound(!sound)
+
   }
 
   return (
