@@ -1,0 +1,22 @@
+.formQuizz {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.paramsStep {
+    display: none;
+    flex-direction: column;
+    &.active {
+        display: flex;
+    }
+}
+
+
+.questionStep{
+    display: none;
+    flex-direction: column;
+    &.active {
+        display: flex;
+    }
+}

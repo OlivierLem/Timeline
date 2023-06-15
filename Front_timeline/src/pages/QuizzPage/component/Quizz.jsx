@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import './Quizz.scss'
+import './Quizz.scss';
 
 export default function Quizz ({quizz, timer}) {
     const [time, setTime] = useState(timer);

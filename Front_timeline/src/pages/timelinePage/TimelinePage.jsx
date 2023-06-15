@@ -20,7 +20,6 @@ export default function TimelinePage () {
             //console.log(p);
             setPeriods(p)
         })
-        console.log(period);
     }, [])
 
     useEffect (() => {
@@ -55,7 +54,7 @@ export default function TimelinePage () {
     const handleChangePeriod = (slugName) => {
         if (slugName) {
             console.log(slugName);
-            getPeriod(slugName)
+            getPeriod(slugName).then()
         } else {
             getPeriod()
         }

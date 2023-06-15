@@ -62,7 +62,7 @@ export default function PeriodProvider({children}) {
                 debutPeriode: newPeriod[0].debutPeriode,
                 finPeriode: newPeriod[0].finPeriode,
                 name: newPeriod[0].noms,
-                slugName: newPeriod[0].slugName
+                slugName: newPeriod.at(-1)
             }
             console.log(periodeObj);
             setColor(newPeriod[0].color)
@@ -73,6 +73,7 @@ export default function PeriodProvider({children}) {
             setColor('#598c9d')
             getEvenementsWithMiniature().then(event => {
                 moment().locale('fr')
+                console.log(event);
                 const eventChange = event.map(e => {
                     let date = `${moment(e.date).locale('fr').format('DD MMMM')} ${moment(e.date).year()}`    
 

@@ -45,7 +45,7 @@ router.get('/current', async (req, res) => {
     connection.query(sql, (err, result) => {
         if(err) throw err;
         //console.log(result[1].url.length);
-        res.send(result)
+        res.send([...result, slugName])
     })
    
 })
@@ -64,7 +64,6 @@ router.get('/', async (req, res) => {
             console.log('epoques avec dateEvent envoyé')
             connection.query(sql, (err, result) => {
                 if (err) throw err;
-                console.log(result);
                 res.send(result)
             })
         } 
@@ -72,7 +71,8 @@ router.get('/', async (req, res) => {
             const sql = `SELECT * FROM periodes ORDER BY periodes.debutPeriode`;
             console.log('epoques envoyé')
             connection.query(sql, (err, result) => {
-            res.send(result)
+
+                res.send(result)
             })
         }
         

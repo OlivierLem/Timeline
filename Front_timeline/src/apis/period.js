@@ -2,7 +2,7 @@ const API_PERIOD = '/api/period';
 
 export async function createPeriod(period) {
     // Créer une periode qui posséde des évenements, des quizz et un article
-    console.log(period);
+    //console.log(period);
     const response = await fetch(API_PERIOD, {
         method: "POST",
 		headers: {
