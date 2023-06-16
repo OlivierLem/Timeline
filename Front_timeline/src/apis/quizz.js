@@ -1,7 +1,7 @@
 const API_QUIZZ = '/api/quizz'
 
-export async function getQuizz() {
-    const response = await fetch(`${API_QUIZZ}`)
+export async function getQuizz(periode) {
+    const response = await fetch(`${API_QUIZZ}?slugName=${periode}`)
     return response.json()
 }
 

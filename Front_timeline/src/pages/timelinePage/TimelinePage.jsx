@@ -105,7 +105,7 @@ export default function TimelinePage () {
                     </div>
                 </div>
                 {   period?.slugName && (
-                    <NavLink to={`/periodes/${period.slugName}/quizz`}>En voir plus <i className="fa-solid fa-arrow-right"></i></NavLink>
+                    <NavLink to={`/periodes/${period.slugName}/quizz`}>Quizz <i className="fa-solid fa-arrow-right"></i></NavLink>
                 )
 
                 }

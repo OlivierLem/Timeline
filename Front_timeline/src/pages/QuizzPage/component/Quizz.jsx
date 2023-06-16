@@ -61,7 +61,7 @@ export default function Quizz ({quizz, timer}) {
         
         for (let i = 0; i < reponses.length; i++) {
             if(
-                quizz[stateQuestion].reponses[i].isCorrect &&
+                quizz[stateQuestion].reponses[i].isValid &&
                 reponses[i] === currentResponse
             ) 
             {
@@ -73,7 +73,6 @@ export default function Quizz ({quizz, timer}) {
             }
             
             setDisableButton(true)
-            // ! mettre dans une fonction avec currentResponse et response
             if ( stateQuestion  < quizz.length - 1){
                 setTimeout(() => {
                     setStateQuestion(stateQuestion + 1)
@@ -94,27 +93,31 @@ export default function Quizz ({quizz, timer}) {
                 showScore === false ? (
                     <>
                         <div>
-                            <p>{stateQuestion + 1} / {quizz.length}</p> 
-                            <p className='score'>Score: {score}</p> 
-                            <h3>{quizz[stateQuestion].question} ?</h3>
-                            {<div className={`timer ${time < 1 && 'unactive'}`}>
-                                    {
-                                        time > 0 && (
-                                            <svg viewBox="0 0 40 40" className={`timerSvg`}>
-                                                <circle 
-                                                    style={{animation: `timerSvg linear ${timer}s`}}
-                                                    className={`timerSvg__segment`}
-                                                    cx="20" cy="20" r="16" 
-                                                >
-                                                </circle>
-                                            </svg>
-                                        )
-                                    }
-                                    
-                                    <p> {time} </p>
-                                </div>
-                            }
+                            <div className="paramsQuizz">
+                                <p>{stateQuestion + 1} / {quizz.length}</p> 
+                                <p className='score'>Score: {score}</p> 
+                                {
+                                    <div className={`timer ${time < 1 && 'unactive'}`}>
+                                        {
+                                            time > 0 && (
+                                                <svg viewBox="0 0 40 40" className={`timerSvg`}>
+                                                    <circle 
+                                                        style={{animation: `timerSvg linear ${timer}s`}}
+                                                        className={`timerSvg__segment`}
+                                                        cx="20" cy="20" r="16" 
+                                                    >
+                                                    </circle>
+                                                </svg>
+                                            )
+                                        }
+                                        
+                                        <p> {time} </p>
+                                    </div>
+                                }
+                            </div>
                             
+                            <h3>{quizz[stateQuestion].intitule} ?</h3>
+                                                    
                             </div>
                             <div ref={reponsesRef} className="reponsesQuizz">       
                                 {
@@ -133,7 +136,7 @@ export default function Quizz ({quizz, timer}) {
                             </div>
                     </>
                 ) : (
-                    <p>Score: {score} </p>
+                    <p className="scoreFinal">Score: <span>{score} pts</span></p>
                 )
             }
             

@@ -1,0 +1,23 @@
+.createQuizzLink {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    font-size: 1.2rem;
+    gap: 1rem;
+
+    & > a {
+        font-size: 1.3rem;
+        padding: .5rem 1rem;
+        color: var(--primary);
+        border: solid 2px var(--primary);
+        border-radius: 10px;
+        transition: background-color ease-in .25s,
+                    color ease-in .25s;
+        &:hover {
+            color: var(--white);
+            background-color: var(--primary);
+        }
+    }
+}

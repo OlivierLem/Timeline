@@ -42,7 +42,60 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
-    console.log(req.body)
+    const { slugName } = req.query
+    
+    const sql = `
+        SELECT DISTINCT 
+            question.intitule, quizz.timer, question.idQuestion 
+        FROM periodes 
+        JOIN quizz ON periodes.idPeriode = quizz.idPeriode 
+        JOIN question ON quizz.idQuizz = question.idQuizz 
+        WHERE periodes.slugName = "${slugName}"`
+
+    connection.query(sql, (err, result) => {
+        if (err) throw err;
+        
+        console.log("envoie du quizz");
+
+        const quizz = result
+
+        const sqlSeclectReponse = `
+            SELECT reponses.idQuestion, reponses.reponse, reponses.estCorrect 
+            FROM periodes 
+            JOIN quizz ON periodes.idPeriode = quizz.idPeriode 
+            JOIN question ON quizz.idQuizz = question.idQuizz 
+            JOIN reponses ON question.idQuestion = reponses.idQuestion 
+            WHERE periodes.slugName = "${slugName}"`
+
+        connection.query(sqlSeclectReponse, (err, result) => {
+            if (err) throw err;
+
+            const newQuizz = quizz.map(q => {
+
+
+                let quizzWithReponses = {
+                    ...q,
+                    reponses: []
+                }
+
+                for (const reponse of result) {
+                    if(reponse.idQuestion === q.idQuestion) {
+
+                        quizzWithReponses.reponses.push({
+                            reponse: reponse.reponse,
+                            isValid: reponse.estCorrect
+                        })
+                    }
+                }
+                
+                return quizzWithReponses
+            })
+
+            console.log(newQuizz);
+            res.send(newQuizz)
+        })
+        
+    })
 })
 
 module.exports = router
