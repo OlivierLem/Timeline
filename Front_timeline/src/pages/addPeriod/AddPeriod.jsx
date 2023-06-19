@@ -13,12 +13,16 @@ export default function AddPeriod () {
         color: '#b38c52',
     }
 
+    // vérification du formulaire avec la librairie yup
     const shema = yup.object({
         name: yup.string().required('Ce champ est requis'),
         startPeriod: yup.number().lessThan(yup.ref('endPeriod'), 'Le champs début de la période doit être plus grand que le champs de fin').required('Ce champ est requis'),
         endPeriod: yup.number().moreThan(yup.ref('startPeriod'), 'Le champs fin de la période doit être plus grand que le champs de début').required('Ce champ est requis'),
     })
 
+    // librairie react hook form pour utiliser des formalaire en react
+    // register fait une ref aux élément qui posséde un register
+    // formState error permet d'afficher les message d'erreur si il y'a une erreur
     const {
         register, 
         handleSubmit, 
@@ -30,6 +34,7 @@ export default function AddPeriod () {
         resolver: yupResolver(shema)
     })
 
+    // evenement submit pour faire une requête pour créer une periode
     const submit = handleSubmit (async (values) => {
         console.log(values);
         try {
@@ -41,6 +46,8 @@ export default function AddPeriod () {
         }
     })
 
+    // pages pour créer une période avec son formulaire
+    // on vérifie si l'un des élément à une erreur si oui on affiche le message d'erreur
     return (
         <section>
             <h1>Ajouter une période</h1>

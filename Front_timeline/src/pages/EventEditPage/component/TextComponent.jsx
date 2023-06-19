@@ -6,18 +6,19 @@ export default function TextComponent ({children, order, isEdit, control}) {
     const [content, setContent] = useState(children)
     const { register } = control
 
+    // change le contenue du textarea
     function handleChange (e) {
-        //console.log(e.target.value);
         setContent(e.target.value)
     }
 
+    // si le champs est vide on ne peut pas afficher le contenu
     function handleEdit () {
         if(content) {
             setEdit(false)
-        } else {
-            console.log("Le champs est vide");
-        }
+        } 
     }
+
+    // composant text
     return (
         <div className="text__component">  
             

@@ -3,13 +3,14 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup";
 import './CreerQuizz.scss'
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { createQuizz } from "../../apis/quizz";
 
 export default function CreerQuizz () {
-    const [stepFormQuizz, setStepFormQuizz] = useState(1)
-    const [questionForm, setQestionForm]  = useState([])
-    const [countQuestion, setCountQuestion] = useState()
+    const [stepFormQuizz, setStepFormQuizz] = useState(1) // étape formulaire quizz
+    const [questionForm, setQestionForm]  = useState([]) 
+    const [countQuestion, setCountQuestion] = useState() 
+    const navigate = useNavigate()
     const selectRef = useRef()
     const questionRef = useRef()
     const reponseRef = useRef()
@@ -65,35 +66,31 @@ export default function CreerQuizz () {
 
     const submit = handleSubmit (async (values) => {
         
-        /*  try {
-             clearErrors();
-             if(question === undefined) {
-                 await addQuestion(values)
-             } else {
-                 console.log('attente edit question');
-                 await editQuestion({
-                     id: question._id,
-                     ...values
-                 })
-             }
-             navigate('/')
+         try {
+            clearErrors();
+            // on ajoute les valeur du quizz et on fait une requête pour créer un quizz
+            const newValues = {
+                times: values.times,
+                nQuestion: values.nQuestion,
+                questions: questionForm,
+                periode
+            }
+            console.log(newValues);
+            createQuizz(newValues)
+            navigate('/')
  
          } catch (message) {
-             console.error(message)
-             setError('generic', {type: "generic", message})
-         } */
-     const newValues = {
-        times: values.times,
-        nQuestion: values.nQuestion,
-        questions: questionForm,
-        periode
-     }
-     console.log(newValues);
-     createQuizz(newValues)
+            console.error(message)
+            setError('generic', {type: "generic", message})
+         }
+    
+    
     })
 
+    // requête pour passer à la 2e étape du formulaire 
+    // on change d'étape que si l'input time est correct
+    // on mets dans le state count question le nombre de question
     const handleNextStep = async () => {
-        
         await trigger('times').then((value) => {
             if (value === true) {
                 setStepFormQuizz(stepFormQuizz + 1)
@@ -101,18 +98,26 @@ export default function CreerQuizz () {
             }
         })
     }
+
+    // on retourne à la premiere étape du formulaire
     const handlePreviousStep = () => {
         if (stepFormQuizz > 0) {
             setStepFormQuizz(stepFormQuizz - 1)
+            setQestionForm([])
         }
     }
 
+    
     const handleAddQuestion = async () => {
-        let questionCurrent = questionRef.current.children[0].value;
-        let reponsesCurrent =  reponseRef.current.children;
+        let questionCurrent = questionRef.current.children[0].value; // ref input question
+        let reponsesCurrent =  reponseRef.current.children; // ref div des champs réponses
 
+        // si count question est supérieur à 0 on continue d'ajouter des question
         if(countQuestion > 0){
             let checkValidReponse = 0
+
+            // on vérifie que les input des réponses ne sont pas vide et qu'il y'a au moins une checkbox qui est check
+            // sinon on ajoute rien au state
             for (let i = 0; i < reponsesCurrent.length; i++) {
                 if(reponsesCurrent[i].children[0].checked === true) {
                     checkValidReponse = 1
@@ -128,6 +133,7 @@ export default function CreerQuizz () {
             }
             }
             let reponses = []
+            // on créer un tableau d'objet qui possédent les réponses 
             for (const reponse of reponsesCurrent) {
                 reponses.push({
                     name: reponse.children[1].value,
@@ -136,6 +142,8 @@ export default function CreerQuizz () {
             }
 
             //console.log(reponses);
+            // on vérifie que le champs question ne soit pas vide et on l'ajoute aux state questionForm avec ces réponses
+            
             if (questionCurrent !== '') {
                 console.log(countQuestion);
                 if (questionForm.length > 0) {
@@ -149,8 +157,9 @@ export default function CreerQuizz () {
                         reponses, 
                     }])
                 }
-                setCountQuestion(countQuestion - 1)
+                setCountQuestion(countQuestion - 1) // on décrémente le nombre de question restante
 
+                // on vide les champs 
                 questionRef.current.children[0].value = ''
                 for (const reponse of reponsesCurrent) {
                         reponse.children[1].value = '';
@@ -161,6 +170,7 @@ export default function CreerQuizz () {
         
     }
     
+    // fonction pour afficher les div des réponses avec le nombre de réponses à afficher
     const renderQuestion = (nReponses) => {
         let reponse = []
         for (let i = 0; i < nReponses ; i++) {
@@ -177,6 +187,7 @@ export default function CreerQuizz () {
         return reponse
     }
 
+    // formulaire pour créer les quizz 
     return (
         <section>
             <h1>créer un quizz</h1>

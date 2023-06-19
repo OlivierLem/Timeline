@@ -24,7 +24,29 @@
 .epoqueList > .card p:first-of-type {
     font-size: 1.7rem;
     font-weight: 500;
+    margin-top: 1rem;
     margin-bottom: -.2rem;
+}
+
+.epoqueList > .card p:not(:last-of-type) {
+    margin-bottom: -.2rem;
+}
+
+.epoqueList > .card p {
+    display: inline-flex; 
+    align-items: center;
+    gap: 6px;
+}
+
+.epoqueList > .card p:not(:nth-of-type(2)) > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary);
+    color: white;
+    width: fit-content;
+    padding: 2px .2rem 0;
+    border-radius: .5rem;
 }
 
 .epoqueList > .card a:not(.edit) {

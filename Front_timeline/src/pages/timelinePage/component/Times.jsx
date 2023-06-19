@@ -8,7 +8,7 @@ export default function Time ({evenements}) {
     const [previewImage, setPreviewImage] = useState(null);
 
     useEffect(() => {
-        const uint8Array = new Uint8Array(miniature); // ! ne fonctionne pas
+        const uint8Array = new Uint8Array(miniature); // ! ne fonctionne pas si le type n'est pas de type blob en sql
         //console.log({ uint8Array });
         const blob = new Blob([miniature]);
         //console.log({ blob });
@@ -21,7 +21,7 @@ export default function Time ({evenements}) {
 
     }, [evenements])
 
-
+    // composant qui affiche un événement de la timeline
     return (
     <div className="time">
         {

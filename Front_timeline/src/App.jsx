@@ -1,5 +1,5 @@
 
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, useRef, useState } from 'react';
 import './App.scss'
 import { NavLink, Outlet } from 'react-router-dom';
 import PeriodProvider from './component/PeriodProvider.jsx';
@@ -8,10 +8,10 @@ import PeriodProvider from './component/PeriodProvider.jsx';
 // https://www.alloprof.qc.ca/fr/eleves/bv/histoire/epoques-historiques-h1001
 
 function App() {
-
   // etat qui vérifie si l'audio est muté ou non
   const [sound, setSound] = useState(false)
   const audioRef = useRef();
+
   let audio = new Audio('assets/audio/Relaxing_NordicViking_Music - Ótroðinn.mp3');
 
   function playMusic() {
@@ -39,7 +39,6 @@ function App() {
     setSound(!sound)
 
   }
-
   return (
     <div className="app">
       <PeriodProvider>

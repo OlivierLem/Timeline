@@ -1,30 +1,45 @@
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 import { getCurrentPeriod } from "../apis/period.js";
 import { PeriodContext } from "../context/PeriodContext.jsx";
 import moment from 'moment';
 import { getEvenementsWithMiniature } from "../apis/evenement.js";
+import { hexToHSL } from "../assets/script/hexToHsl.js";
 
-
-
-// eslint-disable-next-line react/prop-types
 export default function PeriodProvider({children}) {
-    const initialUser = useLoaderData();
-    const [period, setPeriod] = useState(initialUser);
+    const [period, setPeriod] = useState();
     const [evenements, setEvenements] = useState([])
-    const [color, setColor] = useState('#598c9d')
+    const [color, setColor] = useState() 
 
+    useLayoutEffect(() => {
+        // si on color change on modifie les variable css primary et secondary
+        if(period?.color) {
+            const r = document.querySelector(':root');
+            // modification de la variable css primary avec la variable color de la période
+            r.style.setProperty('--primary', period.color)
+            // conversion du code couleur d'héxa à hsl
+            let colorConverter = hexToHSL(period.color)
+            // modification de la variable css secondary 
+            // variable color en hsl avec moins de luminosité
+            r.style.setProperty('--secondary', `hsl(
+                ${colorConverter.h},
+                ${colorConverter.s}%,
+                ${colorConverter.l - 6}%
+            )`)
+        }
+    }, [color, period]);
+
+    // requête pour afficher la période courante si on à un paramétres ou pour afficher toute les périodes
     async function getPeriod(credentials) {
         if(credentials !== undefined) {
             const newPeriod = await getCurrentPeriod(credentials);
-            //console.log(newPeriod);
-            /*
-            * Si on à plusieur images à récupérer
+            /* // Si on à plusieur images à récupérer
             const imgForAddIntoEvent = periode.map(p => ({
                 name: p.name,
                 images: p.url
             })) */
+
             // on filtre pour ne pas avoir de doublon
             // on map pour n'avoir que les données de l'événement
             const evenementsMap = await newPeriod
@@ -52,28 +67,31 @@ export default function PeriodProvider({children}) {
                             evenement.images.push(i.images)
                         }
                     } */
+
                     return evenement
                 })
-            // console.log(evenementsMap);
             setEvenements(evenementsMap);
     
+            // objet qui ne posséde que les paramétres de la période courante
             const periodeObj = {
                 audio: newPeriod[0].audio,
                 debutPeriode: newPeriod[0].debutPeriode,
                 finPeriode: newPeriod[0].finPeriode,
                 name: newPeriod[0].noms,
-                slugName: newPeriod.at(-1)
+                slugName: newPeriod.at(-1),
+                color: newPeriod[0].color
             }
-            console.log(periodeObj);
-            setColor(newPeriod[0].color)
+            setColor(newPeriod[0].color) // on modifie le state color
             setPeriod(periodeObj)
         } else {
-            console.log('test event');
+            // on remet par défault le state periode et color
             setPeriod(null)
-            setColor('#598c9d')
+
             getEvenementsWithMiniature().then(event => {
-                moment().locale('fr')
+                moment().locale('fr') // date traduite en français
                 console.log(event);
+
+                // map les événement en tableau d'objet
                 const eventChange = event.map(e => {
                     let date = `${moment(e.date).locale('fr').format('DD MMMM')} ${moment(e.date).year()}`    
 
@@ -83,7 +101,8 @@ export default function PeriodProvider({children}) {
                         slugName: e.slugName,
                         date: date,
                         year: moment(e.date).year(),
-                        miniature: e.url
+                        miniature: e.url,
+                        color: '#598c9d'
                     }
                     return newEvent
                 })

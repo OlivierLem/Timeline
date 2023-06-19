@@ -6,8 +6,11 @@ export default function Evenement ({evenement: {name, date, slugName, testArticl
 
     //const dateFormat = new Date(date).toLocaleDateString("fr")
     
-    const dateFormat = moment(date).locale('fr')
+    const dateFormat = moment(date).locale('fr') // date traduite en français
     //console.log(dateFormat);
+
+    // carte de l'event avec ces paramétres et un lien pour éditer l'evenement
+    // on formate la date, si l'evenement à un article on affiche un lien vers l'article
     return (
         <div className={`card ${testArticle === 1 && 'cardWithArticle'}`}>
             <p>{name}</p>

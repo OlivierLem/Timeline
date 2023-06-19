@@ -11,12 +11,14 @@ export default function QuizzPage () {
     const { periode: periodeSlug} = useParams()
 
     useEffect(() => {
+        // requête pour afficher le quizz d'une période
         getQuizz(periodeSlug).then(backQuizz => {
           setQuizz(backQuizz)
           console.log(backQuizz);
         })
     }, [])
 
+    // affiche le quizz ou un lien pour créer un quizz
     return (
         <section>
             {

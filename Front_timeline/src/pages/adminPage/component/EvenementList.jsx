@@ -6,17 +6,19 @@ export default function EvenementList () {
     
     const [evenements, setEvenements] = useState([]);
     useEffect(() => {
+        // requête pour récupérer les évenements
         getEvenements().then(ev => {
             setEvenements(ev)
-            console.log(ev);
+            //console.log(ev);
         })
     }, []) 
+
+    // affiche les cartes de toute les événements
     return (
         <div className='epoqueList'>
             {
                 evenements ? (
                     evenements
-                        .filter(e => e.hasOwnProperty('name'))
                         .map(e => (
                             <Evenement key={e.idEvenement} evenement={e} />
                         ))
@@ -24,7 +26,6 @@ export default function EvenementList () {
                     <p>pas d'événement ajouté</p>
                 )
             }
-            {/* <Evenement evenement={evenements[0]} /> */}
         </div>
     )
 }

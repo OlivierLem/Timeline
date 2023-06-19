@@ -19,11 +19,14 @@ export function EventEditPage () {
     useEffect (() => {
         getOneEvenement(evenement)
             .then(evenements => {
+
+                // tableau des images
                 const img = evenements.map(ev =>{  
                     ev.url
                 })
                 // console.log(img);
 
+                // objet avec l'evenement et un tableau de ces images
                 const evenementWithImages = {
                     id:evenements[0].idEvenement,
                     name:evenements[0].name,
@@ -31,10 +34,12 @@ export function EventEditPage () {
                     date: moment(evenements[0].date).locale('fr').format('DD MMMM YYYY'),
                     url: img
                 };
-                console.log(evenements[0]);
+                //console.log(evenements[0]);
                 setOneEvent(evenementWithImages)
 
+                // requête pour afficher les periode dans un state qui sont comprise dans l'année de l'event
                 getPeriodsFilter(moment(evenements[0].date).year()).then(ev => setPeriodes(ev))   
+
                 const imgFromBackEnd = evenements[0].url;
                 //console.log(imgFromBackEnd);
                 // création d'un tableau de données binaires qui économise de la mémoire
@@ -47,7 +52,7 @@ export function EventEditPage () {
                 const urlImage = URL.createObjectURL(blob);
                 //console.log({ urlImage });
                 // récupération sous forme de texte brut de l'URL
-                // ce texte est attribué avec le useSTate previewImage pour l'affichage
+                // ce texte est attribué avec le useState previewImage pour l'affichage
                 fetch(urlImage)
                     .then((response) =>{ 
                         console.log(response)
@@ -59,23 +64,15 @@ export function EventEditPage () {
                     })
                     .catch((error) => console.log(error));
             })
-    // affiche les periodes filtrer  pour ne prendre que les evenement 
-    // qui ne font partis de la période
    
     }, [])
 
-    /* async function handleSubmitName(e) {
-        try {
-            console.log(e);
-        } catch (error) {
-            
-        }
-    }  */
-
-
+    // affiche la modale pour supprimer un event
     function handleShowDeleteModale () {
         setShowDeleteModale(!showDeleteModale)
     }
+
+    //supprime l'evenement et redirige vers la page admin/evenement
     function handleDelete () {
         deleteEvent(oneEvent)
         navigate('/admin/evenements')
@@ -92,7 +89,8 @@ export function EventEditPage () {
         defaultValues
     })
 
-      const submitSelect = handleSubmit(async (values) => {
+    // créer une association entre une période et un événement
+    const submitSelect = handleSubmit(async (values) => {
         let idPeriodeFilter = periodes.filter(p => p.slugName === values.periode)[0].idPeriode
         const eventAndPeriode = {
             event: oneEvent.id,
@@ -102,20 +100,15 @@ export function EventEditPage () {
         associationEventAndPeriode(eventAndPeriode)
       }) 
 
+    // page pour modifier un événement
     return (
         <section>
             <h1> {oneEvent.name} </h1>
-            {/* <form action="" onSubmit={handleSubmitName}>
-                <input type="text" value={oneEvent.name} />
-                <button>Envoie</button>
-            </form> */}
-            <nav>
             {
                 oneEvent && (
-                    <NavLink to={`/admin/evenements/article/${oneEvent.slugName}`}>Article</NavLink>
+                    <NavLink to={`/admin/evenements/article/${oneEvent.slugName}`} className="linkArticle">Article <i className="fa-solid fa-arrow-right"></i></NavLink>
                 )
             }
-            </nav>
             <div className="eventEditPage">
             <p><span>Date:</span> {oneEvent.date}</p>
             

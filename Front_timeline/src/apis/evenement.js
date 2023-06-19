@@ -40,7 +40,7 @@ export async function getEvenementsWithMiniature () {
     }
 }
 
-// affiche 1 événement
+// affiche 1 événement sélectionner grâce aux slug name
 export async function getOneEvenement (slugName) {
     const response = await fetch (`${API_EVENT}/current?slugName=${slugName} `)
     if (response.ok) {

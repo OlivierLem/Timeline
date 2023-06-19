@@ -82,3 +82,46 @@
         background-color: var(--secondary);
     }
 }
+
+.linkArticle {
+    margin: auto;
+    margin-bottom: 2rem;
+    position: relative;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: .75rem 1.5rem;
+    color: var(--primary);
+    border-radius: .5rem;
+    transition: color ease-in .25s;
+    &:hover,
+    &.active {
+        color:  var(--white);
+    }
+    &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        left: 0;
+        bottom: -.5rem;
+        background-color: var(--primary);
+        border-radius: 1rem;
+        transform: scaleX(0);
+        transition: transform ease-in .25s;
+    }
+
+    &:hover::before,
+    &.active::before{
+        transform: scaleX(1);
+    }
+
+    i {
+        font-size: 1.3rem;
+        margin-left: .5rem;
+        transition: transform ease-in-out .25s;
+    }
+    &:hover i {
+        transform: translateX(.5rem);
+    }
+}

@@ -8,14 +8,14 @@ const app = express()
 const routes = require("./routes/router.js")
 
 
-app.use(cookie())
+app.use(cookie()) // on récupére les cookie
 
 // limitation de la taille des fichiers
-//si erreur vérifier votre fichier ini dans XAMPP et augmenter les tailles
+// si erreur vérifier votre fichier ini dans XAMPP et augmenter les tailles
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 
-app.use(routes)
+app.use(routes) // les requête effectué
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*")

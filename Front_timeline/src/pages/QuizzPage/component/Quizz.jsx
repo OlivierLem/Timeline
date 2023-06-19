@@ -12,15 +12,17 @@ export default function Quizz ({quizz, timer}) {
     const [score, setScore] = useState(0)
     const [showScore, setShowScore] = useState(false);
 
+    // fonction pour décrémenter le timer
     function changeTime () {
         setTime(time - 1)
     }
 
-    function start() {
+    /* function start() {
         setTime(timer);
         setTimerIsActive(true);
-      }
+    } */
 
+    // fonction pour reset le timer
     function reset() {
         setTimerIsActive(false);
         setTime(0);
@@ -29,6 +31,8 @@ export default function Quizz ({quizz, timer}) {
 
     useEffect(() => {
         let timeout = null
+        // si le timer est supérieur à 0 et est active décréménte toute les secondes le timer
+        // sinon on change la question est mest un nouveau timer
         if(time > 0 && timerIsActive) {
             timeout = setTimeout(changeTime, 1000 )
 
@@ -40,9 +44,10 @@ export default function Quizz ({quizz, timer}) {
                     setTimerIsActive(true)
                 },1.5 * 1000)
             }
-            clearTimeout(timeout);
+            clearTimeout(timeout); 
         } 
 
+        // reset du timer si le bouton est desactivé
         if(disableButton === true) {
             reset()
             clearTimeout(timeout);
@@ -56,9 +61,12 @@ export default function Quizz ({quizz, timer}) {
     }, [time, timerIsActive])
 
     function handleClick(index) {
+        // on récupére la réponse clicker et les réponses
         let currentResponse = reponsesRef.current.children[index];
         let reponses = reponsesRef.current.children
         
+        // si la réponse est bonne on ajoute la classe goodResponse à la réponse clicker et on augmente le score
+        // sinon on lui ajoute  la classe badResponse 
         for (let i = 0; i < reponses.length; i++) {
             if(
                 quizz[stateQuestion].reponses[i].isValid &&
@@ -72,6 +80,9 @@ export default function Quizz ({quizz, timer}) {
                 currentResponse.classList.add('badResponse')
             }
             
+            // on désactive les bouton ne pas pouvoir clicker sur d'autres bouton
+            // aprés 1.5s on change de question on supprimer les classes ajouté
+            // à la derniére question aprés 1.5s on affiche le score final
             setDisableButton(true)
             if ( stateQuestion  < quizz.length - 1){
                 setTimeout(() => {
@@ -83,10 +94,15 @@ export default function Quizz ({quizz, timer}) {
                     setTimerIsActive(true)
                 },1.5 * 1000)
             } else {
-                setShowScore(true)
+                setTimeout(() => {
+                    setShowScore(true)
+                }, 1.5 * 1000)
             }
         }
     }
+
+    // composant quizz, affiche le numéro de la question, son score le timer
+    // la question et ces réponses
     return (
         <div className={'quizz'}>
             {

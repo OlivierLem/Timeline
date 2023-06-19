@@ -15,7 +15,12 @@ export default function TimelinePage () {
 
     const [periods, setPeriods] = useState([])
     useEffect(() => {
-        getPeriod()
+        // récupére la période courrante
+        if (period === undefined) {
+            getPeriod()
+        }
+
+        // récupére les periode avec leur événements
         getPeriodsWithEvent().then(p => {
             //console.log(p);
             setPeriods(p)
@@ -23,45 +28,33 @@ export default function TimelinePage () {
     }, [])
 
     useEffect (() => {
+        // si on à moins de 3 composant on fait un overflow hidden sinon scroll
         if (evenements.length > 0 && evenements.length < 3) {
             timelineRef.current.style.overflow = 'hidden'            
         } else {
             timelineRef.current.style.overflow = 'scroll hidden'            
         }
     }, [evenements])
-    useLayoutEffect(() => {
-        if(color) {
-            const r = document.querySelector(':root');
-            // modification de la variable css primary avec la variable color de la période
-            r.style.setProperty('--primary', color)
-            // conversion du code couleur d'héxa à hsl
-            let colorConverter = hexToHSL(color)
-            // modification de la variable css secondary 
-            // variable color en hsl avec moins de luminosité
-            r.style.setProperty('--secondary', `hsl(
-                ${colorConverter.h},
-                ${colorConverter.s}%,
-                ${colorConverter.l - 6}%
-                )`)
-        }
-    }, [color]);
 
+    // événement click pour afficher un select des periodes
     const handleClick = () => {
         console.log(showChangeTimeline);
         setShowChangeTimeline(!showChangeTimeline)
     }
 
+    // chnage la période si il y'a un paramétre affiche 1 periode sinon tout les événements
     const handleChangePeriod = (slugName) => {
         if (slugName) {
             console.log(slugName);
-            getPeriod(slugName).then()
+            getPeriod(slugName)
         } else {
             getPeriod()
         }
         
+        // on cache le select
         setShowChangeTimeline(!showChangeTimeline)
     }
-
+    // affiche la timeline 
     return (
         <section>
             {/* <h1>Époque moderne</h1> */}
