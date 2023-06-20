@@ -20,12 +20,17 @@ export function EventEditArticle () {
 
     useEffect(() => {
         console.log(component);
+        if (!Array.isArray(component)) {
+            setComponent([])
+        }
     },[component])
 
-   /*  const deleteItem = (orderComponent) => {
-        setComponent(() => {
-            
-        })
+/*     const deleteItem = (orderComponent) => {
+        for (const c of component) {
+            console.log(c.props.order + '-' + orderComponent)
+            console.log(c.props.order !== orderComponent)
+        }
+        setComponent([...component.map(c => { if(c.key !== orderComponent.toString()) return c })])
     } */
    
     function handleClick (e) {
@@ -42,7 +47,6 @@ export function EventEditArticle () {
                         isEdit={true}
                         control={control}
                         order={component.length}
-                        deleteItem= {deleteItem}
                     >
                     </TextComponent>])
                 break;
@@ -59,8 +63,8 @@ export function EventEditArticle () {
                 content: v,
                 orderValue: i + 1
             }
+            
         ))
-
         console.log(newValues);
         navigate(`/articles/${evenement}`)
         // on fait une requête fetch pour ajouter l'article
@@ -86,7 +90,7 @@ export function EventEditArticle () {
                                     <button type="button" onClick={handleClick} data-value='titre'><i className="fa-solid fa-heading"></i></button> */}
                                 </nav>
                             </div>
-                        ) : (
+                        ): (
                             <button type="button" onClick={() => setCreate(!create)}>+</button>
                         )
                     }

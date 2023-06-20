@@ -18,9 +18,9 @@ export default function TextComponent ({children, order, isEdit, control, delete
         } 
     }
 
-    function handleDelete (key) {
+    /* function handleDelete (key) {
         deleteItem(key) 
-    }
+    } */
 
     // composant text
     return (
@@ -45,8 +45,8 @@ export default function TextComponent ({children, order, isEdit, control, delete
                         <div className="buttonOption" >
                             <button type="button" className="buttonEdit" onClick={() => setEdit(!edit)}>
                                 <i className="fa-solid fa-pen-to-square"></i>
-                            </button>{/* 
-                            <button type="button" onClick={() => handleDelete(order)} > 
+                            </button>
+                            {/* <button type="button" onClick={() => handleDelete(order)} > 
                                 <i className="fa-solid fa-x"></i>
                             </button> */}
                         </div>
