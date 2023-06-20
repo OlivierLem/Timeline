@@ -229,7 +229,7 @@ router.get('/getArticleEvenement', (req, res) => {
     const { slugName } = req.query;
     console.log('event');
     // on select un evenement
-    const sql = `SELECT idEvenement FROM evenements WHERE slugName = '${slugName}'`
+    const sql = `SELECT idEvenement FROM evenements WHERE slugName = "${slugName}"`
     connection.query(sql, (err, result) => {
         if (err) throw err;
         console.log('event query');

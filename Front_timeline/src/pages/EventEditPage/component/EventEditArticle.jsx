@@ -25,13 +25,13 @@ export function EventEditArticle () {
         }
     },[component])
 
-/*     const deleteItem = (orderComponent) => {
+    const deleteItem = (orderComponent) => {
         for (const c of component) {
             console.log(c.props.order + '-' + orderComponent)
             console.log(c.props.order !== orderComponent)
         }
         setComponent([...component.map(c => { if(c.key !== orderComponent.toString()) return c })])
-    } */
+    }
    
     function handleClick (e) {
         const {value} = e.target.dataset; // récupere le data_value du bouton clicker
@@ -47,6 +47,7 @@ export function EventEditArticle () {
                         isEdit={true}
                         control={control}
                         order={component.length}
+                        deleteItem= {deleteItem}
                     >
                     </TextComponent>])
                 break;
