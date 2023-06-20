@@ -192,9 +192,14 @@ export default function CreerQuizz () {
         <section>
             <h1>créer un quizz</h1>
             <form action="" className="formQuizz" onSubmit={submit}>
+                <div className={`infoStep`}>
+                    <span data-step='paramétres' className={stepFormQuizz >= 1 && 'active'}>1</span>
+                    <span></span>
+                    <span data-step='question' className={stepFormQuizz === 2 && 'active'}>2</span>
+                </div>
                     <div className={`paramsStep ${stepFormQuizz === 1 && 'active'}`}>
                         <div ref={selectRef}>
-                            <label htmlFor="nQuestion">nombre de question</label>
+                            <label htmlFor="nQuestion">Nombre de question</label>
                             <select {...register('nQuestion')}  name="nQuestion" >
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -218,21 +223,20 @@ export default function CreerQuizz () {
                         <input {...register('question')}  type="text" name="question" placeholder="question" />
                         {errors?.question &&  <p className={'errorMessage'}>{errors.question.message}</p>}
                         
-                        <div ref={reponseRef}>
+                        <div ref={reponseRef} className="reponsesQuizz">
                             {renderQuestion(4)}
                         </div>
-                        <button type="button" onClick={handlePreviousStep}>Précédent</button>
-                        {
-                            countQuestion === 0 ? (
-                                <button type="submit">créer le quizz</button>
-                            ) : (
-                                <button type="button" onClick={handleAddQuestion}>Ajouter</button>
-                            )
-                        }
-                        
-                    </div>
-                
-                
+                        <div className="buttonList">
+                            <button type="button" onClick={handlePreviousStep}>Précédent</button>
+                            {
+                                countQuestion === 0 ? (
+                                    <button type="submit">créer le quizz</button>
+                                ) : (
+                                    <button type="button" onClick={handleAddQuestion}>Ajouter</button>
+                                )
+                            }
+                        </div>
+                    </div>                
             </form>
         </section>
     )

@@ -2,11 +2,62 @@
     display: flex;
     flex-direction: column;
     margin: auto;
+    margin-top: -2rem;
+    width: 30vw;
+    max-width: 800px;
+    min-width: 400px;
+    padding: 2rem;
+    border: solid 2px var(--white);
+    border-radius: .5rem;
+
+    input {
+        padding: .5rem;
+        font-size: .8rem;
+        font-weight: 600;
+        color: var(--primary);
+        border: solid 2px var(--primary);
+        border-radius: 5rem;
+    }
+
+    select {
+        padding: .3rem;
+        font-weight: 600;
+        color: var(--primary);
+        background-color: var(--white);
+        border: solid 2px var(--primary);
+    }
+
+    & > div > div {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .buttonList {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        & > button {
+            width: 50%;
+        }
+    }
+    button {
+        margin-top: 1rem;
+        padding: .5rem 2rem;
+        font-size: 1rem;
+        color: white;
+        background-color: var(--primary);
+        border: none;
+        border-radius: 5px;
+    }
 }
 
 .paramsStep {
     display: none;
     flex-direction: column;
+    gap: 1rem;
+    
     &.active {
         display: flex;
     }
@@ -16,7 +67,99 @@
 .questionStep{
     display: none;
     flex-direction: column;
+    gap: 1rem;
     &.active {
         display: flex;
+    }
+}
+
+.reponsesQuizz {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    width: 100%;
+
+    div {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+
+        input[type='text'] {
+            flex-grow: 1;
+        }
+       
+    }
+}
+
+.infoStep {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    span {
+        transition: background-color ease-in .25s,
+                    color ease-in .25s;
+    }
+    span:is([data-step]) {
+        display: inline-flex;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        width: 1.7rem;
+        aspect-ratio: 1 / 1;
+        background-color: var(--white);
+        color: var(--primary);
+        border-radius: 50%;
+    }
+    span:not([data-step]) {
+        width: .7rem;
+        aspect-ratio: 1 / 1;
+        background-color: var(--white);
+        border-radius: 50%;
+    }
+
+    span::before {
+        content: attr(data-step);
+        position: absolute;
+        top: -1.8rem;
+        left: 50%;
+        width: fit-content;
+        height: 1rem;
+        color: white;
+        text-transform: capitalize;
+        transform: translateX(-50%);
+    }
+
+    span:not(:nth-of-type(2))::after {
+        content: '';
+        position: absolute;
+        background-color: var(--white);
+        top: 50%;
+        width: 5rem;
+        height: 4px;
+        transform: translate(0, -50%);
+        transform-origin: left;
+        transition: background-color ease-in .25s;
+    }
+    span:first-of-type:after {
+        left: 100%;
+    }
+    span:last-of-type:after {
+        right: 100%;
+    }
+    span.active{
+        background-color: var(--primary);
+        color: white;
+
+        &::after {
+            background: var(--primary);
+        }
+    }
+    span:first-of-type + span {
+        background-color: var(--primary);
     }
 }

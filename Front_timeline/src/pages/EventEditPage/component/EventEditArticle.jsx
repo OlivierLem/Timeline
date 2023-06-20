@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TextComponent from "./TextComponent.jsx";
 // import TitleComponent from "./TitleComponent.jsx";
 import './creerArticle.scss'
@@ -18,6 +18,15 @@ export function EventEditArticle () {
         handleSubmit
     } = useForm()
 
+    useEffect(() => {
+        console.log(component);
+    },[component])
+
+   /*  const deleteItem = (orderComponent) => {
+        setComponent(() => {
+            
+        })
+    } */
    
     function handleClick (e) {
         const {value} = e.target.dataset; // récupere le data_value du bouton clicker
@@ -27,14 +36,13 @@ export function EventEditArticle () {
         // on lui met ces paramétre et control pour utiliser register avec des composant react
         switch (value) {
             case 'texte':
-                console.log("ajout d'un text");
-                console.log(component.length);
                 setComponent([...component , 
                     <TextComponent 
                         key={component.length}
                         isEdit={true}
                         control={control}
                         order={component.length}
+                        deleteItem= {deleteItem}
                     >
                     </TextComponent>])
                 break;
@@ -51,8 +59,8 @@ export function EventEditArticle () {
                 content: v,
                 orderValue: i + 1
             }
-            
         ))
+
         console.log(newValues);
         navigate(`/articles/${evenement}`)
         // on fait une requête fetch pour ajouter l'article
@@ -65,7 +73,7 @@ export function EventEditArticle () {
            <h1>{evenement}</h1>
             <form action="" onSubmit={submit}>
                 <div className="cours__create">
-                    {
+                    {  Array.isArray(component) &&
                         component.map((c, i) => (c))
                     }
                 </div>
@@ -74,11 +82,11 @@ export function EventEditArticle () {
                         create === true ? (
                             <div>
                                 <nav>
-                                    <button type="button" onClick={handleClick} data-value='texte'>T</button>
-                                    <button type="button" onClick={handleClick} data-value='titre'><i className="fa-solid fa-heading"></i></button>
+                                    <button type="button" onClick={handleClick} data-value='texte'>T</button>{/* 
+                                    <button type="button" onClick={handleClick} data-value='titre'><i className="fa-solid fa-heading"></i></button> */}
                                 </nav>
                             </div>
-                        ): (
+                        ) : (
                             <button type="button" onClick={() => setCreate(!create)}>+</button>
                         )
                     }
