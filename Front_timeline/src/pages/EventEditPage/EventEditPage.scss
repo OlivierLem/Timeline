@@ -1,8 +1,9 @@
 .eventEditPage {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
+    gap: 1rem;
     max-width: 1200px;
     margin: auto;
     padding: 2rem;
@@ -18,7 +19,7 @@
 .eventEditPage form {
     display: flex;
     gap: 1rem;
-    flex-direction: column;
+    flex-direction: row;
     margin-bottom: 1rem;
 
     & > select {
@@ -31,7 +32,7 @@
     & > button {
         padding: .2rem 1rem;
         color: white;
-        background-color: var(--primary);
+        background-color: #575757;
         border: none;
         border-radius: 1rem;
     }

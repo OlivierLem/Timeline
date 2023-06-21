@@ -40,7 +40,7 @@ export function EventEditPage () {
                 // requête pour afficher les periode dans un state qui sont comprise dans l'année de l'event
                 getPeriodsFilter(moment(evenements[0].date).year()).then(ev => setPeriodes(ev))   
 
-                const imgFromBackEnd = evenements[0].url;
+                /* const imgFromBackEnd = evenements[0].url;
                 //console.log(imgFromBackEnd);
                 // création d'un tableau de données binaires qui économise de la mémoire
                 const uint8Array = new Uint8Array(imgFromBackEnd);
@@ -62,7 +62,7 @@ export function EventEditPage () {
                         setPreviewImage(text)
                         console.log(previewImage);
                     })
-                    .catch((error) => console.log(error));
+                    .catch((error) => console.log(error)); */
             })
    
     }, [])
@@ -113,7 +113,7 @@ export function EventEditPage () {
             <p><span>Date:</span> {oneEvent.date}</p>
             
             <div className="listImages">
-            <p><span>Images</span></p>
+            {/* <p><span>Images</span></p>
             {
                 previewImage ? (
                     <img src={previewImage} alt="test" />
@@ -121,7 +121,7 @@ export function EventEditPage () {
                     // <img src="/assets/images/sacre_de_louis_xv.jpg" alt="sacre_de_louis_xv" />
                     <p>Pas d'image</p>
                     )
-            }
+            } */}
             </div>
             
 

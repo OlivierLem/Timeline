@@ -272,7 +272,7 @@
             background-color: var(--primary);
         }
     }
-    button:last-of-type {
+    button:not(:first-of-type):last-of-type {
         background-color: var(--error);
         color: white;
         &:hover {

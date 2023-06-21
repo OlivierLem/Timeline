@@ -46,9 +46,9 @@ export default function TextComponent ({children, order, isEdit, control, delete
                             <button type="button" className="buttonEdit" onClick={() => setEdit(!edit)}>
                                 <i className="fa-solid fa-pen-to-square"></i>
                             </button>
-                            <button type="button" onClick={() => handleDelete(order)} > 
+                            {/* <button type="button" onClick={() => handleDelete(order)} > 
                                 <i className="fa-solid fa-x"></i>
-                            </button>
+                            </button> */}
                         </div>
                         <p>{content} </p>
                     </>

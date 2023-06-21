@@ -99,7 +99,7 @@ export function EventEditArticle () {
             <div>
                 <div className="buttonNav">
                     <button >Créer article</button>
-                    <button type="button">Annuler</button>
+                    {/* <button type="button">Annuler</button> */}
                 </div>
             </div>
             </form>
