@@ -1,9 +1,11 @@
 const connection = require("../../database/db");
+const fs = require('node:fs')
+const buffer = require('node:buffer')
 
 const router = require("express").Router()
 
 router.post('/', async (req, res) => {
-    const { name, startPeriod, endPeriod, color } = req.body;
+    const { name, startPeriod, endPeriod, color, audio } = req.body;
 
     // fonction qui tranforme le noms de la periode en slugName 
     // sans accent et les espaces sont remplacé par _
@@ -17,10 +19,17 @@ router.post('/', async (req, res) => {
 
     const slugName = transformLink(name);
 
+    const buff = Buffer.from(audio.content, 'base64');
+
+    fs.writeFile(`audio/${audio.name}`, buff, (err) => {
+        if (err) throw err;
+        console.log('le fichier à été sauvegarder');
+    })
+
     // requête sql pour insérer dans la table période le noms, son slugName, le debut et la fin de la période et sa couleur
-    const sql = `INSERT INTO periodes (noms, slugName, debutPeriode, finPeriode, color) VALUES (?, ?, ?, ?, ?) `;
+    const sql = `INSERT INTO periodes (noms, slugName, debutPeriode, finPeriode, color, audio) VALUES (?, ?, ?, ?, ?, ?) `;
     
-    const valuesInsert = [name, slugName, startPeriod, endPeriod, color]
+    const valuesInsert = [name, slugName, startPeriod, endPeriod, color, audio.name]
     
     console.log('période ajouté');
     connection.query(sql, valuesInsert, (err, result) => {
@@ -35,20 +44,25 @@ router.get('/current', async (req, res) => {
     console.log(slugName);
     // on récupére la période courrante avec ces événement associé et la miniature de l'event associé
     const sql = `SELECT * FROM periodes    
-    INNER JOIN
-        periode_evenement ON periodes.idPeriode = periode_evenement.idPeriode
-    LEFT JOIN
-        evenements ON periode_evenement.idEvenement = evenements.idEvenement
-    INNER JOIN
-        images ON evenements.idEvenement = images.idEvenement
-    WHERE 
-        periodes.slugName = "${slugName}" 
-    AND images.miniature = 1
+        INNER JOIN
+            periode_evenement ON periodes.idPeriode = periode_evenement.idPeriode
+        LEFT JOIN
+            evenements ON periode_evenement.idEvenement = evenements.idEvenement
+        INNER JOIN
+            images ON evenements.idEvenement = images.idEvenement
+        WHERE 
+            periodes.slugName = "${slugName}" 
+        AND images.miniature = 1
     `
     connection.query(sql, (err, result) => {
         if(err) throw err;
         //console.log(result[1].url.length);
+        /* fs.readFile(`audio/${result[0].audio}`, function(err, result) {
+            res.send(result.toString("base64"));
+          }); */
+          
         res.send([...result, slugName])
+
     })
    
 })
@@ -157,16 +171,17 @@ router.get('/', async (req, res) => {
 router.get('/withEvent', async (req, res) => {
     // on selectionne les périodes qui on une jointure avec la table associative periode_evenement
     const sql = `
-    SELECT DISTINCT 
-        periodes.idPeriode, periodes.noms, periodes.slugName, 
-        periodes.debutPeriode, periodes.finPeriode 
-    FROM periodes 
-    JOIN periode_evenement 
-    WHERE periodes.idPeriode = periode_evenement.idPeriode
-    ORDER BY periodes.debutPeriode`;
+        SELECT DISTINCT 
+            periodes.idPeriode, periodes.noms, periodes.slugName, 
+            periodes.debutPeriode, periodes.finPeriode 
+        FROM periodes 
+        JOIN periode_evenement 
+        WHERE periodes.idPeriode = periode_evenement.idPeriode
+        ORDER BY periodes.debutPeriode`;
     console.log('epoques envoyé')
+
     connection.query(sql, (err, result) => {
-    res.send(result)
+        res.send(result)
     })
 })
 

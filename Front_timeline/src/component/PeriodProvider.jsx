@@ -11,6 +11,7 @@ export default function PeriodProvider({children}) {
     const [period, setPeriod] = useState();
     const [evenements, setEvenements] = useState([])
     const [color, setColor] = useState() 
+    const [audio, setAudio] = useState('assets/audio/viking.mp3')
 
     useLayoutEffect(() => {
         // si on color change on modifie les variable css primary et secondary
@@ -79,9 +80,12 @@ export default function PeriodProvider({children}) {
                 finPeriode: newPeriod[0].finPeriode,
                 name: newPeriod[0].noms,
                 slugName: newPeriod.at(-1),
-                color: newPeriod[0].color
+                color: newPeriod[0].color,
+                audio: `./Back/audio/${newPeriod[0].audio}`
             }
             setColor(newPeriod[0].color) // on modifie le state color
+            //setAudio(newPeriod[0].audio)
+            console.log(periodeObj);
             setPeriod(periodeObj)
         } else {
             // on remet par défault le state periode et color
@@ -114,7 +118,7 @@ export default function PeriodProvider({children}) {
     }
 
     return (
-        <PeriodContext.Provider value={{period, color, evenements, getPeriod}}>
+        <PeriodContext.Provider value={{period, color, audio, evenements, getPeriod}}>
             {children}
         </PeriodContext.Provider>
     )

@@ -117,7 +117,13 @@ export default function TimelinePage () {
                     }
                 </div>
             </div>
-        
+                {/* <audio 
+                    controls 
+                    src="assets/audio/Relaxing_NordicViking_Music - Ótroðinn.mp3"
+                    loop='true'
+                    preload='auto'
+                ></audio> */}
+                    
         </section>
         
     )

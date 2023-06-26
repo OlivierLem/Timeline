@@ -90,12 +90,7 @@ export default function AddEvent () {
             const buffer = fileReader.result;
             const blob = new Blob([buffer], { type: selectedFile.type})
 
-            console.log(selectedFile.type);
-
-            const base64 = await convertBlobToBase64(blob);
-            console.log({base64});
-
-            values.image = base64
+            values.image = blob
             let {date} = values
             // on modifie le format de la date
             date = moment(date, 'DD-MM-YYYY')

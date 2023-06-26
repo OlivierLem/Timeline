@@ -3,13 +3,19 @@ import { useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { createPeriod } from "../../apis/period";
 import './addPeriod.scss'
+import { useState } from "react";
 
 export default function AddPeriod () {
 
+    // useState pour l'input de type file
+    const [selectedFile, setSelectedFile] = useState(null)
+    // pour l'affichege de message d'erreur pour l'input file
+    const [audioError, setAudioError] = useState(null) 
+
     const defaultValues = {
-        name: '',
-        startPeriod: '',
-        endPeriod: '',
+        name: 'test',
+        startPeriod: '1500',
+        endPeriod: '1550',
         color: '#b38c52',
     }
 
@@ -18,7 +24,23 @@ export default function AddPeriod () {
         name: yup.string().required('Ce champ est requis'),
         startPeriod: yup.number().lessThan(yup.ref('endPeriod'), 'Le champs début de la période doit être plus grand que le champs de fin').required('Ce champ est requis'),
         endPeriod: yup.number().moreThan(yup.ref('startPeriod'), 'Le champs fin de la période doit être plus grand que le champs de début').required('Ce champ est requis'),
+        
     })
+
+
+    // on change l'audio on modifie les state selectedFile et previewImage avec le nouveau fichier récupérer
+    // si on ne récupére pas de fichier on met le state previewImage à null
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setSelectedFile(file);
+
+        if(file) {
+            setAudioError(null)
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+        } 
+        
+    }
 
     // librairie react hook form pour utiliser des formalaire en react
     // register fait une ref aux élément qui posséde un register
@@ -34,16 +56,62 @@ export default function AddPeriod () {
         resolver: yupResolver(shema)
     })
 
+    // déclaration de la fonction qui récupére un objet blob, le lit et le convertit en
+    // une chaine de caractères base64 qui permet de coder tout type de données
+    // une fois la promesse résolue, si aucune erreur n'a été rencontré, 
+    // le fichier codé et renvoyé en retour de fonction
+    const convertBlobToBase64 = (blob) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(blob);
+            fileReader.onload= () => {
+                resolve(fileReader.result);
+            };
+            fileReader.onerror = (error) => {
+                reject(error)
+            }
+        })
+    }
+
     // evenement submit pour faire une requête pour créer une periode
     const submit = handleSubmit (async (values) => {
-        console.log(values);
-        try {
-            clearErrors();
-            await createPeriod(values);
-        } catch (message) {
-            console.error(message)
-            setError('generic', {type: "generic", message})
+        console.log(values.audio.type);
+        if (!selectedFile) {
+            console.error('Veuillez sélectionner un fichier !');
+            setAudioError("Veuillez sélectionner un fichier !")
+            return
         }
+
+        // on lie le fichier et on le transforme pour avoir un fichier blob puis on le converti en binaire
+        const fileReader = new FileReader();
+        fileReader.readAsArrayBuffer(selectedFile);
+        fileReader.onload = async () => {
+            const buffer = fileReader.result;
+            console.log(buffer);
+            const blob = new Blob([buffer], { type: selectedFile.type})
+
+            console.log(selectedFile.type);
+
+            const base64 = await convertBlobToBase64(blob);
+            console.log(selectedFile);
+            if(selectedFile.type === 'audio/mpeg') {
+                try {
+                    clearErrors();
+                    values.audio = {
+                        name: selectedFile.name,
+                        content: base64
+                    }
+                   await createPeriod(values);
+                } catch {
+                    console.error("il y'a une erreur")
+                    //setError('generic', {type: "generic", message})
+                }
+            } else {
+                setAudioError("vous n'utiliser pas de fichier audio valide")
+                return
+            }
+        }
+        
     })
 
     // pages pour créer une période avec son formulaire
@@ -72,7 +140,8 @@ export default function AddPeriod () {
 
                 <input {...register('color')} type="color" name="color"  />
                 {errors.generic && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.generic.message}</p>}
-
+                <input {...register('audio')} type="file" name="audio" id="audio" onChange={handleFileChange} />
+                {audioError &&  <p className='form-error'><i className="fa-solid fa-x"></i>{audioError}</p>}
                 <button type="submit">Ajouter</button>
             </form>
         </section>
