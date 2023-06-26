@@ -25,7 +25,7 @@
 .contentArticle {
     position: relative;
     padding-right: 3rem;
-    width: 70%;
+    width: 100%;
     &:not(.notNews):after {
         content: '';
         position: absolute;

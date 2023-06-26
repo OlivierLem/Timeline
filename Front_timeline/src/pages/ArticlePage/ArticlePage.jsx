@@ -26,9 +26,6 @@ export default function ArticlePage () {
         <section className='article'>
             <h1> {articleTitle} </h1>
             <div>
-                <div className="mediaArticle">
-                
-                </div>
                 
                 <div className={`contentArticle ${components.length === 0 && 'notNews'} `}>
                     {components.length > 0 ?

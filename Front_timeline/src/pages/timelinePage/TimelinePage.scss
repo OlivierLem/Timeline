@@ -20,9 +20,10 @@ section > .periodTitle {
     display: flex;
     justify-content: space-between;
     align-items: end;
+    flex-wrap: wrap;
     color: var(--primary);
     margin-left: 1rem;
-    font-size: 1.6rem;
+    font-size: clamp(.8rem, 4.5vw, 1.6rem);
     width: 100%;
 
     & > div {
@@ -57,7 +58,7 @@ section > .periodTitle {
    
     a {
         position: relative;
-        font-size: 1.5rem;
+        font-size: clamp(.8rem, 4.5vw, 1.5rem);
         font-weight: 600;
         padding: 0 1.5rem;
         margin-right: 1.5rem;
@@ -235,4 +236,14 @@ section > .periodTitle {
 
 .periodTitle .selectPeriod.active {
     display: block;
+}
+
+@media screen and (max-width: 700px) {
+    .periodTitle {
+        gap: 1rem;
+    }
+
+    section > .periodTitle a {
+        padding: 0;
+    }
 }

@@ -163,3 +163,12 @@
         background-color: var(--primary);
     }
 }
+
+@media screen and (max-width: 550px) {
+    section {
+        width: 100vw;
+    }
+    .formQuizz {
+        width: 90vw;
+    }
+}

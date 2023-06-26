@@ -15,14 +15,15 @@
     position: relative;
     width: 100%;
     padding: .5rem 2rem;
-    font-size: 1rem;
+    padding-right: 4rem;
+    font-size: clamp(.8rem, 4vw, 1rem);
     background-color: transparent;
     border: solid 3px var(--white);
     border-radius: .5rem;
 }
 
 .epoqueList > .card p:first-of-type {
-    font-size: 1.7rem;
+    font-size: clamp(.8rem, 5vw, 1.7rem);
     font-weight: 500;
     margin-top: 1rem;
     margin-bottom: -.2rem;
@@ -93,7 +94,7 @@
     top: 50%;
     right: 1.5rem;
     transform: scale(1) translateY(-40%);
-    font-size: 2rem;
+    font-size: clamp(1rem, 7vw, 2rem);
     border: none;
     background-color: transparent;
     color: var(--primary);
@@ -159,4 +160,9 @@
     
 }
 
+@media screen and (max-width: 800px) {
+    .epoqueList{
+        width: 100%;
+    }
 
+}

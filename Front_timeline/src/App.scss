@@ -16,7 +16,7 @@ header nav {
 
 nav > a {
     position: relative;
-    font-size: 1.5rem;
+    font-size: clamp(.8rem, 5vw, 1.5rem);
     font-weight: 600;
     padding: .75rem 1.5rem;
     color: var(--primary);
@@ -97,5 +97,8 @@ nav > a {
     }
 }
 
-
-
+@media screen and (max-width: 800px) {
+    .sound {
+        display: none;
+    }
+}
