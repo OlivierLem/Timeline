@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
     const slugName = transformLink(name);
 
     // requête sql pour inséré dans la table evenements le name, le slugName, et la date
-    const sqlInsertEvent = `INSERT INTO evenements (name, slugName, date) VALUES ("${name}", "${slugName}", '${date}') `;
+    const sqlInsertEvent = `INSERT INTO evenements (name, slugName, date) VALUES ("${name}", "${slugName}", '${date}')`;
     
     //console.log(date)
 

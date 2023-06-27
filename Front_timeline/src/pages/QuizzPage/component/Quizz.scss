@@ -146,6 +146,17 @@
         color: #fff;
         background-color: transparent;
         transition: background-color ease-in .2s;
+        &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            height: 80%;
+            aspect-ratio: 1 / 1;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity ease-in .25s;
+        }
         &:not(.badResponse):hover {
             background-color: hsla(0, 0%, 100%, 0.1);
         }
@@ -166,6 +177,13 @@
     }
     .badResponse {
         border-color: var(--error);
+        &::before {
+            background: url('../../../assets/images/cross.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            opacity: 1;
+        }
         span {
             opacity: 1;
             translate: 0;
@@ -174,11 +192,17 @@
     }
     .goodResponse {
         border-color: var(--valid);
-
+        &::before {
+            background: url('../../../assets/images/check-mark.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 1;
+        }
         span {
             color: #000;
             background-color: var(--valid);
         }
+
     }
   }
 

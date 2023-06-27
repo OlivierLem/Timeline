@@ -1,6 +1,6 @@
 const connection = require("../../database/db");
 const fs = require('node:fs')
-const buffer = require('node:buffer')
+const path = require('path')
 
 const router = require("express").Router()
 
@@ -60,8 +60,11 @@ router.get('/current', async (req, res) => {
         /* fs.readFile(`audio/${result[0].audio}`, function(err, result) {
             res.send(result.toString("base64"));
           }); */
-          
-        res.send([...result, slugName])
+          fs.readFile(`audio/${result[0].audio}`, 'utf-8', (err, data) => {
+            //console.log(data);
+           res.send([...result, slugName, data.toString('base64')])
+            
+          })
 
     })
    

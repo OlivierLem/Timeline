@@ -10,14 +10,20 @@ export default function AudioPlayer () {
   const [previewAudio, setPreviewAudio] = useState(null);
 
   useEffect(() => {
-    console.log(audio);
-   /* const blob = new Blob([audio])
-    const urlImage = URL.createObjectURL(blob)
+    //console.log(audio);
+    if(audio !== 'assets/audio/viking.mp3') {
+      const blob = new Blob([audio])
+      const urlImage = URL.createObjectURL(blob)
+      console.log(urlImage);
+      fetch(urlImage)
+              .then(response => response.text())
+              .then(text => {setPreviewAudio(text)})
+              .catch(error => console.error(error))
+    } else {
+      setPreviewAudio(audio)
+    }
+    
 
-    fetch(urlImage)
-            .then(response => response.text())
-            .then(text => {setPreviewAudio(text)})
-            .catch(error => console.error(error)) */
   }, [])
 
   function handleClickAudio() {
@@ -33,7 +39,7 @@ export default function AudioPlayer () {
             </button>
             {
             audio && (
-                <audio controls ref={audioRefControl} style={{display: 'none'}} src={audio} muted='true' autoPlay loop></audio>
+                <audio controls ref={audioRefControl} style={{display: 'none'}} src={previewAudio} muted='true' autoPlay loop></audio>
             )
         }
       </>

@@ -18,10 +18,10 @@ export default function AdminPage () {
                 <NavLink to='/admin/evenements'>Événements</NavLink>
             </nav>
             <Outlet />
-            <nav className={`adminNav ${showNavAdmin && 'active'}`} >
+            <nav className={`adminNav ${showNavAdmin && 'active'}`}>
                 <NavLink to='/ajout_periode'>Ajouter une période</NavLink>
                 <NavLink to='/ajout_evenement'>Ajouter un évenement</NavLink>
-                <button onClick={() => setShowNavAdmin(!showNavAdmin)}><i className="fa-solid fa-chevron-right"></i></button>
+                <button onClick={() => setShowNavAdmin(!showNavAdmin)}>+</button>
             </nav>
         </section>
     )

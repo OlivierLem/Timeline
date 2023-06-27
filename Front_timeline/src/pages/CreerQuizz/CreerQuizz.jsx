@@ -5,11 +5,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import './CreerQuizz.scss'
 import { useNavigate, useParams } from "react-router-dom";
 import { createQuizz } from "../../apis/quizz";
+import InfoBulle from "../../component/infoBulle";
 
 export default function CreerQuizz () {
     const [stepFormQuizz, setStepFormQuizz] = useState(1) // étape formulaire quizz
     const [questionForm, setQestionForm]  = useState([]) 
-    const [countQuestion, setCountQuestion] = useState() 
+    const [countQuestion, setCountQuestion] = useState(null) 
+    const [numberQuestion, setNumberQuestion] = useState(null)
     const navigate = useNavigate()
     const selectRef = useRef()
     const questionRef = useRef()
@@ -43,7 +45,8 @@ export default function CreerQuizz () {
         times:  yup.number()
             .required("Ce champs est requis")
             .positive("Entrer un nombre supérieur à 0")
-            .lessThan(101, 'Vous ne pouvez pas noter un nombre supérieur à 100'),
+            .min(10, 'Vous devez mettre une durée minimum de 10s')
+            .lessThan(101, 'Vous ne pouvez pas noter un durée supérieur à 100s'),
         question: yup.string().required("Ce champs est requis"),
         responses: yup.array().of(
             yup.object({
@@ -95,6 +98,7 @@ export default function CreerQuizz () {
             if (value === true) {
                 setStepFormQuizz(stepFormQuizz + 1)
                 setCountQuestion(selectRef.current.children[1].value)
+                setNumberQuestion(selectRef.current.children[1].value)
             }
         })
     }
@@ -158,16 +162,29 @@ export default function CreerQuizz () {
                     }])
                 }
                 setCountQuestion(countQuestion - 1) // on décrémente le nombre de question restante
-
+                
                 // on vide les champs 
-                questionRef.current.children[0].value = ''
+                questionRef.current.children.value = ''
                 for (const reponse of reponsesCurrent) {
                         reponse.children[1].value = '';
                         reponse.children[0].checked = false;
                 }
             }
         }
-        
+    }
+
+    const infoQuestion = () => {
+        let stepQuestion = []
+        if(countQuestion && stepFormQuizz === 2) {
+            let stepAddQuestion;
+            for (let i = 0; i < numberQuestion; i++) {
+                if (questionForm.length <= i) {
+                    stepAddQuestion = true;
+                }
+                stepQuestion.push(<button className={stepAddQuestion === true && 'unactive'}>{i + 1}</button>)
+            }
+            return stepQuestion
+        }
     }
     
     // fonction pour afficher les div des réponses avec le nombre de réponses à afficher
@@ -215,11 +232,16 @@ export default function CreerQuizz () {
                         <div>
                             <label htmlFor="times">Durée question</label>
                             <input {...register('times')} type="text" placeholder="times" name="times" />
+                            <InfoBulle>Veuillez mettre une durée entre 0</InfoBulle>
                         </div>
                         {errors?.times &&  <p className={'errorMessage'}>{errors.times.message}</p>}
                         <button type="button" onClick={handleNextStep}>Suivant</button>
                     </div>
                     <div ref={questionRef} className={`questionStep ${stepFormQuizz === 2 && 'active'}`}>
+                        <div className="stepQuestion">
+                            { infoQuestion()}
+                        </div>
+                        
                         <input {...register('question')}  type="text" name="question" placeholder="question" />
                         {errors?.question &&  <p className={'errorMessage'}>{errors.question.message}</p>}
                         

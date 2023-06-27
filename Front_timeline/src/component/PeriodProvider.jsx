@@ -79,12 +79,12 @@ export default function PeriodProvider({children}) {
                 debutPeriode: newPeriod[0].debutPeriode,
                 finPeriode: newPeriod[0].finPeriode,
                 name: newPeriod[0].noms,
-                slugName: newPeriod.at(-1),
+                slugName: newPeriod.at(-2),
                 color: newPeriod[0].color,
-                audio: `./Back/audio/${newPeriod[0].audio}`
+                audio: newPeriod.at(-1)
             }
             setColor(newPeriod[0].color) // on modifie le state color
-            //setAudio(newPeriod[0].audio)
+            setAudio(newPeriod.at(-1))
             console.log(periodeObj);
             setPeriod(periodeObj)
         } else {

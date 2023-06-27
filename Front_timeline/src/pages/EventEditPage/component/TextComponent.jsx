@@ -18,9 +18,9 @@ export default function TextComponent ({children, order, isEdit, control, delete
         } 
     }
 
-    function handleDelete (key) {
+    /* function handleDelete (key) {
         deleteItem(key) 
-    }
+    } */
 
     // composant text
     return (

@@ -5,6 +5,7 @@ import { createEvenement } from "../../apis/evenement.js";
 import { useState } from "react";
 import moment from 'moment';
 import './AddEvent.scss';
+import InfoBulle from "../../component/infoBulle.jsx";
 
 export default function AddEvent () {
 
@@ -115,12 +116,14 @@ export default function AddEvent () {
                 <div>
                     <label  htmlFor="name">Nom de l'événement</label>
                     <input {...register('name')} type="text" name="name" />
+                    <InfoBulle>Insérer le nom de l'événement</InfoBulle>
                 </div>
                 {errors?.name && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.name.message}</p> }
 
                 <div>
                     <label htmlFor="date">Date</label>
                     <input {...register('date')} type="date" name="date" id="" />
+                    <InfoBulle>Ajouter une date aprés JC</InfoBulle>
                 </div>
                 {errors?.date && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.date.message}</p> }
 

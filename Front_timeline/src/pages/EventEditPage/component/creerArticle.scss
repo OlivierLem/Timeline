@@ -1,5 +1,5 @@
 
-.cours {
+.article {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,9 +8,13 @@
     max-width: 1200px;
     margin: auto;
     margin-top: 2rem;
+
+    h1 {
+        text-transform: capitalize;
+    }
 }
 
-.cours__title {
+.article__title {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,11 +49,11 @@
     }
 }
 
-.cours form {
+.article form {
     width: 100%;
 }
 
-.cours__title button {
+.article__title button {
     translate: 0 -1rem;
     font-size: inherit;
     color: inherit;
@@ -57,7 +61,7 @@
     border: none;
 }
 
-.cours__create {
+.article__create {
     display: flex;
     flex-direction: column;
     padding-left: 2rem;
@@ -228,9 +232,7 @@
 
 }
 
-
-
-.cours form > div:last-of-type {
+.article form > div:last-of-type {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -309,5 +311,14 @@
     
     &:last-of-type:hover {
         color: var(--error);
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .text__component > .editComponent {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        gap: 1rem;
     }
 }

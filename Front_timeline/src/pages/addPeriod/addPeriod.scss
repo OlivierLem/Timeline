@@ -12,13 +12,14 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    position: relative;
     text-align: center;
     gap: 1rem;
     font-size: 1.3rem;
     color: var(--white);
 }
 
-.formField > div input:not([type='file']) {
+.formField > div input:not([type='file'], [type='color']) {
     height: 2rem;
     border: solid 3px var(--primary);
     border-radius: 2rem;
@@ -39,6 +40,28 @@
         background-color: var(--secondary);
     }
 }
+input[type="file" i] {
+    padding: .5rem;
+    background-color: var(--primary);
+}
+.formField > .colorField {
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+
+    input {
+        background-color: #f1f1f1;
+        border-radius: 2rem;
+        padding: 3px 7px;
+        cursor: pointer;
+    }
+
+    input[type="color" i] {
+       block-size: 2rem;
+       inline-size: 3.5rem;
+       border:solid 3px var(--primary);
+    }
+}
 
 .form-error {
     color: var(--error);
@@ -48,3 +71,4 @@
         margin-right: 1rem;
     }
 }
+

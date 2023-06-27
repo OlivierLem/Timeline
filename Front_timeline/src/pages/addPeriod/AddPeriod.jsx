@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { createPeriod } from "../../apis/period";
 import './addPeriod.scss'
 import { useState } from "react";
+import InfoBulle from "../../component/infoBulle";
 
 export default function AddPeriod () {
 
@@ -123,22 +124,28 @@ export default function AddPeriod () {
                 <div>
                     <label htmlFor="name">Nom de la période</label>
                     <input {...register('name')} name="name" type="text" />
+                    <InfoBulle>Insérer le nom la période</InfoBulle> 
                 </div>
                 {errors?.name && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.name.message}</p> }
                 
                 <div>
                     <label htmlFor="startPeriod">Début de la période</label>
                     <input {...register('startPeriod')} type="text" name="startPeriod" />
+                    <InfoBulle>Insérer l'année du début de la période</InfoBulle> 
                 </div>
                 {errors?.startPeriod && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.startPeriod.message}</p> }
 
                 <div>
                     <label htmlFor="endPeriod">Fin de la période</label>
                     <input {...register('endPeriod')} type="text" name="endPeriod" />
+                    <InfoBulle>Insérer l'année de fin de la période</InfoBulle> 
+
                 </div>
                 {errors?.endPeriod && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.endPeriod.message}</p> }
-
-                <input {...register('color')} type="color" name="color"  />
+                <div className="colorField">
+                    <label htmlFor="color">Couleur :</label>
+                    <input {...register('color')} type="color" name="color"  />
+                </div>
                 {errors.generic && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.generic.message}</p>}
                 <input {...register('audio')} type="file" name="audio" id="audio" onChange={handleFileChange} />
                 {audioError &&  <p className='form-error'><i className="fa-solid fa-x"></i>{audioError}</p>}

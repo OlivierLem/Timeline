@@ -37,12 +37,27 @@ export default function Quizz ({quizz, timer}) {
             timeout = setTimeout(changeTime, 1000 )
 
         } else if ((time < 1)){
+            let reponses = reponsesRef.current.children
+
+            for (let i = 0; i < reponses.length; i++) {
+                if (quizz[stateQuestion].reponses[i].isValid) {
+                    reponses[i].classList.add('goodResponse')
+                }
+            }
+            
             if(stateQuestion < quizz.length - 1) {
                 setTimeout(() => {
+                    for (const reponse of reponses) {
+                        reponse.classList.remove('goodResponse')
+                    }
                     setStateQuestion(stateQuestion + 1)
                     setTime(timer)
                     setTimerIsActive(true)
                 },1.5 * 1000)
+            } else {
+                setTimeout(() => {
+                    setShowScore(true)
+                }, 1.5 * 1000)
             }
             clearTimeout(timeout); 
         } 
@@ -80,6 +95,10 @@ export default function Quizz ({quizz, timer}) {
                 currentResponse.classList.add('badResponse')
             }
             
+            if (quizz[stateQuestion].reponses[i].isValid) {
+                reponses[i].classList.add('goodResponse')
+            }
+            
             // on désactive les bouton ne pas pouvoir clicker sur d'autres bouton
             // aprés 1.5s on change de question on supprimer les classes ajouté
             // à la derniére question aprés 1.5s on affiche le score final
@@ -87,7 +106,9 @@ export default function Quizz ({quizz, timer}) {
             if ( stateQuestion  < quizz.length - 1){
                 setTimeout(() => {
                     setStateQuestion(stateQuestion + 1)
-                    currentResponse.classList.remove('goodResponse')
+                    for (const reponse of reponses) {
+                      reponse.classList.remove('goodResponse')
+                    }
                     currentResponse.classList.remove('badResponse')
                     setDisableButton(false)
                     setTime(timer)

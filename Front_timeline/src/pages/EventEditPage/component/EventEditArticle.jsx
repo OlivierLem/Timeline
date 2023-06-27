@@ -4,13 +4,14 @@ import TextComponent from "./TextComponent.jsx";
 // import TitleComponent from "./TitleComponent.jsx";
 import './creerArticle.scss'
 import { useForm } from "react-hook-form";
-import { createArticle } from "../../../apis/evenement.js";
+import { createArticle, getOneEvenement } from "../../../apis/evenement.js";
 
 
 export function EventEditArticle () {
     const { evenement } = useParams();
     const navigate = useNavigate()
 
+    const [evenementState, setEvenementState] = useState(null)
     const [component, setComponent] = useState([])
     const [create, setCreate] = useState(false)
     const {
@@ -24,6 +25,13 @@ export function EventEditArticle () {
             setComponent([])
         }
     },[component])
+
+    useEffect(() => {
+        getOneEvenement(evenement).then(ev => {
+            console.log(ev);
+            setEvenementState(ev)
+        } )
+    }, [])
 
     const deleteItem = (orderComponent) => {
         for (const c of component) {
@@ -74,10 +82,10 @@ export function EventEditArticle () {
 
     // formulaire pour créer un article
     return (
-        <section className="cours">
-           <h1>{evenement}</h1>
+        <section className="article">
+           <h1>{evenementState && evenementState[0].name}</h1>
             <form action="" onSubmit={submit}>
-                <div className="cours__create">
+                <div className="article__create">
                     {  Array.isArray(component) &&
                         component.map((c, i) => (c))
                     }
@@ -98,7 +106,7 @@ export function EventEditArticle () {
                 </div>
             <div>
                 <div className="buttonNav">
-                    <button >Créer article</button>
+                    <button >Créer l'article</button>
                     {/* <button type="button">Annuler</button> */}
                 </div>
             </div>

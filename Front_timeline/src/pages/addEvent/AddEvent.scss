@@ -18,7 +18,7 @@
     color: var(--white);
 }
 
-.formField > div input:not([type='file']) {
+.formField > div input:not([type='file'], [type='color']) {
     height: 2rem;
     border: solid 3px var(--primary);
     border-radius: 2rem;
