@@ -12,11 +12,9 @@ function App() {
   // etat qui vérifie si l'audio est muté ou non
   const [sound, setSound] = useState(false)
   const audioRef = useRef();
-  let audio = new Audio('assets/audio/Relaxing_NordicViking_Music - Ótroðinn.mp3');
+  let audio = new Audio('assets/audio/timer.mp3');
 
-  useEffect(() => {
-    playMusic()
-  }, [])
+
 
   function playMusic() {
     setTimeout(() => {
@@ -39,11 +37,9 @@ function App() {
   function handleClickAudio() {
     if (sound === false) {
       //console.log('play');
-      //playMusic()      
-      mutedMusic()
+      playMusic()      
     } else {
       //console.log('pause');
-      pauseMusic()
     }
     setSound(!sound)
 

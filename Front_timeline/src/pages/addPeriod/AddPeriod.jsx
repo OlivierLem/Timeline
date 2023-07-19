@@ -63,7 +63,10 @@ export default function AddPeriod () {
                 </div>
                 {errors?.endPeriod && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.endPeriod.message}</p> }
 
-                <input {...register('color')} type="color" name="color"  />
+                <div className="colorDiv">
+                    <label htmlFor="color">Couleur: </label>
+                    <input {...register('color')} type="color" name="color"  />
+                </div>
                 {errors.generic && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.generic.message}</p>}
 
                 <button type="submit">Ajouter</button>

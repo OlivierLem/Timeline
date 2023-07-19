@@ -22,9 +22,9 @@ export default function ArticlePage () {
         <section className='article'>
             <h1> {articleTitle} </h1>
             <div>
-                <div className="mediaArticle">
+                {/* <div className="mediaArticle">
                     <img src="../../assets/images/sacre_de_louis_xv.jpg" alt="sacre_de_louis_xv" />
-                </div>
+                </div> */}
                 
                 <div className={`contentArticle ${components.length === 0 && 'notNews'} `}>
                     {components.length > 0 ?

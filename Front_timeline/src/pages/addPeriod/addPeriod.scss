@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    max-width: 400px;
     gap: 2rem;
     margin: auto;
     border: solid 2px var(--white);
@@ -16,14 +17,22 @@
     gap: 1rem;
     font-size: 1.3rem;
     color: var(--white);
+    
+    &.colorDiv {
+        flex-direction: row;
+        justify-content: start;
+        margin-block: 1rem;
+    }
 }
 
-.formField > div input:not([type='file']) {
+.formField > div:not(.colorDiv) input:not([type='file']) {
     height: 2rem;
     border: solid 3px var(--primary);
     border-radius: 2rem;
     padding: 1rem .5rem;
 }
+
+
 
 .formField button {
     background-color: var(--primary);
@@ -48,3 +57,4 @@
         margin-right: 1rem;
     }
 }
+

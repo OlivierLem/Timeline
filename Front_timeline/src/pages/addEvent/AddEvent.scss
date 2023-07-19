@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    min-width: 450px;
     gap: 2rem;
     margin: auto;
     border: solid 2px var(--white);
@@ -18,7 +19,7 @@
     color: var(--white);
 }
 
-.formField > div input:not([type='file']) {
+.formField > div:not(.colorDiv) input:not([type='file']) {
     height: 2rem;
     border: solid 3px var(--primary);
     border-radius: 2rem;
