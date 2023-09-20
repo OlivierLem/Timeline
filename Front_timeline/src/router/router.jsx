@@ -12,6 +12,7 @@ import { EventEditPage } from "../pages/EventEditPage/EventEditPage";
 import { EventEditArticle } from "../pages/EventEditPage/component/EventEditArticle";
 import QuizzPage from "../pages/QuizzPage/QuizzPage";
 import CreerQuizz from "../pages/CreerQuizz/CreerQuizz";
+import { ListArticle } from "../pages/ListArticle/ListArticle";
 
 export const router = createBrowserRouter([
     {
@@ -50,6 +51,10 @@ export const router = createBrowserRouter([
                 element: <EventEditArticle />
             },
             {
+                path: '/articles',
+                element: <ListArticle />,
+            },
+            {
                 path: '/articles/:article',
                 element: <ArticlePage />,
             },
@@ -58,7 +63,7 @@ export const router = createBrowserRouter([
                 element: <AddEvent />
             },
             {
-                path:'/periodes/:periode/quizz',
+                path:'quizz',
                 element:<QuizzPage />
             },
             {

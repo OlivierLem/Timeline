@@ -42,16 +42,16 @@ export async function getEvenementsWithMiniature () {
 
 // affiche 1 événement sélectionner grâce aux slug name
 export async function getOneEvenement (slugName) {
+    //console.log(slugName);
     const response = await fetch (`${API_EVENT}/current?slugName=${slugName} `)
     if (response.ok) {
-        
         return response.json()
     }
 }
 
 // lie un event à une période
 export async function associationEventAndPeriode (evenement) {
-    console.log(evenement);
+    //console.log(evenement);
     const response = await fetch (`${API_EVENT}/association`, {
         method: 'POST',
         headers: {

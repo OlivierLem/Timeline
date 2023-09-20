@@ -5,11 +5,11 @@ import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import 'moment/locale/fr';
 import { PeriodContext } from '../../context/PeriodContext.jsx';
 import { getPeriodsWithEvent } from '../../apis/period';
-import { hexToHSL } from '../../assets/script/hexToHsl';
+
 
 export default function TimelinePage () {
 
-    const { getPeriod, period, color,  evenements} = useContext(PeriodContext)
+    const { getPeriod, period,  evenements} = useContext(PeriodContext)
     const [ showChangeTimeline, setShowChangeTimeline ] = useState(false)
     const timelineRef = useRef()
 
@@ -29,7 +29,7 @@ export default function TimelinePage () {
 
     useEffect (() => {
         // si on à moins de 3 composant on fait un overflow hidden sinon scroll
-        if (evenements.length > 0 && evenements.length < 3) {
+        if (evenements.length > 0 && evenements.length < 4) {
             timelineRef.current.style.overflow = 'hidden'            
         } else {
             timelineRef.current.style.overflow = 'scroll hidden'            
@@ -54,6 +54,7 @@ export default function TimelinePage () {
         // on cache le select
         setShowChangeTimeline(!showChangeTimeline)
     }
+
     // affiche la timeline 
     return (
         <section>
@@ -105,7 +106,8 @@ export default function TimelinePage () {
             </div>
             
             <div ref={timelineRef} className='timeline'>
-                <div className='timelineBlock' >
+                <div className='timelineBlock'>
+                
                     {
                         evenements.length > 0 ? (
                             evenements.map((e, i) => (

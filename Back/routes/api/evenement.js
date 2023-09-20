@@ -133,7 +133,7 @@ router.get('/current', async (req, res) => {
         console.log('evenement ajouté')
         connection.query(sql, (err, result) => {
             if(err) throw err;
-            
+            console.log(result);
             res.send(result);
         })
     } catch (error) {

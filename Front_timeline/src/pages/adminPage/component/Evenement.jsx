@@ -11,8 +11,9 @@ export default function Evenement ({evenement: {name, date, slugName, testArticl
 
     // carte de l'event avec ces paramétres et un lien pour éditer l'evenement
     // on formate la date, si l'evenement à un article on affiche un lien vers l'article
+    // ! mettre un fichier svg à la place pour le bouton edit
     return (
-        <div className={`card ${testArticle === 1 && 'cardWithArticle'}`}>
+        <div className={`card ${testArticle === 1 ? 'cardWithArticle' : ''}`}>
             <p>{name}</p>
             <p className="date"><span>Date: </span> {dateFormat.format('DD MMMM YYYY')} {/* {dateFormat} */}  </p>
             {
@@ -22,7 +23,7 @@ export default function Evenement ({evenement: {name, date, slugName, testArticl
                     <p>La news n'a pas encore était créer</p>
                 )
             }
-            <NavLink to={`/admin/evenements/${slugName}`} className='edit'><i className="fa-solid fa-pen-to-square"></i></NavLink>
+            <NavLink to={`/admin/evenements/${slugName}`} className='edit'><img src="../../../assets/icons/edit.png" alt="" /> </NavLink>
         </div>
     )
 }

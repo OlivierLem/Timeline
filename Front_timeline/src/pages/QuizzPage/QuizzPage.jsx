@@ -3,6 +3,7 @@ import Quizz from "./component/Quizz";
 import { useEffect, useState } from "react";
 import './QuizzPage.scss'
 import { getQuizz } from "../../apis/quizz";
+import { QuizzList } from "./QuizzList";
 
 export default function QuizzPage () {
     //! récupérer le quizz
@@ -23,7 +24,7 @@ export default function QuizzPage () {
         <section>
             {
                 quizz.length > 0 ? (
-                    <Quizz quizz={quizz} timer='25' />
+                    <QuizzList />
                 ) : (
                     <div className="createQuizzLink">
                         <p>Il n'y a pas encore de quizz pour cette période</p>

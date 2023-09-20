@@ -130,37 +130,7 @@ router.get('/', async (req, res) => {
                         return periodMap; // on retourne le tableau modifier
                     })
 
-                    // requête qui compte le nombre d'evenement lié à chaque periode
-                    const sqlCountJoinWithEvent = `
-                    SELECT periodes.noms ,COUNT(periode_evenement.idPeriode) AS numberLinkWithEvent
-                        FROM periodes 
-                    JOIN periode_evenement ON periodes.idPeriode = periode_evenement.idPeriode
-                    GROUP BY periode_evenement.idPeriode;`
-
-
-                    connection.query(sqlCountJoinWithEvent, (err, result) => {
-                        if(err) throw err;
-                        // à partir du tableau periodWhithCheckQuizz 
-                        // on ajoute le nombre de lien entre une periode et un événement
-                        const periodWithCount = periodWhithCheckQuizz.map(p => {
-                            // par défault on lui attribut 0
-                            const periodMap = {
-                                ...p,
-                                numberLinkWithEvent: 0
-                            }
-
-                            // on boucle le result du dernier select et on vérifie si le noms est similaire 
-                            // à celle d'un periode si oui mets en valeur de nombre d'event de la periode
-                            for (const periodCount of result) {
-                                if(periodCount.noms === p.noms) {
-                                    periodMap.numberLinkWithEvent = periodCount.numberLinkWithEvent
-                                }
-                            }
-                            return periodMap
-
-                        })
-                        res.send(periodWithCount) // envoie dans le front des periodes
-                    })
+                    res.send(periodWhithCheckQuizz) // envoie dans le front des periodes
 
                 })
             })

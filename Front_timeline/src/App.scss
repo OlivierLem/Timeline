@@ -4,39 +4,55 @@
     max-width: 1300px;
     margin: auto;
     margin-top: 3rem;
+    font-family: "Nunito", sans-serif;
 }
 
-header nav {
+.header nav {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 4rem;
-    gap: 2rem;
+    gap: 5rem;
 }
 
-nav > a {
+.header {
+    width: fit-content;
+    margin: auto;
+}
+
+.header-nav {
+    width: 42rem;
+    padding: 1.3rem 0;
+    border: solid 2px white;
+    border-radius: 5rem;
+}
+
+.header-nav > a {
     position: relative;
     font-size: clamp(.8rem, 5vw, 1.5rem);
-    font-weight: 600;
-    padding: .75rem 1.5rem;
-    color: var(--primary);
-    border-radius: .5rem;
-    transition: color ease-in .25s;
+    height: 100%;
+    font-weight: bold;
+    color: var(--white);
+    opacity: 0.75;
+    transition: opacity ease-in .25s;
+
     &:hover,
     &.active {
-        color:  var(--white);
+        opacity: 1;
     }
+    
     &::before {
         content: '';
         display: block;
         position: absolute;
-        width: 100%;
-        height: 2px;
-        left: 0;
-        bottom: -.5rem;
+        width: 20px;
+        height: 3px;
+        left: 50%;
+        bottom: -.3rem;
         background-color: var(--primary);
         border-radius: 1rem;
         transform: scaleX(0);
+        translate: -50%;
         transition: transform ease-in .25s;
     }
 
@@ -45,6 +61,7 @@ nav > a {
         transform: scaleX(1);
     }
 }
+
 .sound {
     position: absolute;
     width: 3rem;

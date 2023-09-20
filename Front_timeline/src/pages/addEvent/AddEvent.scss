@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    width: 42rem;
     gap: 2rem;
     margin: auto;
     border: solid 2px var(--white);
@@ -19,6 +20,8 @@
 }
 
 .formField > div input:not([type='file'], [type='color']) {
+    margin: auto;
+    width: 70%;
     height: 2rem;
     border: solid 3px var(--primary);
     border-radius: 2rem;
@@ -33,7 +36,7 @@
     margin: auto;
     padding: .5rem 2rem;
     font-size: 1.3rem;
-    border-radius: 5px;
+    border-radius: 5rem;
     transition: background-color ease-in .25s;
     &:hover {
         background-color: var(--secondary);

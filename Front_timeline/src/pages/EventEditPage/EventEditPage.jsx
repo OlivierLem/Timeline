@@ -19,50 +19,54 @@ export function EventEditPage () {
     useEffect (() => {
         getOneEvenement(evenement)
             .then(evenements => {
-
-                // tableau des images
-                const img = evenements.map(ev =>{  
-                    ev.url
-                })
-                // console.log(img);
-
-                // objet avec l'evenement et un tableau de ces images
-                const evenementWithImages = {
-                    id:evenements[0].idEvenement,
-                    name:evenements[0].name,
-                    slugName: evenements[0].slugName,
-                    date: moment(evenements[0].date).locale('fr').format('DD MMMM YYYY'),
-                    url: img
-                };
-                //console.log(evenements[0]);
-                setOneEvent(evenementWithImages)
-
-                // requête pour afficher les periode dans un state qui sont comprise dans l'année de l'event
-                getPeriodsFilter(moment(evenements[0].date).year()).then(ev => setPeriodes(ev))   
-
-                /* const imgFromBackEnd = evenements[0].url;
-                //console.log(imgFromBackEnd);
-                // création d'un tableau de données binaires qui économise de la mémoire
-                const uint8Array = new Uint8Array(imgFromBackEnd);
-                //console.log({ uint8Array });
-                // création d'un objet BLOB
-                const blob = new Blob([uint8Array]);
-                //console.log({ blob });
-                // Création d'une url temporaire de type BLOB qui va permettre d'afficher l'image sur la page web
-                const urlImage = URL.createObjectURL(blob);
-                //console.log({ urlImage });
-                // récupération sous forme de texte brut de l'URL
-                // ce texte est attribué avec le useState previewImage pour l'affichage
-                fetch(urlImage)
-                    .then((response) =>{ 
-                        console.log(response)
-                        response.text()
+                if(evenements.length > 0) {
+                    // tableau des images
+                    const img = evenements.map(ev =>{  
+                        ev.url
                     })
-                    .then((text) => {
-                        setPreviewImage(text)
-                        console.log(previewImage);
-                    })
-                    .catch((error) => console.log(error)); */
+                    // console.log(img);
+
+                    // objet avec l'evenement et un tableau de ces images
+                    const evenementWithImages = {
+                        id:evenements[0].idEvenement,
+                        name:evenements[0].name,
+                        slugName: evenements[0].slugName,
+                        date: moment(evenements[0].date).locale('fr').format('DD MMMM YYYY'),
+                        url: img
+                    };
+
+                    //console.log(evenements[0]);
+                    setOneEvent(evenementWithImages)
+
+                    // requête pour afficher les periode dans un state qui sont comprise dans l'année de l'event
+                    getPeriodsFilter(moment(evenements[0].date).year()).then(ev => setPeriodes(ev))   
+
+                    /* const imgFromBackEnd = evenements[0].url;
+                    //console.log(imgFromBackEnd);
+                    // création d'un tableau de données binaires qui économise de la mémoire
+                    const uint8Array = new Uint8Array(imgFromBackEnd);
+                    //console.log({ uint8Array });
+                    // création d'un objet BLOB
+                    const blob = new Blob([uint8Array]);
+                    //console.log({ blob });
+                    // Création d'une url temporaire de type BLOB qui va permettre d'afficher l'image sur la page web
+                    const urlImage = URL.createObjectURL(blob);
+                    //console.log({ urlImage });
+                    // récupération sous forme de texte brut de l'URL
+                    // ce texte est attribué avec le useState previewImage pour l'affichage
+                    fetch(urlImage)
+                        .then((response) =>{ 
+                            console.log(response)
+                            response.text()
+                        })
+                        .then((text) => {
+                            setPreviewImage(text)
+                            console.log(previewImage);
+                        })
+                        .catch((error) => console.log(error)); */
+                }  else {
+                    console.log('evenement non récupérer');
+                }
             })
    
     }, [])

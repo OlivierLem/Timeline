@@ -4,26 +4,34 @@
     flex-direction: column;
     gap: 2rem;
     margin: auto;
-    border: solid 2px var(--white);
-    padding: 2rem;
+    padding: 3rem 1rem;
+    border: solid 3px var(--primary);
+    border-radius: 2rem;
 }
 
 .formField > div {
     display: flex;
+    position: relative;
     justify-content: center;
     flex-direction: column;
-    position: relative;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
     text-align: center;
     gap: 1rem;
-    font-size: 1.3rem;
     color: var(--white);
 }
 
 .formField > div input:not([type='file'], [type='color']) {
-    height: 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family: 'Nunito', sans-serif;
+    height: fit-content;
+    width: 70%;
+    padding: .3rem 1rem;
     border: solid 3px var(--primary);
     border-radius: 2rem;
-    padding: 1rem .5rem;
+    color: var(--secondary);
 }
 
 .formField button {
@@ -32,9 +40,9 @@
     color: var(--white);
     width: fit-content;
     margin: auto;
-    padding: .5rem 2rem;
+    padding: .8rem 2rem;
     font-size: 1.3rem;
-    border-radius: 5px;
+    border-radius: 5rem;
 
     &:hover {
         background-color: var(--secondary);

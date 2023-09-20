@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-export default function Periode ({periode: {noms, slugName, debutPeriode, finPeriode, checkQuizz, numberLinkWithEvent}}) {
+export default function Periode ({periode: {noms, slugName, debutPeriode, finPeriode, checkQuizz, nLinkWithEvent}}) {
     // carte de la periode avec ces paramétres et un lien pour éditer la periode
+    // ! mettre un fichier svg à la place pour le bouton edit
     return (
         <div className="card ">
             <p>{noms}</p>
             <p className="date"><span>Période:</span> {debutPeriode} - {finPeriode}</p>
             
             {
-                numberLinkWithEvent > 0 ? (
-                    <p>événement associé à la période <span> {numberLinkWithEvent} </span></p>
+                nLinkWithEvent > 0 ? (
+                    <p>événement associé à la période <span> {nLinkWithEvent} </span></p>
                 ) : (
                     <p>pas d'événement associé à la période</p>
                 )
@@ -23,7 +24,7 @@ export default function Periode ({periode: {noms, slugName, debutPeriode, finPer
                     <p>Pas encore de quizz ajouté</p>
                 )
             }
-            <NavLink to={`/admin/periodes/${slugName}`} className='edit'><i className="fa-solid fa-pen-to-square"></i></NavLink>
+            <NavLink to={`/admin/periodes/${slugName}`} className='edit'><img src="../../../assets/icons/edit.png" alt="" /> </NavLink>
         </div>
     )
 }

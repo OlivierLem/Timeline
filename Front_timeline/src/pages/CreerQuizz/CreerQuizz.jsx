@@ -232,7 +232,7 @@ export default function CreerQuizz () {
                         <div>
                             <label htmlFor="times">Durée question</label>
                             <input {...register('times')} type="text" placeholder="times" name="times" />
-                            <InfoBulle>Veuillez mettre une durée entre 0</InfoBulle>
+                            <InfoBulle>Veuillez mettre une durée entre 10 à 100s</InfoBulle>
                         </div>
                         {errors?.times &&  <p className={'errorMessage'}>{errors.times.message}</p>}
                         <button type="button" onClick={handleNextStep}>Suivant</button>

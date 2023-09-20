@@ -14,10 +14,10 @@ export default function AddPeriod () {
     const [audioError, setAudioError] = useState(null) 
 
     const defaultValues = {
-        name: 'test',
-        startPeriod: '1500',
-        endPeriod: '1550',
-        color: '#b38c52',
+        name: '',
+        startPeriod: '',
+        endPeriod: '',
+        color: '',
     }
 
     // vérification du formulaire avec la librairie yup
@@ -119,7 +119,7 @@ export default function AddPeriod () {
     // on vérifie si l'un des élément à une erreur si oui on affiche le message d'erreur
     return (
         <section>
-            <h1>Ajouter une période</h1>
+            <h1 className="title">Créer une période</h1>
             <form action="" className="formField" onSubmit={submit}>
                 <div>
                     <label htmlFor="name">Nom de la période</label>
@@ -149,7 +149,7 @@ export default function AddPeriod () {
                 {errors.generic && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.generic.message}</p>}
                 <input {...register('audio')} type="file" name="audio" id="audio" onChange={handleFileChange} />
                 {audioError &&  <p className='form-error'><i className="fa-solid fa-x"></i>{audioError}</p>}
-                <button type="submit">Ajouter</button>
+                <button type="submit">Créer la période</button>
             </form>
         </section>
     )

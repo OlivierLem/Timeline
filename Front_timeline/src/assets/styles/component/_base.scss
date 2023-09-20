@@ -33,3 +33,13 @@ a.active {
 button {
     cursor: pointer;
 }
+
+.title {
+    margin-inline: auto;
+    width: 22rem;
+    font-size: 1.8rem;
+    padding: .5rem 2rem;
+    border: solid 2px var(--primary);
+    border-radius: 5rem;
+    color: white;
+}

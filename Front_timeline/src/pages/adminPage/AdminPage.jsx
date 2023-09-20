@@ -12,17 +12,18 @@ export default function AdminPage () {
     // on met une autre nav pour les pages pour créer une période ou un event 
     return (
         <section className="admin">
-            <h1>Admin</h1>
             <nav className='adminOnglet'>
                 <NavLink to='/admin/periodes'>Périodes</NavLink>
                 <NavLink to='/admin/evenements'>Événements</NavLink>
             </nav>
             <Outlet />
-            <nav className={`adminNav ${showNavAdmin && 'active'}`}>
-                <NavLink to='/ajout_periode'>Ajouter une période</NavLink>
-                <NavLink to='/ajout_evenement'>Ajouter un évenement</NavLink>
-                <button onClick={() => setShowNavAdmin(!showNavAdmin)}>+</button>
-            </nav>
+            <div className='adminNav-block'>
+                <nav className={`adminNav`}>
+                    <NavLink to='/ajout_periode'>Ajouter une période</NavLink>
+                    <span></span>
+                    <NavLink to='/ajout_evenement'>Ajouter un évenement</NavLink>
+                </nav>
+            </div>
         </section>
     )
 }

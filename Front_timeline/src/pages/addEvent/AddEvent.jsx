@@ -8,7 +8,7 @@ import './AddEvent.scss';
 import InfoBulle from "../../component/infoBulle.jsx";
 
 export default function AddEvent () {
-
+    //! bug l'envoie d'image ne s'envoie plus correctement
     // useState pour l'input de type file
     const [selectedFile, setSelectedFile] = useState(null);
     // useState pour l'attribut src de la balise img
@@ -111,7 +111,7 @@ export default function AddEvent () {
     // on vérifie si l'un des input text ou date à une erreur si oui on affiche le message d'erreur
     return (
         <section>
-            <h1>Ajouter une évenement</h1>
+            <h1 className="title">Créer un évenement</h1>
             <form action=""  onSubmit={submit} className="formField">
                 <div>
                     <label  htmlFor="name">Nom de l'événement</label>

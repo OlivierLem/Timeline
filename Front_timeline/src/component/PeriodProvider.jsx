@@ -1,5 +1,4 @@
 import { useLayoutEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
 
 import { getCurrentPeriod } from "../apis/period.js";
 import { PeriodContext } from "../context/PeriodContext.jsx";
@@ -10,7 +9,7 @@ import { hexToHSL } from "../assets/script/hexToHsl.js";
 export default function PeriodProvider({children}) {
     const [period, setPeriod] = useState();
     const [evenements, setEvenements] = useState([])
-    const [color, setColor] = useState() 
+    const [color, setColor] = useState('#58A0E2') 
     const [audio, setAudio] = useState('assets/audio/viking.mp3')
 
     useLayoutEffect(() => {
@@ -90,6 +89,7 @@ export default function PeriodProvider({children}) {
         } else {
             // on remet par défault le state periode et color
             setPeriod(null)
+            setColor('#58A0E2')
 
             getEvenementsWithMiniature().then(event => {
                 moment().locale('fr') // date traduite en français
@@ -106,7 +106,7 @@ export default function PeriodProvider({children}) {
                         date: date,
                         year: moment(e.date).year(),
                         miniature: e.url,
-                        color: '#598c9d'
+                        color: '#58A0E2'
                     }
                     return newEvent
                 })
