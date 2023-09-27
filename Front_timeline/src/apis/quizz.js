@@ -14,3 +14,8 @@ export async function createQuizz(quizz) {
         body: JSON.stringify(quizz)
     })
 }
+
+export async function getListQuizz() {
+    const response = await fetch(`${API_QUIZZ}/listQuizz`)
+    return response.json()
+}

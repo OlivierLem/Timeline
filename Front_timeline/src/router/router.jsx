@@ -13,6 +13,7 @@ import { EventEditArticle } from "../pages/EventEditPage/component/EventEditArti
 import QuizzPage from "../pages/QuizzPage/QuizzPage";
 import CreerQuizz from "../pages/CreerQuizz/CreerQuizz";
 import { ListArticle } from "../pages/ListArticle/ListArticle";
+import Quizz from "../pages/QuizzPage/component/Quizz";
 
 export const router = createBrowserRouter([
     {
@@ -65,6 +66,10 @@ export const router = createBrowserRouter([
             {
                 path:'quizz',
                 element:<QuizzPage />
+            },
+            {
+                path:'quizz/:quizz',
+                element: <Quizz />
             },
             {
                 path:'/periodes/:periode/creer_quizz',

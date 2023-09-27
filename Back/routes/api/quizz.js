@@ -108,8 +108,24 @@ module.exports = router
 router.get('/listQuizz', async (req, res) => {
     
     const sqlGetListQuizz = `
-        
+        SELECT 
+            periodes.noms, 
+            periodes.slugName,
+            quizz.type,
+            quizz.timer, 
+            COUNT(question.intitule) AS nQuestion
+        FROM periodes 
+        JOIN quizz ON quizz.idPeriode = periodes.idPeriode 
+        JOIN question ON question.idQuizz = quizz.idQuizz 
+        WHERE quizz.idQuizz = question.idQuizz 
+        GROUP BY question.idQuizz;
     `
+
+    connection.query(sqlGetListQuizz, (err, result) => {
+        if (err) throw err;
+        //console.log('récupération des données du quizz');
+        res.send(result)
+    })
 })
 
 module.exports = router

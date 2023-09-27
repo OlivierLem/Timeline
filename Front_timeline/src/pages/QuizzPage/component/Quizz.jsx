@@ -1,9 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import './Quizz.scss';
+import { getQuizz } from "../../../apis/quizz";
+import { useParams } from "react-router-dom";
 
-export default function Quizz ({quizz, timer}) {
+export default function Quizz () {
+    const [quizz, setQuizz] = useState()
+    const [timer, setTimer] = useState(5) // ! bug timer ne prend pas la bonne valeur
     const [time, setTime] = useState(timer);
     const [stateQuestion, setStateQuestion] = useState(0);
+    const {quizz: periodeSlug} = useParams()
 
     // ! bug de transition lors de l'affichage de la réponse 
     const [timerIsActive, setTimerIsActive] = useState(true);
@@ -17,6 +22,13 @@ export default function Quizz ({quizz, timer}) {
         setTime(time - 1)
     }
 
+    useEffect(() => {
+        getQuizz(periodeSlug).then(q => {
+            console.log(q);
+            setQuizz(q)
+            setTime(q.timer)
+        })
+    }, [])
     /* function start() {
         setTime(timer);
         setTimerIsActive(true);
@@ -126,7 +138,7 @@ export default function Quizz ({quizz, timer}) {
     // la question et ces réponses
     return (
         <div className={'quizz'}>
-            {
+            { quizz ? 
                 showScore === false ? (
                     <>
                         <div>
@@ -174,6 +186,9 @@ export default function Quizz ({quizz, timer}) {
                     </>
                 ) : (
                     <p className="scoreFinal">Score: <span>{score} pts</span></p>
+                )
+                : (
+                    <p>chargement quizz</p>
                 )
             }
             

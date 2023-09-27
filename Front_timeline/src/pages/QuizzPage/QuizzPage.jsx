@@ -2,18 +2,18 @@ import { NavLink, useParams } from "react-router-dom";
 import Quizz from "./component/Quizz";
 import { useEffect, useState } from "react";
 import './QuizzPage.scss'
-import { getQuizz } from "../../apis/quizz";
-import { QuizzList } from "./QuizzList";
+import { getListQuizz } from "../../apis/quizz";
+import { QuizzCardList } from "./component/QuizzCardList";
 
 export default function QuizzPage () {
-    //! récupérer le quizz
+    // récupérer la liste des quizz
     const [quizz, setQuizz] = useState([])
     
     const { periode: periodeSlug} = useParams()
 
     useEffect(() => {
         // requête pour afficher le quizz d'une période
-        getQuizz(periodeSlug).then(backQuizz => {
+        getListQuizz(periodeSlug).then(backQuizz => {
           setQuizz(backQuizz)
           console.log(backQuizz);
         })
@@ -22,16 +22,21 @@ export default function QuizzPage () {
     // affiche le quizz ou un lien pour créer un quizz
     return (
         <section>
+            <h1>Liste des quizz</h1>
             {
-                quizz.length > 0 ? (
-                    <QuizzList />
+                quizz && quizz.length > 0 ? (
+                    <div className="listCard">
+                        {    
+                            quizz.map(q => (
+                                <QuizzCardList quizz={q} />
+                            ))
+                        }
+                    </div>
                 ) : (
                     <div className="createQuizzLink">
                         <p>Il n'y a pas encore de quizz pour cette période</p>
                         <NavLink to={`/periodes/${periodeSlug}/creer_quizz`}>Créer un quizz</NavLink>
                     </div>
-                    
-
                 )
             }
         </section>
