@@ -18,6 +18,8 @@ export default function CreerQuizz () {
     const reponseRef = useRef()
     const { periode } = useParams()
 
+    // TODO: Modifier la création de quizz car l'envoie utilise le slugName periode
+    
     const defaultValues = {
         times: '25',
         question: '',
@@ -181,7 +183,7 @@ export default function CreerQuizz () {
                 if (questionForm.length <= i) {
                     stepAddQuestion = true;
                 }
-                stepQuestion.push(<button className={stepAddQuestion === true && 'unactive'}>{i + 1}</button>)
+                stepQuestion.push(<button key={i} className={stepAddQuestion === true && 'unactive'}>{i + 1}</button>)
             }
             return stepQuestion
         }
@@ -210,9 +212,9 @@ export default function CreerQuizz () {
             <h1>créer un quizz</h1>
             <form action="" className="formQuizz" onSubmit={submit}>
                 <div className={`infoStep`}>
-                    <span data-step='paramétres' className={stepFormQuizz >= 1 && 'active'}>1</span>
+                    <span data-step='paramétres' className={stepFormQuizz >= 1 ? 'active' : undefined}>1</span>
                     <span></span>
-                    <span data-step='question' className={stepFormQuizz === 2 && 'active'}>2</span>
+                    <span data-step='question' className={stepFormQuizz === 2 ? 'active' : undefined}>2</span>
                 </div>
                     <div className={`paramsStep ${stepFormQuizz === 1 && 'active'}`}>
                         <div ref={selectRef}>

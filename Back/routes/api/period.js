@@ -51,10 +51,12 @@ router.get('/current', async (req, res) => {
         INNER JOIN
             images ON evenements.idEvenement = images.idEvenement
         WHERE 
-            periodes.slugName = "${slugName}" 
+            periodes.slugName = "?" 
         AND images.miniature = 1
     `
-    connection.query(sql, (err, result) => {
+    const valueCurrentPeriod = slugName
+    
+    connection.query(sql, valueCurrentPeriod, (err, result) => {
         if(err) throw err;
         //console.log(result[1].url.length);
         /* fs.readFile(`audio/${result[0].audio}`, function(err, result) {
@@ -85,7 +87,8 @@ router.get('/', async (req, res) => {
                     AND finPeriode >= '${eventYear}' 
                 ORDER BY periodes.debutPeriode`;
             console.log('epoques avec dateEvent envoyé')
-            connection.query(sql, (err, result) => {
+            const valuePeriode = [eventYear, eventYear];
+            connection.query(sql, valuePeriode, (err, result) => {
                 if (err) throw err;
             
                 res.send(result) // on envoie les periodes filtré

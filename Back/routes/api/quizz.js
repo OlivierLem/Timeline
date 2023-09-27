@@ -104,3 +104,12 @@ router.get('/', async (req, res) => {
 })
 
 module.exports = router
+
+router.get('/listQuizz', async (req, res) => {
+    
+    const sqlGetListQuizz = `
+        
+    `
+})
+
+module.exports = router
