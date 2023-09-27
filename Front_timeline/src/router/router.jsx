@@ -18,7 +18,7 @@ import Quizz from "../pages/QuizzPage/component/Quizz";
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <App />,
+        element: <App />,        
         children: [
             {
                 index: true,
