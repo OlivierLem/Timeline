@@ -10,7 +10,7 @@ export default function PeriodProvider({children}) {
     const [period, setPeriod] = useState();
     const [evenements, setEvenements] = useState([])
     const [color, setColor] = useState('#58A0E2') 
-    const [audio, setAudio] = useState('assets/audio/viking.mp3')
+    //const [audio, setAudio] = useState('assets/audio/viking.mp3')
 
     useLayoutEffect(() => {
         // si on color change on modifie les variable css primary et secondary
@@ -83,17 +83,13 @@ export default function PeriodProvider({children}) {
                 audio: newPeriod.at(-1)
             }
             setColor(newPeriod[0].color) // on modifie le state color
-            setAudio(newPeriod.at(-1))
-            console.log(periodeObj);
+            //setAudio(newPeriod.at(-1))
             setPeriod(periodeObj)
         } else {
             // on remet par défault le state periode et color
             setPeriod(null)
-            setColor('#58A0E2')
-
             getEvenementsWithMiniature().then(event => {
                 moment().locale('fr') // date traduite en français
-                console.log(event);
 
                 // map les événement en tableau d'objet
                 const eventChange = event.map(e => {
@@ -112,13 +108,14 @@ export default function PeriodProvider({children}) {
                 })
                 console.log(eventChange);
                 setEvenements(eventChange);
+            setColor('#58A0E2')
             })
         }
         
     }
 
     return (
-        <PeriodContext.Provider value={{period, color, audio, evenements, getPeriod}}>
+        <PeriodContext.Provider value={{period, color, evenements, getPeriod}}>
             {children}
         </PeriodContext.Provider>
     )

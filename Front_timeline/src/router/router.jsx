@@ -14,11 +14,15 @@ import QuizzPage from "../pages/QuizzPage/QuizzPage";
 import CreerQuizz from "../pages/CreerQuizz/CreerQuizz";
 import { ListArticle } from "../pages/ListArticle/ListArticle";
 import Quizz from "../pages/QuizzPage/component/Quizz";
+import { Connexion } from "../pages/Connexion/Connexion";
+import { Inscription } from "../pages/Inscription/Inscription";
+import { userLoader } from "../../loaders/userLoader";
 
 export const router = createBrowserRouter([
     {
         path: '/',
         element: <App />,        
+        //loader: userLoader,
         children: [
             {
                 index: true,
@@ -50,6 +54,14 @@ export const router = createBrowserRouter([
             {
                 path:'/admin/evenements/article/:evenement/',
                 element: <EventEditArticle />
+            },
+            {
+                path:'/connexion',
+                element: <Connexion />
+            },
+            {
+                path:'/inscription',
+                element: <Inscription />
             },
             {
                 path: '/articles',

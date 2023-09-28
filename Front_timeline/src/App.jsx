@@ -17,7 +17,6 @@ function App() {
         <Suspense>
           <Outlet />
         </Suspense>      
-        <AudioPlayer />
     </div>
   );
 }

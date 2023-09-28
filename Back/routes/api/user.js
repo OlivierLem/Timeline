@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
     const passwordCrypt = await bcrypt.hash(password, 8)
     const sqlInsertUser = `INSERT INTO user (pseudo, email, password) VALUES (?,?,?)`;
 
-    const valuesInsertUser = [pseudo, email, password]
+    const valuesInsertUser = [pseudo, email, passwordCrypt]
 
     connection.query(sqlInsertUser, valuesInsertUser, (err, result) => {
         if (err) {
@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
 
         const valuesInsertMailToken = [emailToken, formattedDate, userId];
 
-        connection.query(sqlInsertMailToken, valuesInsertMailToken, (err, resultMailToken) => {
+        connection.query(sqlInsertMailToken, valuesInsertMailToken, (err) => {
             if(err) {
                 res.status(500).send(
                     JSON.stringify("Une erreur est survenu lors de la création du jeton d'email")
@@ -64,7 +64,7 @@ router.post('/', async (req, res) => {
 
             transporter.sendMail(mailOptions, (err, info) => {
                 if(err) {
-                    console.error(`Erreur lors de l'envoi de l'eamil de confirmation : ${err}`)
+                    console.error(`Erreur lors de l'envoi de l'email de confirmation : ${err}`)
                 } else {
                     console.log(`Email de confirmation envoyé : ${info.response}`);
                 }

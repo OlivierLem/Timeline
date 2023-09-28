@@ -36,10 +36,88 @@ button {
 
 .title {
     margin-inline: auto;
-    width: 22rem;
+    width: fit-content;
+    min-width: 17rem;
     font-size: 1.8rem;
-    padding: .5rem 2rem;
+    padding: .5rem 3rem;
     border: solid 2px var(--primary);
     border-radius: 5rem;
     color: white;
+}
+
+.formField {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 42rem;
+    height: fit-content;
+    gap: 2rem;
+    margin: auto;
+    border: solid 2px var(--white);
+    padding: 2rem;
+}
+.formField > div {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    text-align: center;
+    gap: 1rem;
+    color: var(--white);
+}
+
+.formField > div > label {
+    font-size: 1rem;
+}
+
+.formField > div input:not([type='file'], [type='color']) {
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family: 'Nunito', sans-serif;
+    height: fit-content;
+    width: 70%;
+    padding: .3rem 1rem;
+    border: solid 3px var(--primary);
+    border-radius: 2rem;
+    color: var(--secondary);
+}
+
+.formField .groupButton a, 
+.formField button {
+    background-color: var(--primary);
+    border: none;
+    color: var(--white);
+    width: fit-content;
+    margin: auto;
+    padding: .8rem 2rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 5rem;
+    transition: background-color ease-in .25s;
+    &:hover {
+        background-color: var(--secondary);
+    }
+}
+.formField .groupButton a {
+    background-color: #626262;
+    &:hover {
+        background-color: #464646;
+    }
+}
+
+.formField > .groupButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 70%;
+    margin: auto;
+}
+
+.formField .groupButton a,
+.formField .groupButton button {
+    margin: 0;
 }

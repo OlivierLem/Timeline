@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
 router.get('/current', async (req, res) => {
     const { slugName } = req.query;
 
-    console.log(slugName);
+    //console.log(slugName);
     // on récupére la période courrante avec ces événement associé et la miniature de l'event associé
     const sql = `SELECT * FROM periodes    
         INNER JOIN
@@ -51,23 +51,15 @@ router.get('/current', async (req, res) => {
         INNER JOIN
             images ON evenements.idEvenement = images.idEvenement
         WHERE 
-            periodes.slugName = "?" 
+            periodes.slugName = ? 
         AND images.miniature = 1
     `
     const valueCurrentPeriod = slugName
     
     connection.query(sql, valueCurrentPeriod, (err, result) => {
         if(err) throw err;
-        //console.log(result[1].url.length);
-        /* fs.readFile(`audio/${result[0].audio}`, function(err, result) {
-            res.send(result.toString("base64"));
-          }); */
-          fs.readFile(`audio/${result[0].audio}`, 'utf-8', (err, data) => {
-            //console.log(data);
-           res.send([...result, slugName, data.toString('base64')])
-            
-          })
-
+  
+          res.status(200).send([...result])
     })
    
 })
@@ -75,7 +67,7 @@ router.get('/current', async (req, res) => {
 router.get('/', async (req, res) => {
 
     const { eventYear } = req.query
-    console.log(eventYear);
+    //console.log(eventYear);
 
     try {
         if (eventYear) {
@@ -145,7 +137,7 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/withEvent', async (req, res) => {
-    // on selectionne les périodes qui on une jointure avec la table associative periode_evenement
+    // on selectionne les périodes qui ont une jointure avec la table associative periode_evenement
     const sql = `
         SELECT DISTINCT 
             periodes.idPeriode, periodes.noms, periodes.slugName, 
