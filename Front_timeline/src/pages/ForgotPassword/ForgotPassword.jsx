@@ -8,7 +8,7 @@ export function ForgotPassword() {
                 <div>
                     <input type="text" placeholder="Email" aria-placeholder="Email"/>
                 </div>
-                <button type="submit">Envoyer un email</button>
+                <button type="submit">Envoyer un mail</button>
             </form>
         </section>
     )

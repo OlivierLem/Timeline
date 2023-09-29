@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup";
 import { NavLink, Navigate } from 'react-router-dom';
+import { signin } from '../../apis/auth';
 
 export function Connexion () {
 
@@ -15,9 +16,10 @@ export function Connexion () {
     }
      
     const shemaConnexion = yup.object({
-        pseudo: yup
+        email: yup
             .string()
-            .required('Ce champ est vide'),
+            .required('Ce champ est vide')
+            .email('email incorrect'),
         password: yup
             .string()
             .required('Ce champ est vide'),
@@ -38,7 +40,7 @@ export function Connexion () {
 
         try {
             clearErrors();
-            //await signin(values);
+            await signin(values);
         } catch (message) {
             setError('generic', {type: 'generic', message})
         }
@@ -54,15 +56,15 @@ export function Connexion () {
                         <h1 className='title'>Connexion</h1>
                         <form className='formField' onSubmit={submit}>
                             <div>
-                                <label htmlFor="pseudo">Pseudo</label>
-                                <input {...register('pseudo')} type="text" name="pseudo" />
+                                <label htmlFor="email">Email</label>
+                                <input {...register('email')} type="text" name="email" />
                             </div>
-                            {errors?.pseudo && <p className={styles.errorMessage}>{errors.pseudo.message}</p> }
+                            {errors?.pseudo && <p className='errorMessage'>{errors.email.message}</p> }
                             <div>
                                 <label htmlFor="password">Mots de passe</label>
                                 <input {...register('password')} type="password" name="password"  />
                             </div>
-                            {errors?.password && <p className={styles.errorMessage}>{errors.password.message}</p> }
+                            {errors?.password && <p className='errorMessage'>{errors.password.message}</p> }
                             <NavLink to='/mots_de_passe_oublie' >Mots de passe oublié ?</NavLink>
                             <span>
                                 <input {...register('stayConnected')} type="checkbox" name="stayConnected" />

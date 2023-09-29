@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 
-module.export = {
+module.exports = {
     key: fs.readFileSync(`${__dirname}/jwtRS256.key`),
     keyPub: fs.readFileSync(`${__dirname}/jwtRS256.key.pub`)
 }

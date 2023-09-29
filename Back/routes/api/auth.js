@@ -5,30 +5,34 @@ const connexion = require("../../database/db")
 const {key, keyPub} = require ("../../keys")
 
 router.post('/', async (req, res) => {
-    const { email, password, stayConnected } = req.body;
-    console.log('connexion');
     try {
-        const sql = `SELECT * FROM user WHERE email = "${email}"`
-        connexion.query(sql, (err, result) => {
+        const { email, password, stayConnected } = req.body;
+        const sql = `SELECT * FROM user WHERE email = ?`
+        connexion.query(sql, email, (err, result) => {
             if (err) throw err;
             
-            // TODO: condition verif mail
-            if(result) {       
-                
+            // récupération des données utilisateur si l'utilisateur à validé son email 
+            if(result && result[0].email_confirmed === 1) {  
                 if (bcrypt.compareSync(password, result[0].password)) {
+                    // si l'utilisateur veut rester connecter création d'un cookie
                     if (stayConnected) {
                         const token = jsonwebtoken.sign({}, key, {
                             subject: result[0].idUser.toString(),
                             expiresIn: 3600 * 24 * 30 * 6,
                             algorithm: "RS256"
                         })
-                        console.log(token);
                         res.cookie('token', token);
                     }
                     res.json(result)
                 } else {
                     res.status(400).json('Pseudo et/ou mots de passe incorrect')
                 }
+            } 
+
+            // Si l'utilisateur n'a pas encore confirmé son email envoie message
+            if(result && result[0].email_confirmed === 0) {
+                console.log('votre email doit être confirmé');
+                res.status(200).json('Votre email doit être confirmé')
             }
         })
         
