@@ -4,11 +4,12 @@ import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup";
 import { NavLink, Navigate } from 'react-router-dom';
 import { signin } from '../../apis/auth';
+import { AuthContext } from '../../context/AuthContext';
 
 export function Connexion () {
 
+    // const { user } = useContext(AuthContext)
     const user = undefined;
-
     const defaultValues = {
         pseudo: '',
         password: '',

@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// miidleware pour confirmer l'email de l'utilisateur
+// middleware pour confirmer l'email de l'utilisateur
 router.get('/*', (req, res) => {
     const { token: emailToken } = req.query;
 	// Vérifiez si le jeton existe dans la base de données et n'a pas expiré

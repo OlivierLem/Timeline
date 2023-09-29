@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { useNavigate, useSearchParams } from "react-router-dom"
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom"
 import { confirmationEmail } from "../../apis/mailToken";
 
 export function ConfirmationEmail () {
@@ -8,14 +8,20 @@ export function ConfirmationEmail () {
 
     useEffect(() => {
         confirmationEmail(token.get('token'))
-       /*  setTimeout(() => {
+        setTimeout(() => {
             navigate('/connexion')
-        }, 3000); */
+        }, 2000);
     }, [])
     
     return (
         <>
-            <p>Email validé !</p>
+        {
+            token.get('token') ? (
+                <p>Email validé !</p>
+            ) : (
+                <Navigate to='/connexion' />
+            )
+        }
         </>
     )
 } 

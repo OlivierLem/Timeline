@@ -18,12 +18,13 @@ import { Connexion } from "../pages/Connexion/Connexion";
 import { Inscription } from "../pages/Inscription/Inscription";
 import { ForgotPassword } from "../pages/ForgotPassword/ForgotPassword";
 import { ConfirmationEmail } from "../pages/ConfirmationMail/ConfirmationMail";
+import { userLoader } from "../loaders/userLoader";
 
 export const router = createBrowserRouter([
     {
         path: '/',
         element: <App />,        
-        //loader: userLoader,
+        loader: userLoader,
         children: [
             {
                 index: true,
