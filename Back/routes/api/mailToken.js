@@ -6,16 +6,15 @@ const transporter = nodemailer.createTransport({
 	service: "Gmail",
     auth: {
         user: "historyline.company@gmail.com", // votre adresse Gmail 
-        pass: "O25a+dfj8v706hpmaz5", // votre mot de passe gmail 
+        pass: 'cqpa lqfz rmse wmrl'
     }
 });
 
 // miidleware pour confirmer l'email de l'utilisateur
 router.get('/*', (req, res) => {
     const { token: emailToken } = req.query;
-
 	// Vérifiez si le jeton existe dans la base de données et n'a pas expiré
-    const sqlVerifyToken = `SELECT * FROM mail_confirmation WHERE token = "?" AND expiration > NOW()`;
+    const sqlVerifyToken = `SELECT * FROM mail_confirmation WHERE token = ? AND expiration > NOW()`;
 
     connection.query(sqlVerifyToken, emailToken, (err, result) => {
         if(err) {
@@ -103,7 +102,7 @@ const sendConfirmationEmail = (email, token) => {
     const mailOptions = {
         from: "historyline.company@gmail.com", // Votre adresse email Gmail
         to: email,
-        subjet: "Confirmation d'email",
+        subject: "Confirmation d'email",
         text: `Cliquez sur le lien suivant pour confirmer votre email : ${confirmationLink}`,
     }
 

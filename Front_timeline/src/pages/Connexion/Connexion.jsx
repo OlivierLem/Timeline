@@ -63,7 +63,7 @@ export function Connexion () {
                                 <input {...register('password')} type="password" name="password"  />
                             </div>
                             {errors?.password && <p className={styles.errorMessage}>{errors.password.message}</p> }
-                            <NavLink to='/' >Mots de passe oublié ?</NavLink>
+                            <NavLink to='/mots_de_passe_oublie' >Mots de passe oublié ?</NavLink>
                             <span>
                                 <input {...register('stayConnected')} type="checkbox" name="stayConnected" />
                                 <label htmlFor="stayConnected">Rester connecter</label>

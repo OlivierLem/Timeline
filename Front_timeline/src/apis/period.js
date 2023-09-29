@@ -35,7 +35,6 @@ export async function getPeriods() {
     // Récupére les périodes est récupére le nombre d'événement 
     // et de quizz quelle posséde
     const response = await fetch(`${API_PERIOD}`);
-    console.log(response);
     return response.json();
 }
 

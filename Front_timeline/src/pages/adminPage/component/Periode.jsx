@@ -19,7 +19,7 @@ export default function Periode ({periode: {noms, slugName, debutPeriode, finPer
 
             {
                 checkQuizz === 1 ? (
-                    <NavLink to={`/periodes/${slugName}/quizz`}>Voir le quizz</NavLink>
+                    <NavLink to={`/quizz/${slugName}`}>Voir le quizz</NavLink>
                 ) : (
                     <p>Pas encore de quizz ajouté</p>
                 )

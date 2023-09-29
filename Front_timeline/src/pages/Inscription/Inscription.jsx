@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup";
-import { NavLink, Navigate } from 'react-router-dom';
+import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { createUser } from '../../apis/user';
 
 export function Inscription () {
@@ -12,6 +12,8 @@ export function Inscription () {
         password_inscription: '',
         email: '',
     }
+
+    const navigate = useNavigate()
 
     const shema = yup.object({
         pseudo: yup
@@ -51,6 +53,7 @@ export function Inscription () {
         try {
             clearErrors();
             await createUser(values);
+            navigate('/connexion')
         } catch (message) {
             console.error(message)
             setError('generic', {type: "generic", message})
@@ -63,7 +66,7 @@ export function Inscription () {
                 user ? (
                     <Navigate to='/' />
                 ) : (
-                   <section>
+                    <section>
                         <h1 className='title'>Inscription</h1>
                         <form className='formField' onSubmit={submit} >
                             <div>
@@ -92,7 +95,7 @@ export function Inscription () {
                                 <button>S'inscrire</button>
                             </div>
                         </form>
-                   </section>
+                    </section>
                 )
             }
         

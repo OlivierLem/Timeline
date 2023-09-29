@@ -29,7 +29,7 @@ export default function TimelinePage () {
 
     useEffect (() => {
         // si on à moins de 3 composant on fait un overflow hidden sinon scroll
-        if (evenements.length > 0 && evenements.length < 4) {
+        if (evenements.length > 0 && evenements.length < 3) {
             timelineRef.current.style.overflow = 'hidden'            
         } else {
             timelineRef.current.style.overflow = 'scroll hidden'            
@@ -98,11 +98,6 @@ export default function TimelinePage () {
 
                     </div>
                 </div>
-                {   period?.slugName && (
-                    <NavLink to={`/periodes/${period.slugName}/quizz`}>Quizz <i className="fa-solid fa-arrow-right"></i></NavLink>
-                )
-
-                }
             </div>
             
             <div ref={timelineRef} className='timeline'>

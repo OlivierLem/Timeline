@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
         user: "historyline.company@gmail.com", // votre adresse Gmail 
-        pass: "O25a+dfj8v706hpmaz5", // votre mot de passe gmail 
+        pass: 'cqpa lqfz rmse wmrl'
     }
 })
 
@@ -54,11 +54,11 @@ router.post('/', async (req, res) => {
                 );
             }
 
-            const confirmationLink = `http://localhost:3000/confirmationEmail${emailToken}`
+            const confirmationLink = `http://localhost:3000/confirmationEmail?token=${emailToken}`
             const mailOptions = {
                 from: "historyline.company@gmail.com", // Votre adresse gmail 
                 to: email,
-                subjet: 'Confirmation de votre email',
+                subject: 'Confirmation de votre email',
                 text: `Cliquer sur le lien suivant pour confirmer votre email : ${confirmationLink}`
             }
 

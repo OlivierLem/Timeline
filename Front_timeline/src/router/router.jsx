@@ -16,7 +16,8 @@ import { ListArticle } from "../pages/ListArticle/ListArticle";
 import Quizz from "../pages/QuizzPage/component/Quizz";
 import { Connexion } from "../pages/Connexion/Connexion";
 import { Inscription } from "../pages/Inscription/Inscription";
-import { userLoader } from "../../loaders/userLoader";
+import { ForgotPassword } from "../pages/ForgotPassword/ForgotPassword";
+import { ConfirmationEmail } from "../pages/ConfirmationMail/ConfirmationMail";
 
 export const router = createBrowserRouter([
     {
@@ -62,6 +63,14 @@ export const router = createBrowserRouter([
             {
                 path:'/inscription',
                 element: <Inscription />
+            },
+            {
+                path:'/mots_de_passe_oublie',
+                element: <ForgotPassword />
+            },
+            {
+                path:'/confirmationEmail',
+                element: <ConfirmationEmail />
             },
             {
                 path: '/articles',

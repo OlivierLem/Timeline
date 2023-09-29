@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
             // on insert l'images de miniature associé à l'event récupérer grâce à son id, on mets 1 à miniature qui sera utilisé comme booléens 
             if(result) {
                 console.log(image);
-                const sqlInsertImage = `INSERT INTO images (url, miniature,idEvenement) VALUES ( ${image} , 1 , ${idEvenement})`;
+                const sqlInsertImage = `INSERT INTO images (url, miniature,idEvenement) VALUES ( ? , 1 , ?)`;
                 
                 const valueImageEvent = [image, idEvenement]
 
@@ -208,23 +208,22 @@ router.post('/creerArticle', (req, res) => {
 
         const id = result[0].idEvenement
         let insertValues = '' // variable qui sera utilisé pour ajouter les différent composant de l'article
-
+        let valueInsertText = []
         //! Vérifier que l'événement n'as pas encore d'article
         //! bug dans l'ajout d'article à vérifier
         // on créer une boucle pour modifier insertValues (les valeurs à insérer), on mets les paramétres 
         // qui seront insérer: l'id de l'event associé, le contenu du composant et l'ordre d'affichage des composants
         for (let i = 0; i < components.length; i++) {
             const c = components[i];
-            if (i === (components.length - 1)) {
-                insertValues += `("${c.content}","${c.orderValue}","${id}")`
-            } else {
-                insertValues += `("${c.content}","${c.orderValue}","${id}"),`
-            }
+            
+            insertValues += `( ?, ?, ?),`
+            
+            valueInsertText += [...c.content, c.orderValue, id];
         }
         console.log(insertValues);
         const sqlInsertText = `INSERT INTO textComponent (content, orderValue, idEvenement) VALUES ${insertValues} `;
 
-        connection.query(sqlInsertText, (err, result) => {
+        connection.query(sqlInsertText, valueInsertText , (err, result) => {
             if(err) throw err;
             console.log('article ajouté');
             res.send('article ajouté')
