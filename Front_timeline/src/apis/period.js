@@ -10,7 +10,6 @@ export async function createPeriod(period) {
 		body: JSON.stringify(period),
     })
     const backResponse = await response.json()
-    console.log(backResponse);
     if (response.ok) {
         return backResponse;
     } else {
@@ -26,7 +25,6 @@ export async function createPeriod(period) {
 export async function getCurrentPeriod(slugName) {
     // Récupére la période courante avec les table evenement qui lui sont liés
     const response = await fetch(`${API_PERIOD}/current?slugName=${slugName}`);
-    console.log(response);
     return response.json();
 }
 
@@ -41,15 +39,12 @@ export async function getPeriods() {
 // Requête pour afficher les périodes qui ont des événements
 export async function getPeriodsWithEvent() {
     const response = await fetch(`${API_PERIOD}/withEvent`);
-    console.log(response);
     return response.json();
 }
 
 // afficher les périodes comprise dans l'année de l'event
 export async function getPeriodsFilter(eventYear) {
     // Récupére les périodes qui comprennent l'année de l'evenement
-    console.log(eventYear);
     const response = await fetch(`${API_PERIOD}?eventYear=${eventYear}`);
-    console.log(response);
     return response.json();
 }

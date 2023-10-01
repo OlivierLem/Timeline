@@ -12,10 +12,10 @@ router.post('/', async (req, res) => {
             if (err) throw err;
             
             // récupération des données utilisateur si l'utilisateur à validé son email 
-            if(result && result[0].email_confirmed === 1) {  
+            if(result) {  
                 if (bcrypt.compareSync(password, result[0].password)) {
                     // si l'utilisateur veut rester connecter création d'un cookie
-                    if (stayConnected) {
+                    if (stayConnected && result[0].email_confirmed === 1) {
                         const token = jsonwebtoken.sign({}, key, {
                             subject: result[0].idUser.toString(),
                             expiresIn: 3600 * 24 * 30 * 6,
@@ -23,17 +23,17 @@ router.post('/', async (req, res) => {
                         })
                         res.cookie('token', token);
                     }
+
+                    // Si l'utilisateur n'a pas encore confirmé son email envoie message
+                    if(result[0].email_confirmed === 0) {
+                        res.status(400).json('Votre email doit être confirmé')
+                        return
+                    }
                     res.json(result)
                 } else {
                     res.status(400).json('Pseudo et/ou mots de passe incorrect')
                 }
             } 
-
-            // Si l'utilisateur n'a pas encore confirmé son email envoie message
-            if(result && result[0].email_confirmed === 0) {
-                console.log('votre email doit être confirmé');
-                res.status(200).json('Votre email doit être confirmé')
-            }
         })
         
     } catch (error) {
@@ -45,12 +45,11 @@ router.post('/', async (req, res) => {
 router.get('/current', async (req, res) => {
     const { token } = req.cookies;
     if (token) {
-        console.log('token user trouvé');
         try {
-            const decodedToken = jsonwebtoken.verify(token, keyPub, {
+            //! normalement utilisation la clé public (keyPub)
+            const decodedToken = jsonwebtoken.verify(token, key, {
                 algorithms: "RS256",
             });
-            //console.log({decodedToken});
 
             const sql = `SELECT * FROM user WHERE idUser = '${decodedToken.sub}'`;
 
@@ -59,7 +58,6 @@ router.get('/current', async (req, res) => {
                 if (result) {
                     res.json(...result)
                 } else {
-                    console.log('no result');
                     res.json(null)
                 }
             })
@@ -69,13 +67,11 @@ router.get('/current', async (req, res) => {
             res.json(null)
         }
     } else {
-        //console.log("il n'ya pas de token user");
         res.json(null)
     }
 })
 
 router.delete('/', (req, res) => {
-    console.log('delete cookie');
     res.clearCookie('token');
     res.end();
 })

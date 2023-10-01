@@ -3,7 +3,6 @@ const router = require("express").Router()
 
 router.post('/', async (req, res) => {
     const { name, date, image } = req.body;
-
     // fonction qui tranforme le noms de l'event en slugName 
     // sans accent et les espaces sont remplacé par _
     function transformLink (value) {
@@ -15,11 +14,9 @@ router.post('/', async (req, res) => {
     }
 
     const slugName = transformLink(name);
-
     // requête sql pour inséré dans la table evenements le name, le slugName, et la date
     const sqlInsertEvent = `INSERT INTO evenements (name, slugName, date) VALUES (?, ?, ?)`;
     const valueInsertEvent = [name, slugName, date] 
-    //console.log(date)
 
     // on effectue la requêté pour l'insertion
     connection.query(sqlInsertEvent, valueInsertEvent, (err, result) => {
@@ -37,12 +34,10 @@ router.post('/', async (req, res) => {
             
             // on insert l'images de miniature associé à l'event récupérer grâce à son id, on mets 1 à miniature qui sera utilisé comme booléens 
             if(result) {
-                console.log(image);
                 const sqlInsertImage = `INSERT INTO images (url, miniature,idEvenement) VALUES ( ? , 1 , ?)`;
-                
                 const valueImageEvent = [image, idEvenement]
+                console.log(valueImageEvent);
 
-                console.log('événement envoyé');
                 connection.query(sqlInsertImage, valueImageEvent, (err, result) => {
                     if (err) throw err;
                     res.json('Evenement Ajouté')
@@ -56,20 +51,20 @@ router.get('/', async (req, res) => {
     try {
         // on select les événement trié par sa date
         const sql = `SELECT * FROM evenements ORDER BY date `;
-        console.log('evenement envoyé')
 
         connection.query(sql, (err, result) => {
             if(err) throw err;
             // on select les evenement qui sont associé à une table textcomponent 
             // pour verifier si une table posséde une jointure avec textcomponent
             const sqlTestJoin = `
-            SELECT DISTINCT evenements.name,
-            CASE 
-                WHEN evenements.idEvenement = textcomponent.idEvenement 
-                    THEN 1
-                END AS testJoin 
-            FROM evenements 
-            JOIN textcomponent ON evenements.idEvenement = textcomponent.idEvenement`
+                SELECT DISTINCT evenements.name,
+                CASE 
+                    WHEN evenements.idEvenement = textcomponent.idEvenement 
+                        THEN 1
+                    END AS testJoin 
+                FROM evenements 
+                JOIN textcomponent ON evenements.idEvenement = textcomponent.idEvenement
+            `;
             
             // on stocke le result dans event
             const event = result;
@@ -106,7 +101,6 @@ router.get('/withMiniature', async (req, res) => {
             ON evenements.idEvenement = images.idEvenement 
             WHERE images.miniature = 1 ORDER BY evenements.date`;
             
-        console.log('evenement envoyé')
         connection.query(sql, (err, result) => {
             if(err) throw err;
 
@@ -118,9 +112,8 @@ router.get('/withMiniature', async (req, res) => {
 })
 
 router.get('/current', async (req, res) => {
-
     const { slugName } = req.query
-    console.log(slugName);
+
     try {
         // on récupére l'événement courant d'un page avec ces images associé
         const sql = `
@@ -132,13 +125,12 @@ router.get('/current', async (req, res) => {
                 images.url 
             FROM evenements 
             JOIN images ON evenements.idEvenement = images.idEvenement 
-            WHERE evenements.slugName = "?" `;
+            WHERE evenements.slugName = ? `;
             
         const valueCurrentEvent = slugName
-        console.log('evenement ajouté')
         connection.query(sql, valueCurrentEvent, (err, result) => {
             if(err) throw err;
-            console.log(result);
+
             res.send(result);
         })
     } catch (error) {
@@ -148,67 +140,45 @@ router.get('/current', async (req, res) => {
 
 router.post('/association', async (req, res) => {
     const { event, periode } = req.body;
-    console.log(req.body);
     //! Where à ajouté
     // WHERE idEvenement <> '${event}' AND idPeriode <> '${periode}'
     const sql = `
         INSERT INTO periode_evenement (idEvenement, idPeriode) 
-        VALUES ('?', '?')  `;
+        VALUES (?, ?)  `;
 
     const valueLinkPeriodEvent = [event, periode]
     connection.query(sql, valueLinkPeriodEvent, (err, result) => {
         if (err) {
             res.status(400).json('le lien entre les 2 tables existe déja')
         }
-        console.log('lien créer entre les 2 tables');
         res.json('lien créer entre les 2 tables')
     })
 })
 
 router.delete('/', async (req, res) => {
     const { id } = req.body;
-    console.log('test delete');
 
-    const valueDeleteEvent = id
-    // on supprime les images associé à l'event
-    const sqlDeleteImages = `
-        DELETE FROM images WHERE idEvenement = '?'     
-    `
+    // on supprime l'evenement + ces images + liens avec les periodes
+    const sqlDeleteEvent = `DELETE FROM evenements WHERE idEvenement = ?`
 
-    connection.query(sqlDeleteImages, valueDeleteImage, (err, result) => {
+    connection.query(sqlDeleteEvent, id, (err, result) => {
         if (err) throw err;
 
-        // on supprime les liaison entre l'event supprimer et ces periode associé
-        const sqlDeleteLink = `DELETE FROM periode_evenement WHERE idEvenement = '?'`
-        
-        connection.query(sqlDeleteLink, valueDeleteEvent, (err, result) => {
-
-            // on supprime l'evenement
-            const sqlDeleteEvent = `DELETE FROM evenements WHERE idEvenement = '?'`
-
-            connection.query(sqlDeleteEvent, valueDeleteEvent, (err, result) => {
-                if (err) throw err;
-
-                console.log('événements supprimer')
-                res.json('événements supprimer')
-            })
-        })
+        console.log('événements supprimer')
+        res.json('événements supprimer')
     })
 })
 
 router.post('/creerArticle', (req, res) => {
     const {slugName, components } = req.body;
-    console.log(req.body);
     // on select l'événement
-    const sql = `SELECT idEvenement FROM evenements WHERE slugName = "?"`;
+    const sql = `SELECT idEvenement FROM evenements WHERE slugName = ?`;
 
     const valueEventArticle = slugName
     connection.query(sql, valueEventArticle, (err, result) => {
         if(err) throw err;
 
         const id = result[0].idEvenement
-        let insertValues = '' // variable qui sera utilisé pour ajouter les différent composant de l'article
-        let valueInsertText = []
         //! Vérifier que l'événement n'as pas encore d'article
         //! bug dans l'ajout d'article à vérifier
         // on créer une boucle pour modifier insertValues (les valeurs à insérer), on mets les paramétres 
@@ -216,34 +186,26 @@ router.post('/creerArticle', (req, res) => {
         for (let i = 0; i < components.length; i++) {
             const c = components[i];
             
-            insertValues += `( ?, ?, ?),`
-            
-            valueInsertText += [...c.content, c.orderValue, id];
+            const sqlInsertText = `INSERT INTO textComponent (content, orderValue, idEvenement) VALUES (?, ?, ?) `;
+            let valueInsertText = [c.content, c.orderValue, id];
+            connection.query(sqlInsertText, valueInsertText , (err, result) => {
+                if(err) throw err;
+            })
         }
-        console.log(insertValues);
-        const sqlInsertText = `INSERT INTO textComponent (content, orderValue, idEvenement) VALUES ${insertValues} `;
-
-        connection.query(sqlInsertText, valueInsertText , (err, result) => {
-            if(err) throw err;
-            console.log('article ajouté');
-            res.send('article ajouté')
-        })
+        res.send('article ajouté')
         
     })
 })
 
 router.get('/getArticleEvenement', (req, res) => {
     const { slugName } = req.query;
-    console.log('event');
     // on select un evenement
-    const sql = `SELECT idEvenement FROM evenements WHERE slugName = "?"`
+    const sql = `SELECT idEvenement FROM evenements WHERE slugName = ?`
     const valueGetArticle = slugName
     connection.query(sql, valueGetArticle, (err, result) => {
         if (err) throw err;
-        console.log('event query');
 
         let id = result[0].idEvenement;
-        console.log(id);
 
         // on select les composant associé à la table evenement
 
@@ -255,12 +217,11 @@ router.get('/getArticleEvenement', (req, res) => {
             FROM evenements 
             JOIN textcomponent 
             ON evenements.idEvenement = textcomponent.idEvenement 
-            WHERE evenements.idEvenement = '?'`;
+            WHERE evenements.idEvenement = ?`;
 
         const valueSelectArticle = id
         connection.query(sqlSelectArticle, valueSelectArticle, (err, result) => {
             if (err) throw err;
-            console.log('Envoie article');
             res.send(result)
         })
     })

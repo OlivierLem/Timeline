@@ -3,7 +3,6 @@ const API_EVENT = '/api/evenement';
 
 // créer un événement
 export async function createEvenement(evenement) {
-    console.log(evenement);
     const response = await fetch(API_EVENT, {
         method: "POST",
 		headers: {
@@ -12,7 +11,6 @@ export async function createEvenement(evenement) {
 		body: JSON.stringify(evenement),
     })
     const backResponse = await response.json()
-    console.log(backResponse);
     if (response.ok) {
         return backResponse;
     } else {
@@ -42,7 +40,6 @@ export async function getEvenementsWithMiniature () {
 
 // affiche 1 événement sélectionner grâce aux slug name
 export async function getOneEvenement (slugName) {
-    //console.log(slugName);
     const response = await fetch (`${API_EVENT}/current?slugName=${slugName} `)
     if (response.ok) {
         return response.json()
@@ -51,7 +48,6 @@ export async function getOneEvenement (slugName) {
 
 // lie un event à une période
 export async function associationEventAndPeriode (evenement) {
-    //console.log(evenement);
     const response = await fetch (`${API_EVENT}/association`, {
         method: 'POST',
         headers: {

@@ -24,24 +24,21 @@ export default function ArticlePage () {
     // si l'article n'existe pas on mets un lien pour créer l'article
     return (
         <section className='article'>
-            <h1> {articleTitle} </h1>
-            <div>
-                
-                <div className={`contentArticle ${components.length === 0 && 'notNews'} `}>
-                    {components.length > 0 ?
-                        components.sort((n1, n2) => {
-                            return n1.orderValue - n2.orderValue;
-                        }).map(c => (
-                             <p>{c.content}</p>
-                        )) : (
-                            <div>
-                                <p className='notNews'>L'article n'existe pas encore</p>
-                                <NavLink to={`/admin/evenements/article/${article}`}>Créer l'article</NavLink>
-                            </div>
-                        )
-                    }
-                </div>
-            </div>
+            <h1 className='title'> {articleTitle} </h1>
+            <article className={`contentArticle ${components.length === 0 && 'notNews'} `}>
+                {components.length > 0 ?
+                    components.sort((n1, n2) => {
+                        return n1.orderValue - n2.orderValue;
+                    }).map(c => (
+                            <p key={c.orderValue}>{c.content}</p>
+                    )) : (
+                        <div>
+                            <p className='notNews'>L'article n'existe pas encore</p>
+                            <NavLink to={`/admin/evenements/article/${article}`}>Créer l'article</NavLink>
+                        </div>
+                    )
+                }
+            </article>
             
         </section>
     )

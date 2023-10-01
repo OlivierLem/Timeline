@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 
 export default function Quizz () {
     const [quizz, setQuizz] = useState()
-    const [timer, setTimer] = useState(5) // ! bug timer ne prend pas la bonne valeur
-    const [time, setTime] = useState(timer);
+    const [timer, setTimer] = useState();
+    const [time, setTime] = useState();
     const [stateQuestion, setStateQuestion] = useState(0);
     const {quizz: periodeSlug} = useParams()
 
@@ -24,9 +24,9 @@ export default function Quizz () {
 
     useEffect(() => {
         getQuizz(periodeSlug).then(q => {
-            console.log(q);
             setQuizz(q)
-            setTime(q.timer)
+            setTimer(q[0].timer)
+            setTime(timer)
         })
     }, [])
     /* function start() {
@@ -44,7 +44,7 @@ export default function Quizz () {
     useEffect(() => {
         let timeout = null
         // si le timer est supérieur à 0 et est active décréménte toute les secondes le timer
-        // sinon on change la question est mest un nouveau timer
+        // sinon on change la question est on mets un nouveau timer
         if(time > 0 && timerIsActive) {
             timeout = setTimeout(changeTime, 1000 )
 
@@ -80,10 +80,7 @@ export default function Quizz () {
             clearTimeout(timeout);
         }
         
-        /* if(stateQuestion === quizz.length) {
-            console.log(stateQuestion);
-            setShowScore(true)
-        } */
+
         
     }, [time, timerIsActive])
 
@@ -134,6 +131,7 @@ export default function Quizz () {
         }
     }
 
+    useEffect(() => {console.log(time)}, [time])
     // composant quizz, affiche le numéro de la question, son score le timer
     // la question et ces réponses
     return (

@@ -78,7 +78,6 @@ export default function AddEvent () {
     }
 
     const submit = handleSubmit (async (values) => {
-        console.log(values);
         // vérifie si un fichier est séléctionner
         if (!selectedFile) {
             console.error('Veuillez sélectionner un fichier !');
@@ -90,12 +89,13 @@ export default function AddEvent () {
         fileReader.onload = async () => {
             const buffer = fileReader.result;
             const blob = new Blob([buffer], { type: selectedFile.type})
-
-            values.image = blob
-            let {date} = values
-            // on modifie le format de la date
-            date = moment(date, 'DD-MM-YYYY')
+            console.log(blob);
+            console.log(buffer);
             try {
+                values.image = blob
+                let {date} = values
+                // on modifie le format de la date
+                date = moment(date, 'DD-MM-YYYY')
                 // on vide les erreurs et on envoie la requête fetch pour insérer un évenement
                 clearErrors();
                 await createEvenement(values);
@@ -116,23 +116,26 @@ export default function AddEvent () {
                 <div>
                     <label  htmlFor="name">Nom de l'événement</label>
                     <input {...register('name')} type="text" name="name" />
-                    <InfoBulle>Insérer le nom de l'événement</InfoBulle>
+                    {/* <InfoBulle>Insérer le nom de l'événement</InfoBulle> */}
                 </div>
                 {errors?.name && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.name.message}</p> }
 
                 <div>
                     <label htmlFor="date">Date</label>
                     <input {...register('date')} type="date" name="date" id="" />
-                    <InfoBulle>Ajouter une date aprés JC</InfoBulle>
+                    {/* <InfoBulle>Ajouter une date aprés JC</InfoBulle> */}
                 </div>
                 {errors?.date && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.date.message}</p> }
 
+                <div>
+                    <label htmlFor="image">Miniature événement</label>
                 <input 
                     {...register('image')} 
                     type="file" 
                     name="image" 
                     onChange={handleFileChange}
                 />
+                </div>
                 
                 <button type="submit">Ajouter</button>
             </form>

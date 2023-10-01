@@ -10,6 +10,10 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+const currentDate = new Date();
+const futureDate = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000 );
+const formattedDate = futureDate.toISOString().slice(0,19).replace("T", " ");
+
 // middleware pour confirmer l'email de l'utilisateur
 router.get('/*', (req, res) => {
     const { token: emailToken } = req.query;
@@ -40,7 +44,6 @@ router.get('/*', (req, res) => {
                         message: "Erreur lors de la mise à jour de l'email confirmé."
                     }) 
                 } 
-
                 res.status(200).json({
                     message: "Email confirmé avec succès."
                 })
@@ -53,11 +56,12 @@ router.get('/*', (req, res) => {
 router.post("/resend", (req, res) => {
     const { email: userEmail } = req.body; // Récupérez l'e-mail de l'utilisateur à partir du formulaire
 	
+    console.log(userEmail);
     // Générez un nouveau token UUID
     const newEmailToken = uuidv4();
 
 	// Récupérez l'ID de l'utilisateur
-    const sqlGetUserId = `SELECT idUser FROM user WHERE email = "?"`
+    const sqlGetUserId = `SELECT idUser FROM user WHERE email = ?`
     connection.query(sqlGetUserId, userEmail, (err, result) => {
         if (err) {
             console.error(`Erreur lors de la récupération de l'ID de l'utilisateur : ${err}`);
@@ -65,7 +69,6 @@ router.post("/resend", (req, res) => {
                 message: "Erreur lors de la récupération de l'ID de l'utilisateur"
             })
         }
-
         if(result.length === 0) {
 			// Aucun utilisateur trouvé avec cet e-mail
             res.status(400).json({
@@ -75,10 +78,9 @@ router.post("/resend", (req, res) => {
             const userId = result[0].idUser;
 			
             // Mettez à jour le token dans la base de données email_tokens
-            const sqlUpdateEmailToken = `UPDATE mail_confirmation SET token = "?" WHERE idUser = ?`;
+            const sqlUpdateEmailToken = `UPDATE mail_confirmation SET token = ?, expiration = ? WHERE idUser = ?`;
 
-            const valuesUpdateEmailToken = [newEmailToken, userId];
-
+            const valuesUpdateEmailToken = [newEmailToken, formattedDate, userId];
             connection.query(sqlUpdateEmailToken, valuesUpdateEmailToken, (err) => {
                 if (err) {
                     console.error(`Erreur lors de la mise à jour du token d'e-mail : ${err}`);

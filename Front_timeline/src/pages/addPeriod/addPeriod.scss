@@ -9,15 +9,11 @@
     border-radius: 2rem;
 }
 
-input[type="file" i] {
-    padding: .5rem;
-    background-color: var(--primary);
-}
 .formField > .colorField {
     flex-direction: row;
     justify-content: start;
     align-items: center;
-
+    margin: 0 auto;
     input {
         background-color: #f1f1f1;
         border-radius: 2rem;

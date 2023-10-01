@@ -147,7 +147,11 @@ export default function AddPeriod () {
                     <input {...register('color')} type="color" name="color"  />
                 </div>
                 {errors.generic && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.generic.message}</p>}
-                <input {...register('audio')} type="file" name="audio" id="audio" onChange={handleFileChange} />
+                <div>
+                    <label htmlFor="audio">Fond sonore</label>
+                    <input {...register('audio')} type="file" name="audio" id="audio" onChange={handleFileChange} />
+
+                </div>
                 {audioError &&  <p className='form-error'><i className="fa-solid fa-x"></i>{audioError}</p>}
                 <button type="submit">Créer la période</button>
             </form>

@@ -1,0 +1,88 @@
+.backgroundMailNotValid {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 90%;
+    font-size: 1.2rem;
+    font-weight: 500;
+    z-index: 300;
+}
+
+.modaleMailNotValid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25rem;
+    height: 15rem;
+    gap: 1rem;
+    background-color: var(--primary);
+    border-radius: 1.2rem;
+    border: solid 3px white;
+    box-shadow: 0 0 20px 4px #2c3942;
+}
+
+.modaleMailNotValid > button:not(.closeModale) {
+    background-color: #626262;
+    border: none;
+    color: var(--white);
+    width: fit-content;
+    margin: 0 auto;
+    padding: .8rem 2rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 5rem;
+    transition: background-color ease-in .25s;
+    &:hover {
+        background-color: #464646;
+    }
+}
+
+.modaleMailNotValid > .closeModale {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    width: 2rem;
+    aspect-ratio: 1 / 1;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--error);
+    color: white;
+    transition: background-color ease-in .25s;
+
+    &:hover {
+        background: #d34636;
+    }
+}
+
+.formField > a {
+    margin: 0 auto;
+    color: white;
+    font-size: 1rem;
+    transition: color ease-out .2s;
+    &:hover {
+        text-decoration: underline;
+        color: var(--primary);
+    }
+}
+
+.formField > span {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 auto;
+    gap: .5rem;
+    font-size: 1.2rem;
+
+    & input {
+        width: 1rem;
+        aspect-ratio: 1 / 1;
+        accent-color: var(--primary);
+
+    }
+}

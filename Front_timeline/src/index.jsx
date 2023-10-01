@@ -4,14 +4,12 @@ import './assets/styles/index.scss';
 import reportWebVitals from './reportWebVitals';
 import { router } from './router/router.jsx';
 import { RouterProvider } from 'react-router-dom';
-import PeriodProvider from './component/PeriodProvider.jsx';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <PeriodProvider>
       <RouterProvider router={router} />
-    </PeriodProvider>
   </React.StrictMode>
 );
 

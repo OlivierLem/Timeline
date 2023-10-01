@@ -1,20 +1,24 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup";
-import { NavLink, Navigate } from 'react-router-dom';
-import { signin } from '../../apis/auth';
+import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import { resendConfirmationEmail } from '../../apis/mailToken';
+import "./Connexion.scss"
 
 export function Connexion () {
 
-    // const { user } = useContext(AuthContext)
-    const user = undefined;
+    const { user, signin } = useContext(AuthContext)
     const defaultValues = {
         pseudo: '',
         password: '',
         stayConnected: false
     }
+    const navigate = useNavigate()
+
+    const [mailNotConfirm, setMailNotConfirm] = useState();
+    const [currentMail, setCurrentMail] = useState();
      
     const shemaConnexion = yup.object({
         email: yup
@@ -41,11 +45,29 @@ export function Connexion () {
 
         try {
             clearErrors();
-            await signin(values);
+            await signin(values)
+                .catch(message => { 
+                    if(message === 'Votre email doit être confirmé') {
+                        setMailNotConfirm(() => true)
+                        setCurrentMail(() => values.email)
+                    } 
+                })
+            navigate('/')
+            setCurrentMail()
         } catch (message) {
             setError('generic', {type: 'generic', message})
         }
     })
+
+    const resendVerifMail = async (email) => {
+        try {
+            await resendConfirmationEmail(email)
+            setCurrentMail()
+            setMailNotConfirm(false)
+        } catch (err) {
+            console.error(err)
+        }
+    }
 
     return (
         <>
@@ -53,6 +75,7 @@ export function Connexion () {
                 user ? (
                     <Navigate to='/' />
                 ) : (
+                    <>
                     <section>
                         <h1 className='title'>Connexion</h1>
                         <form className='formField' onSubmit={submit}>
@@ -77,6 +100,26 @@ export function Connexion () {
                             </div>
                         </form>
                     </section>
+                    {
+                        mailNotConfirm && (
+                            <div className='backgroundMailNotValid'>
+                                <div className='modaleMailNotValid'>
+                                    <button 
+                                        className='closeModale' 
+                                        onClick={ () => {
+                                            setMailNotConfirm(false)
+                                            setCurrentMail()
+                                        }
+                                    }>
+                                        <i className="fa-solid fa-x"></i>
+                                    </button>
+                                    <p>Votre mail n'as pas été confirmé !</p>
+                                    <button onClick={() => resendVerifMail(currentMail)}>envoyer mail de confirmation</button>
+                                </div>
+                            </div>
+                        ) 
+                    }
+                    </>
 
                 )
             }

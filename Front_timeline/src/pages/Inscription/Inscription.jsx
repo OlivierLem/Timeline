@@ -3,10 +3,12 @@ import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup";
 import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { createUser } from '../../apis/user';
+import { AuthContext } from '../../context/AuthContext';
+import { useContext } from 'react';
 
 export function Inscription () {
 
-    const user = undefined;
+    const { user } = useContext(AuthContext)
     const defaultValues = {
         pseudo_inscription: '',
         password_inscription: '',

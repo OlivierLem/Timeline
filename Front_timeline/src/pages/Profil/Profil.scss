@@ -1,0 +1,40 @@
+
+.formField.profil p{
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    width: 50%;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.formField.profil > p:first-of-type > span > span,
+.formField.profil > p:nth-of-type(2) > span {
+    color: var(--primary);
+    text-transform: capitalize;
+}
+
+
+.formField.profil > span {
+    display: inline-flex;
+    margin: -1rem auto 0;
+    padding: 0;
+    align-self: flex-start;
+    text-align: left;
+    width: 50%;
+}
+
+.formField.profil > span > p{
+    flex-grow: 2;
+}
+
+.formField.profil > :is(span, p) > button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    padding: 0;
+    margin: 0;
+    aspect-ratio: 1 / 1;
+}

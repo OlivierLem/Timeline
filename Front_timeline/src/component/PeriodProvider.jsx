@@ -83,8 +83,8 @@ export default function PeriodProvider({children}) {
                 audio: newPeriod.at(-1)
             }
             setColor(newPeriod[0].color) // on modifie le state color
-            //setAudio(newPeriod.at(-1))
             setPeriod(periodeObj)
+            //setAudio(newPeriod.at(-1))
         } else {
             // on remet par défault le state periode et color
             setPeriod(null)
@@ -106,9 +106,8 @@ export default function PeriodProvider({children}) {
                     }
                     return newEvent
                 })
-                console.log(eventChange);
                 setEvenements(eventChange);
-            setColor('#58A0E2')
+                setColor('#58A0E2')
             })
         }
         

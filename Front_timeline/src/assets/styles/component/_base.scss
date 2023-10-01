@@ -51,7 +51,7 @@ button {
     flex-direction: column;
     width: 42rem;
     height: fit-content;
-    gap: 2rem;
+    gap: 2.5rem;
     margin: auto;
     border: solid 2px var(--white);
     padding: 2rem;
@@ -71,7 +71,7 @@ button {
 }
 
 .formField > div > label {
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
 
 .formField > div input:not([type='file'], [type='color']) {
@@ -84,6 +84,33 @@ button {
     border: solid 3px var(--primary);
     border-radius: 2rem;
     color: var(--secondary);
+}
+
+.formField input[type='file']{
+    white-space: wrap;
+    margin: .5rem auto 1rem;
+    color: white;
+    width: 50%;
+    height: fit-content;
+    font-size: .9rem;
+
+    &::file-selector-button {
+        position: relative;
+        font-size: 1.1rem;
+        width: fit-content;
+        margin:0 20% 2rem;
+        padding: .8rem 2rem;
+        border-radius: 2rem;
+        border: none;
+        background-color: #777879;
+        color: white;
+        transition: background-color ease-in .25s;
+        
+        &:hover {
+        background-color: #5e5e5e;
+        }
+    }
+
 }
 
 .formField .groupButton a, 
@@ -126,4 +153,231 @@ button {
     margin: 0 auto;
     text-align: center;
     width: 70%;
+    font-weight: 700;
+    a {
+        color: var(--primary);
+        transition: color ease-in-out .2s;
+        &:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+    }
 }
+
+.backgroundMailNotValid {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 90%;
+    font-size: 1.2rem;
+    font-weight: 500;
+    z-index: 300;
+}
+
+.modaleMailNotValid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25rem;
+    height: 15rem;
+    gap: 1rem;
+    background-color: var(--primary);
+    border-radius: 1.2rem;
+    border: solid 3px white;
+    box-shadow: 0 0 20px 4px #2c3942;
+}
+
+.modaleMailNotValid.notModale {
+    position: relative; 
+    top: 0;
+    left: 0;
+    transform: none;
+    margin: 10rem auto 0;
+}
+
+.modaleMailNotValid > button:not(.closeModale) {
+    background-color: #626262;
+    border: none;
+    color: var(--white);
+    width: fit-content;
+    margin: 0 auto;
+    padding: .8rem 2rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 5rem;
+    transition: background-color ease-in .25s;
+    &:hover {
+        background-color: #464646;
+    }
+}
+
+.modaleMailNotValid > .closeModale {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    width: 2rem;
+    aspect-ratio: 1 / 1;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--error);
+    color: white;
+    transition: background-color ease-in .25s;
+
+    &:hover {
+        background: #d34636;
+    }
+}
+
+.header .logout {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    width: 3rem;
+    aspect-ratio: 1 / 1;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--text-color);
+    color: white;
+    transition: background-color ease-in .25s;
+
+    &:hover {
+        background: var(--error);
+    }
+}
+
+.menuBurger {
+    display: none;
+}
+
+.header-nav.mobile {
+    display: none;
+}
+
+@media screen and (max-width: 1400px) {
+    .header > nav {
+        width: fit-content;
+        padding-inline: 3rem;
+        gap: 2rem;
+    }
+}
+@media screen and (max-width: 800px) {
+    .header > nav:not(.header > .header-nav.mobile) {
+        display: none;
+    }
+
+    .header-nav.mobile {
+        display: flex;
+    }
+
+    .header-nav.mobile button:not(.logout) {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+        width: 3rem;
+        aspect-ratio: 1 / 1;
+        border: none;
+        border-radius: 50%;
+        background-color: var(--text-color);
+        color: white;
+        transition: background-color ease-in .25s;
+    
+        &:hover {
+            background: var(--primary);
+        }
+    }
+}
+
+@media screen and (max-width: 550px) {
+    header.header {
+        width: fit-content;
+        height: fit-content;
+        margin: -1rem auto 2rem;
+    }
+    .header-nav.mobile {
+        flex-direction: column;
+        height: fit-content;
+    }
+
+    .menuBurger.active {
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        top: -5vh;
+        left: -4vw;
+        width: 100vw;
+        height: 100vh;
+        z-index: 2000;
+        background-color: #464646;
+
+        nav {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5rem;
+        }
+        a {
+            position: relative;
+            font-size: clamp(.8rem, 5vw, 1.5rem);
+            font-weight: bold;
+            color: var(--white);
+            opacity: 0.75;
+            transition: opacity ease-in .25s;
+
+            &:hover,
+            &.active {
+                opacity: 1;
+            }
+            
+            &::before {
+                content: '';
+                display: block;
+                position: absolute;
+                width: 20px;
+                height: 3px;
+                left: 50%;
+                bottom: -.3rem;
+                background-color: var(--primary);
+                border-radius: 1rem;
+                transform: scaleX(0);
+                translate: -50%;
+                transition: transform ease-in .25s;
+            }
+
+            &:hover::before,
+            &.active::before{
+                transform: scaleX(1);
+            }
+        }
+        .closeModale {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            width: 3rem;
+            aspect-ratio: 1 / 1;
+            border: none;
+            border-radius: 50%;
+            background-color: var(--error);
+            color: white;
+            transition: background-color ease-in .25s;
+        
+            &:hover {
+                background: #cc3f2f;
+            }
+        }
+    }
+}
+

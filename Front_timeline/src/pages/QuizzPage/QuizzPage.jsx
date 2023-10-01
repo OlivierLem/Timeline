@@ -15,7 +15,6 @@ export default function QuizzPage () {
         // requête pour afficher le quizz d'une période
         getListQuizz(periodeSlug).then(backQuizz => {
           setQuizz(backQuizz)
-          console.log(backQuizz);
         })
     }, [])
 
@@ -26,16 +25,20 @@ export default function QuizzPage () {
             {
                 quizz && quizz.length > 0 ? (
                     <div className="listCard">
+                        <div className="createQuizzLink">
+                            <NavLink to={`/quizz/creerQuizz`}>Créer un quizz</NavLink>
+                        </div>
+
                         {    
-                            quizz.map(q => (
-                                <QuizzCardList quizz={q} />
+                            quizz.map((q, i) => (
+                                <QuizzCardList key={i} quizz={q} />
                             ))
                         }
                     </div>
                 ) : (
                     <div className="createQuizzLink">
                         <p>Il n'y a pas encore de quizz pour cette période</p>
-                        <NavLink to={`/periodes/${periodeSlug}/creer_quizz`}>Créer un quizz</NavLink>
+                        <NavLink to={`/quizz/creerQuizz`}>Créer un quizz</NavLink>
                     </div>
                 )
             }

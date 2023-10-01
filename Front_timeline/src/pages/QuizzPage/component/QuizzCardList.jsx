@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import './QuizzCardList.scss'
 
-export function QuizzCardList ({quizz}) {
+export function QuizzCardList ({key, quizz}) {
    const {noms, slugName, timer, type, nQuestion} = quizz;
     return (
-        <div className='cardQuizz'>
+        <div key={key} className='cardQuizz'>
             <div>
                 <p><span>Période:</span>  {noms} </p>
                 <p><span>Type: </span> {type} </p>

@@ -19,6 +19,7 @@ import { Inscription } from "../pages/Inscription/Inscription";
 import { ForgotPassword } from "../pages/ForgotPassword/ForgotPassword";
 import { ConfirmationEmail } from "../pages/ConfirmationMail/ConfirmationMail";
 import { userLoader } from "../loaders/userLoader";
+import Profil from "../pages/Profil/Profil";
 
 export const router = createBrowserRouter([
     {
@@ -66,6 +67,10 @@ export const router = createBrowserRouter([
                 element: <Inscription />
             },
             {
+                path:'/profil',
+                element: <Profil />
+            },
+            {
                 path:'/mots_de_passe_oublie',
                 element: <ForgotPassword />
             },
@@ -94,7 +99,7 @@ export const router = createBrowserRouter([
                 element: <Quizz />
             },
             {
-                path:'/periodes/:periode/creer_quizz',
+                path:'/quizz/creerQuizz',
                 element:<CreerQuizz />
             },
             {

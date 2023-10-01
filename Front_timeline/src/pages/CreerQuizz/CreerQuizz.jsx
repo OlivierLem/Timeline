@@ -82,7 +82,7 @@ export default function CreerQuizz () {
             }
             console.log(newValues);
             createQuizz(newValues)
-            navigate('/')
+            //navigate('/')
  
          } catch (message) {
             console.error(message)
@@ -110,12 +110,20 @@ export default function CreerQuizz () {
         if (stepFormQuizz > 0) {
             setStepFormQuizz(stepFormQuizz - 1)
             setQestionForm([])
+            // on vide les champs 
+            questionRef.current.children[1].value = ''
+            let reponsesCurrent =  reponseRef.current.children; // ref div des champs réponses
+
+             for (const reponse of reponsesCurrent) {
+                     reponse.children[1].value = '';
+                     reponse.children[0].checked = false;
+             }
         }
     }
 
     
     const handleAddQuestion = async () => {
-        let questionCurrent = questionRef.current.children[0].value; // ref input question
+        let questionCurrent = questionRef.current.children[1].value; // ref input question
         let reponsesCurrent =  reponseRef.current.children; // ref div des champs réponses
 
         // si count question est supérieur à 0 on continue d'ajouter des question
@@ -151,7 +159,7 @@ export default function CreerQuizz () {
             // on vérifie que le champs question ne soit pas vide et on l'ajoute aux state questionForm avec ces réponses
             
             if (questionCurrent !== '') {
-                console.log(countQuestion);
+                console.log(questionCurrent);
                 if (questionForm.length > 0) {
                     setQestionForm(() => [ ...questionForm, {
                         question: questionCurrent,
@@ -166,7 +174,7 @@ export default function CreerQuizz () {
                 setCountQuestion(countQuestion - 1) // on décrémente le nombre de question restante
                 
                 // on vide les champs 
-                questionRef.current.children.value = ''
+                questionRef.current.children[1].value = ''
                 for (const reponse of reponsesCurrent) {
                         reponse.children[1].value = '';
                         reponse.children[0].checked = false;
@@ -216,7 +224,7 @@ export default function CreerQuizz () {
                     <span></span>
                     <span data-step='question' className={stepFormQuizz === 2 ? 'active' : undefined}>2</span>
                 </div>
-                    <div className={`paramsStep ${stepFormQuizz === 1 && 'active'}`}>
+                    <div className={`paramsStep ${stepFormQuizz === 1 ? 'active': ''}`}>
                         <div ref={selectRef}>
                             <label htmlFor="nQuestion">Nombre de question</label>
                             <select {...register('nQuestion')}  name="nQuestion" >
@@ -232,14 +240,21 @@ export default function CreerQuizz () {
                             </select>
                         </div>
                         <div>
-                            <label htmlFor="times">Durée question</label>
+                            <label htmlFor="typeQuestion">Type de quizz</label>
+                            <select {...register('typeQuestion')}  name="typeQuestion" >
+                                <option value="QCM">qcm</option>
+                                {/* <option value="plus ou moins">plus ou moins</option> */}
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="times">Durée des questions</label>
                             <input {...register('times')} type="text" placeholder="times" name="times" />
                             <InfoBulle>Veuillez mettre une durée entre 10 à 100s</InfoBulle>
                         </div>
                         {errors?.times &&  <p className={'errorMessage'}>{errors.times.message}</p>}
                         <button type="button" onClick={handleNextStep}>Suivant</button>
                     </div>
-                    <div ref={questionRef} className={`questionStep ${stepFormQuizz === 2 && 'active'}`}>
+                    <div ref={questionRef} className={`questionStep ${stepFormQuizz === 2 ? 'active': ''}`}>
                         <div className="stepQuestion">
                             { infoQuestion()}
                         </div>

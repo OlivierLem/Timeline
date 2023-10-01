@@ -68,7 +68,7 @@ export default function TimelinePage () {
                             <h2>Timeline compléte</h2>
                         )
                     }
-                    <button onClick={handleClick}><i class="fa-solid fa-chevron-down"></i></button>
+                    <button onClick={handleClick}><i className="fa-solid fa-chevron-down"></i></button>
                     <div className={`selectPeriod ${showChangeTimeline && 'active' }`}>
                         {
                             periods && period ? (

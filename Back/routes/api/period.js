@@ -31,7 +31,6 @@ router.post('/', async (req, res) => {
     
     const valuesInsert = [name, slugName, startPeriod, endPeriod, color, audio.name]
     
-    console.log('période ajouté');
     connection.query(sql, valuesInsert, (err, result) => {
         if (err) throw err;
         res.json('periode ajouter');
@@ -41,7 +40,6 @@ router.post('/', async (req, res) => {
 router.get('/current', async (req, res) => {
     const { slugName } = req.query;
 
-    //console.log(slugName);
     // on récupére la période courrante avec ces événement associé et la miniature de l'event associé
     const sql = `SELECT * FROM periodes    
         INNER JOIN
@@ -67,18 +65,19 @@ router.get('/current', async (req, res) => {
 router.get('/', async (req, res) => {
 
     const { eventYear } = req.query
-    //console.log(eventYear);
 
     try {
         if (eventYear) {
             // si notre requête get posséde un queryParams eventYear
             // on récupére les périodes qui sont comprise dans l'année de l'event grâce à debut et fin de période puis on les trié par début de période
 
-            const sql = `SELECT * FROM periodes 
+            const sql = `
+                SELECT * FROM periodes 
                 WHERE debutPeriode <= '${eventYear}' 
                     AND finPeriode >= '${eventYear}' 
-                ORDER BY periodes.debutPeriode`;
-            console.log('epoques avec dateEvent envoyé')
+                ORDER BY periodes.debutPeriode
+            `;
+
             const valuePeriode = [eventYear, eventYear];
             connection.query(sql, valuePeriode, (err, result) => {
                 if (err) throw err;
@@ -89,7 +88,7 @@ router.get('/', async (req, res) => {
         else {
             // on select les periode trié par début de période
             const sql = `SELECT * FROM periodes ORDER BY periodes.debutPeriode`;
-            console.log('epoques envoyé')
+
             connection.query(sql, (err, result) => {
                 if (err) {
                     throw err
@@ -146,7 +145,6 @@ router.get('/withEvent', async (req, res) => {
         JOIN periode_evenement 
         WHERE periodes.idPeriode = periode_evenement.idPeriode
         ORDER BY periodes.debutPeriode`;
-    console.log('epoques envoyé')
 
     connection.query(sql, (err, result) => {
         res.send(result)
