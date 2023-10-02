@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
+
 import AdminPage from "../pages/adminPage/AdminPage";
 import TimelinePage from "../pages/timelinePage/TimelinePage";
 import ArticlePage from "../pages/ArticlePage/ArticlePage";
@@ -21,6 +22,8 @@ import { ConfirmationEmail } from "../pages/ConfirmationMail/ConfirmationMail";
 import { userLoader } from "../loaders/userLoader";
 import Profil from "../pages/Profil/Profil";
 import { MentionsPage } from "../pages/Mentions/MentionsPage";
+
+// const AdminPage = lazy(() => import("../pages/adminPage/AdminPage")) // pour le lazy loading affiché la page que lors de son rendu
 
 export const router = createBrowserRouter([
     {

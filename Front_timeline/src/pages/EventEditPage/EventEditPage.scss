@@ -111,6 +111,11 @@ div:is(.eventEditPage, .modaleDelete) .supprimerEvenement {
         text-align: center;
         border-color: white;
     }
+
+    & > .closeModale {
+        top: 1.5rem;
+        right: 1.5rem;
+    }
 }
 
 .modaleDelete > div {

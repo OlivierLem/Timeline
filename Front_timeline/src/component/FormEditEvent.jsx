@@ -1,12 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from 'yup';
+import { editInfosEvent } from "../apis/evenement";
+import moment from "moment";
 
-export function FormEditEvent () {
+export function FormEditEvent ({id, name, date}) {
     const defaultValues = {
-        name: '',
+        name: name,
         date: '',
-        image: '',
     }
 
     // vérification du formulaire avec la librairie yup
@@ -34,14 +35,18 @@ export function FormEditEvent () {
 
     const submit = handleSubmit (async (values) => {
         try {
-            
+            clearErrors()
+            values.id = id
+            let {date} = values;
+            date = moment(date, 'DD-MM-YYYY')
+            await editInfosEvent(values)
         } catch (error) {
             
         }
     })
 
     return (
-        <form action=""  onSubmit={submit} className="formField">
+        <form action="" onSubmit={submit} className="formField">
             <h2>Editer événement</h2>
             <div>
                 <label  htmlFor="name">Nom de l'événement</label>

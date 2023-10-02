@@ -26,7 +26,6 @@ export function EventEditPage () {
                     const img = evenements.map(ev =>{  
                         ev.url
                     })
-                    // console.log(img);
 
                     // objet avec l'evenement et un tableau de ces images
                     const evenementWithImages = {
@@ -37,7 +36,6 @@ export function EventEditPage () {
                         url: img
                     };
 
-                    //console.log(evenements[0]);
                     setOneEvent(evenementWithImages)
 
                     // requête pour afficher les periode dans un state qui sont comprise dans l'année de l'event
@@ -109,7 +107,7 @@ export function EventEditPage () {
                 )            
                 }
                 <div className="groupButton">
-                    <button onClick={() => setShowEditModale(true)} className="editEvent"><i class="fa-solid fa-pen"></i>modifier les infos</button>
+                    <button onClick={() => setShowEditModale(true)} className="editEvent"><i className="fa-solid fa-pen"></i>modifier les infos</button>
                     <button onClick={handleShowDeleteModale} className="supprimerEvenement">Supprimer l'évenement</button>
                 </div>
             </div>
@@ -118,7 +116,7 @@ export function EventEditPage () {
                         <div className="modaleDelete">
                             <p>Voulez vous vraiment supprimer cette événement</p>
                             <div>
-                                <button onClick={handleShowDeleteModale} className="annuler"><i class="fa-solid fa-arrow-left"></i>Annuler</button>
+                                <button onClick={handleShowDeleteModale} className="annuler"><i className="fa-solid fa-arrow-left"></i>Annuler</button>
                                 <button onClick={handleDelete} className="supprimerEvenement"><i className="fa-solid fa-trash"></i> Supprimer</button>
                             </div>
                         </div>
@@ -127,8 +125,8 @@ export function EventEditPage () {
                 {
                     showEditModale === true && (
                         <div className="modaleEdit">
-                            
-                            <FormEditEvent />
+                            <button onClick={() => setShowEditModale(false)} className="closeModale"><i className="fa-solid fa-x"></i></button>
+                            <FormEditEvent id={oneEvent.id} date={oneEvent.date} name={oneEvent.name}/>
                         </div>
                     )
                 }

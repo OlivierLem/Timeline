@@ -31,3 +31,14 @@ export async function changePassword(value) {
     })
     return response.json()
 }
+
+export async function resetPassword(value) {
+    const response = await fetch(`${API_USER}/resetPassword`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(value)
+    })
+    return response.json()
+}

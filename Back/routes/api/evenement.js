@@ -1,17 +1,18 @@
 const connection = require("../../database/db");
 const router = require("express").Router()
 
+// fonction qui tranforme le noms de l'event en slugName 
+// sans accent et les espaces sont remplacé par _
+function transformLink (value) {
+    let link= value.normalize('NFD')
+    .toLowerCase()
+    .replace(/[\u0300-\u036f]/g, "")
+    .replaceAll(' ', '_')
+    return link
+}
+
 router.post('/', async (req, res) => {
     const { name, date, image } = req.body;
-    // fonction qui tranforme le noms de l'event en slugName 
-    // sans accent et les espaces sont remplacé par _
-    function transformLink (value) {
-        let link= value.normalize('NFD')
-        .toLowerCase()
-        .replace(/[\u0300-\u036f]/g, "")
-        .replaceAll(' ', '_')
-        return link
-    }
 
     const slugName = transformLink(name);
     // requête sql pour inséré dans la table evenements le name, le slugName, et la date
@@ -24,7 +25,7 @@ router.post('/', async (req, res) => {
 
         // on select l'evenement créer et on récupére son id
 
-        const sqlSelect = `SELECT idEvenement FROM evenements WHERE name = "?"`
+        const sqlSelect = `SELECT idEvenement FROM evenements WHERE name = ?`
         
         const valueEvent = name
         let idEvenement = result.insertId
@@ -224,6 +225,19 @@ router.get('/getArticleEvenement', (req, res) => {
             if (err) throw err;
             res.send(result)
         })
+    })
+})
+
+router.patch('/editEvent', (req, res) => {
+    const { id, name, date} = req.body;
+    const slugName = transformLink(name);
+    const sqlUpdateEvent = `UPDATE evenements SET evenements.name = ?, evenements.slugName = ?, evenements.date= ? WHERE evenements.idEvenement = ?`
+    const valueUpdateEvent = [name, slugName, date, id]
+
+    connection.query(sqlUpdateEvent, valueUpdateEvent, (err, result) => {
+        if (err) throw err;
+
+        res.status(200).send('modification réussi')
     })
 })
 

@@ -87,3 +87,14 @@ export async function getArticleEvenement(slugName) {
     const response =  await fetch(`${API_EVENT}/getArticleEvenement?slugName=${slugName}`)
     return response.json();
 }
+
+export async function editInfosEvent(infos) {
+    const response = await fetch (`${API_EVENT}/editEvent`, {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(infos)
+    })
+    return response.json()
+}
