@@ -83,7 +83,7 @@ export function Connexion () {
                                 <label htmlFor="email">Email</label>
                                 <input {...register('email')} type="text" name="email" />
                             </div>
-                            {errors?.pseudo && <p className='errorMessage'>{errors.email.message}</p> }
+                            {errors?.email && <p className='errorMessage'>{errors.email.message}</p> }
                             <div>
                                 <label htmlFor="password">Mots de passe</label>
                                 <input {...register('password')} type="password" name="password"  />

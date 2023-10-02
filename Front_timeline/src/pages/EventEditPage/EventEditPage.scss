@@ -6,12 +6,23 @@
     gap: 2rem;
     max-width: 1200px;
     margin: auto;
+    margin-bottom: 2rem;
     padding: 2rem;
     border-radius: 1rem;
 
     span {
         color: var(--primary);
         font-weight: 600;
+    }
+
+    .groupButton button.supprimerEvenement,
+    .groupButton button {
+        font-size: 1rem;
+        padding-inline: 1rem;
+
+        i {
+            margin-right: .5rem;
+        }
     }
 }
 
@@ -80,12 +91,26 @@ div:is(.eventEditPage, .modaleDelete) .supprimerEvenement {
     padding: 2rem;
     background-color: #262626;
     border-radius: 1rem;
-
+    border: solid 2px white;
 }
 
 .modaleDelete > p {
     width: 70%;
     text-align: center;
+}
+
+.modaleEdit {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #262626;
+    border-radius: 2rem;
+
+    .formField {
+        text-align: center;
+        border-color: white;
+    }
 }
 
 .modaleDelete > div {

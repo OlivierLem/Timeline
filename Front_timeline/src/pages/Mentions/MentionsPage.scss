@@ -1,0 +1,33 @@
+.mentionPage {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 100%;
+    & > p:first-of-type {
+        width: fit-content;
+        margin: 0 auto 1rem;
+    }
+
+    & > div > p {
+        width: 100%;
+    }
+
+    & > div:not(.mentionPage > div:first-of-type) {
+        margin: 0;
+        margin-top: -2rem;
+        margin-bottom: -2rem;
+    }
+    h5 {
+        font-size: 1.3rem;
+        color: var(--primary);
+    }
+
+    a {
+        color: var(--primary);
+
+        &:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+    }
+}

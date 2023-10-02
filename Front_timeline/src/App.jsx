@@ -1,7 +1,7 @@
 
 import { Suspense, useRef, useState } from 'react';
 import './App.scss'
-import { Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import PeriodProvider from './component/PeriodProvider.jsx';
 import AudioPlayer from './component/AudioPlayer.jsx';
 import {Header} from './component/Header';
@@ -15,9 +15,15 @@ function App() {
     <AuthProvider>
       <PeriodProvider>
         <Header/>
-        <Suspense>
-          <Outlet />
-        </Suspense>     
+        <main>
+          <Suspense>
+            <Outlet />
+          </Suspense>     
+        </main>
+        <footer className='linkMentions'>
+          <p>© copyright. <NavLink to='/mentions_legales'>Mentions légales & CGU</NavLink></p>
+
+        </footer>
       </PeriodProvider> 
     </AuthProvider>
     </div>

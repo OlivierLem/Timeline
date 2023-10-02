@@ -10,8 +10,8 @@ export function Inscription () {
 
     const { user } = useContext(AuthContext)
     const defaultValues = {
-        pseudo_inscription: '',
-        password_inscription: '',
+        pseudo: '',
+        password: '',
         email: '',
     }
 

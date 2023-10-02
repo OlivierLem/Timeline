@@ -8,6 +8,12 @@ section {
     margin: auto;
     padding: none;
 }
+
+section.timeline {
+    transform: scale(.9);
+    margin-top: -3rem;
+    overflow: hidden;
+}
 section h1{
     width: 100%;
     font-size: 2rem;
@@ -24,7 +30,6 @@ section > .periodTitle {
     margin-left: 1rem;
     font-size: clamp(.8rem, 4.5vw, 1.6rem);
     width: 100%;
-
     & > div {
         display: flex;
         position: relative;

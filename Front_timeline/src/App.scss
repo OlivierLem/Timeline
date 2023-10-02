@@ -159,6 +159,23 @@
     }
 }
 
+.app > .linkMentions {
+    position: absolute;
+    right: 2rem;
+    bottom: -1rem;
+    padding-bottom: 1rem;
+
+    a {
+        color: var(--primary);
+        transition: color ease-in .25s;
+        
+        &:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+    }
+}
+
 @media screen and (max-width: 800px) {
     .sound {
         display: none;

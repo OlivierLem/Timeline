@@ -6,10 +6,10 @@ import moment from "moment";
 import 'moment/locale/fr';
 import { useForm } from "react-hook-form";
 import './EventEditPage.scss'
+import { FormEditEvent } from "../../component/FormEditEvent";
 
 export function EventEditPage () {
     const { evenement } = useParams();
-    console.log(evenement);
     let evenementTitle = evenement.replaceAll('_', ' ')
     evenementTitle = evenementTitle.charAt(0).toUpperCase() + evenementTitle.slice(1)
     const navigate = useNavigate()
@@ -17,6 +17,7 @@ export function EventEditPage () {
     const [periodes, setPeriodes] = useState([]);
     const [previewImage, setPreviewImage] = useState(null);
     const [showDeleteModale, setShowDeleteModale] = useState(false)
+    const [showEditModale, setShowEditModale] = useState(false)
     useEffect (() => {
         getOneEvenement(evenement)
             .then(evenements => {
@@ -41,7 +42,6 @@ export function EventEditPage () {
 
                     // requête pour afficher les periode dans un state qui sont comprise dans l'année de l'event
                     getPeriodsFilter(moment(evenements[0].date).year()).then(ev => setPeriodes(ev))   
-
                 }
             })
            
@@ -108,7 +108,10 @@ export function EventEditPage () {
                     <p>pas de timeline ajoutable</p>
                 )            
                 }
-                <button onClick={handleShowDeleteModale} className="supprimerEvenement">Supprimer l'évenement</button>
+                <div className="groupButton">
+                    <button onClick={() => setShowEditModale(true)} className="editEvent"><i class="fa-solid fa-pen"></i>modifier les infos</button>
+                    <button onClick={handleShowDeleteModale} className="supprimerEvenement">Supprimer l'évenement</button>
+                </div>
             </div>
                 {
                     showDeleteModale === true && (
@@ -118,6 +121,14 @@ export function EventEditPage () {
                                 <button onClick={handleShowDeleteModale} className="annuler"><i class="fa-solid fa-arrow-left"></i>Annuler</button>
                                 <button onClick={handleDelete} className="supprimerEvenement"><i className="fa-solid fa-trash"></i> Supprimer</button>
                             </div>
+                        </div>
+                    )
+                }
+                {
+                    showEditModale === true && (
+                        <div className="modaleEdit">
+                            
+                            <FormEditEvent />
                         </div>
                     )
                 }

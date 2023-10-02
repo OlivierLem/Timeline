@@ -38,3 +38,50 @@
     margin: 0;
     aspect-ratio: 1 / 1;
 }
+
+.modaleChangeInfoUser {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--primary);
+    width: 25rem;
+    height: fit-content;
+    padding: 2rem;
+    border-radius: 1rem;
+
+    &.active {
+        display: flex;
+    }
+    h2 {
+        margin-bottom: 1.5rem;
+    }
+}
+
+.modaleChangeInfoUser > form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.closeModale {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    width: 2rem;
+    aspect-ratio: 1 / 1;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--error);
+    color: white;
+    transition: background-color ease-in .25s;
+
+    &:hover {
+        background: #d34636;
+    }
+}

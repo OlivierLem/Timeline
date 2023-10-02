@@ -51,9 +51,9 @@ router.get('/current', async (req, res) => {
                 algorithms: "RS256",
             });
 
-            const sql = `SELECT * FROM user WHERE idUser = '${decodedToken.sub}'`;
+            const sql = `SELECT * FROM user WHERE idUser = ?`;
 
-            connexion.query(sql, (err, result) => {
+            connexion.query(sql, decodedToken.sub, (err, result) => {
                 if (err) throw err;
                 if (result) {
                     res.json(...result)

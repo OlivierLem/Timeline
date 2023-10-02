@@ -57,7 +57,7 @@ export default function TimelinePage () {
 
     // affiche la timeline 
     return (
-        <section>
+        <section className='timeline'>
             {/* <h1>Époque moderne</h1> */}
             <div className="periodTitle">
                 <div>

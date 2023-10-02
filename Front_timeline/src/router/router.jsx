@@ -20,6 +20,7 @@ import { ForgotPassword } from "../pages/ForgotPassword/ForgotPassword";
 import { ConfirmationEmail } from "../pages/ConfirmationMail/ConfirmationMail";
 import { userLoader } from "../loaders/userLoader";
 import Profil from "../pages/Profil/Profil";
+import { MentionsPage } from "../pages/Mentions/MentionsPage";
 
 export const router = createBrowserRouter([
     {
@@ -105,6 +106,10 @@ export const router = createBrowserRouter([
             {
                 path: '/ajout_periode',
                 element: <AddPeriod />
+            }, 
+            {
+                path: '/mentions_legales',
+                element: <MentionsPage />
             }
         ]
     }
