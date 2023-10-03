@@ -8,7 +8,7 @@ const rateLimit = require('express-rate-limit');
 const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 10, // Limite de tentative
-    message: "trop de tentatives de connexion, réessayez plus tard."
+    message: JSON.stringify("trop de tentatives de connexion, réessayez plus tard.")
 })
 
 router.post('/', apiLimiter, async (req, res) => {
@@ -22,7 +22,6 @@ router.post('/', apiLimiter, async (req, res) => {
 
                 if (bcrypt.compareSync(password, result[0].password)) {
                     // si l'utilisateur veut rester connecter création d'un cookie
-                    console.log('bcrypt')
                     if (stayConnected && result[0].email_confirmed === 1) {
                         const token = jsonwebtoken.sign({}, key, {
                             subject: result[0].idUser.toString(),
@@ -55,7 +54,7 @@ router.get('/current', async (req, res) => {
     const { token } = req.cookies;
     if (token) {
         try {
-            //! normalement utilisation la clé public (keyPub)
+            //! normalement utilisation de la clé public (keyPub)
             const decodedToken = jsonwebtoken.verify(token, key, {
                 algorithms: "RS256",
             });

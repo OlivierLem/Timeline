@@ -24,12 +24,9 @@ function sendEmail(email, link, callback) {
     };
   
     transporter.sendMail(mailOptions, callback);
-  }
+}
 
-// middleware pour envoyer un email pour changer le mots de passe
-router.get('/', (req, res) => {
-    
-})
+
 
 const sendEmailChangePassword = (email, token) => {
     const confirmationLink = `http://localhost:3000/reinitialiser_mots_de_passe?token=${token}`;
@@ -64,7 +61,7 @@ const rateLimit = require('express-rate-limit');
 const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 5, // Limite de tentative
-    message: "trop de tentatives de connexion, réessayez plus tard."
+    message: JSON.stringify("trop de tentatives de connexion, réessayez plus tard.")
 })
 
 router.post("/", apiLimiter, (req, res) => {
