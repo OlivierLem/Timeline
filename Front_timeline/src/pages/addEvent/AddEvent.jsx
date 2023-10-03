@@ -89,8 +89,6 @@ export default function AddEvent () {
         fileReader.onload = async () => {
             const buffer = fileReader.result;
             const blob = new Blob([buffer], { type: selectedFile.type})
-            console.log(blob);
-            console.log(buffer);
             try {
                 values.image = blob
                 let {date} = values

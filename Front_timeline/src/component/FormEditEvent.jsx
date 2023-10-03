@@ -3,13 +3,15 @@ import { useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { editInfosEvent } from "../apis/evenement";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 export function FormEditEvent ({id, name, date}) {
     const defaultValues = {
         name: name,
-        date: '',
+        date: new Date().toISOString()
     }
 
+    const navigate = useNavigate()
     // vérification du formulaire avec la librairie yup
     const shema = yup.object({
         name: yup.string()
@@ -37,9 +39,10 @@ export function FormEditEvent ({id, name, date}) {
         try {
             clearErrors()
             values.id = id
-            let {date} = values;
-            date = moment(date, 'DD-MM-YYYY')
+            let {date: newDate} = values;
+            newDate = moment(newDate, 'DD-MM-YYYY')
             await editInfosEvent(values)
+            navigate('/admin/evenements')
         } catch (error) {
             
         }

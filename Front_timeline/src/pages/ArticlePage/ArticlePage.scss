@@ -89,3 +89,27 @@ div.contentArticle a {
         transform: scaleX(1);
     }
 }
+
+.article .notArticle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    font-size: 1.5rem;
+
+    a {
+        position: relative;
+        font-size: 1.2rem;
+        font-weight: 600;
+        padding: 1rem 2rem;
+        border-radius: 2rem;
+        color: white;
+        background-color: var(--primary);
+        transition: background-color ease-in .25s;
+        &:hover {
+            background-color:  var(--secondary);
+        }
+
+    }
+}

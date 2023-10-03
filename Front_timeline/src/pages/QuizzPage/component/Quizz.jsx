@@ -25,10 +25,11 @@ export default function Quizz () {
     useEffect(() => {
         getQuizz(periodeSlug).then(q => {
             setQuizz(q)
-            setTimer(q[0].timer)
-            setTime(timer)
+            setTimer(() => q[0].timer)
         })
     }, [])
+
+    useEffect(() => setTime(timer), [timer])
     /* function start() {
         setTime(timer);
         setTimerIsActive(true);
@@ -136,7 +137,7 @@ export default function Quizz () {
     // la question et ces réponses
     return (
         <div className={'quizz'}>
-            { quizz ? 
+            { quizz && timer !== undefined ? 
                 showScore === false ? (
                     <>
                         <div>

@@ -24,7 +24,7 @@ export default function Periode ({periode: {noms, slugName, debutPeriode, finPer
                     <p>Pas encore de quizz ajouté</p>
                 )
             }
-            <NavLink to={`/admin/periodes/${slugName}`} className='edit'><img src="../../../assets/icons/edit.png" alt="" /> </NavLink>
+            {/* <NavLink to={`/admin/periodes/${slugName}`} className='edit'><img src="../../../assets/icons/edit.png" alt="" /> </NavLink> */}
         </div>
     )
 }

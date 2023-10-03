@@ -2,8 +2,8 @@
     position: relative;
     width: 90vw;
     max-width: 1300px;
-    margin: auto;
-    margin-top: 3rem;
+    min-height: 94vh;
+    margin: 3rem auto 0;
     font-family: "Nunito", sans-serif;
 }
 
@@ -161,9 +161,10 @@
 
 .app > .linkMentions {
     position: absolute;
-    right: 0rem;
-    bottom: -.5rem;
-    padding-bottom: 1rem;
+    right: 0;
+    bottom: 2rem;
+    padding: 0;
+    margin: 0;
 
     a {
         color: var(--primary);

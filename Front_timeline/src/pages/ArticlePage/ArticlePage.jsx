@@ -25,20 +25,23 @@ export default function ArticlePage () {
     return (
         <section className='article'>
             <h1 className='title'> {articleTitle} </h1>
-            <article className={`contentArticle ${components.length === 0 && 'notNews'} `}>
-                {components.length > 0 ?
-                    components.sort((n1, n2) => {
-                        return n1.orderValue - n2.orderValue;
-                    }).map(c => (
-                            <p key={c.orderValue}>{c.content}</p>
-                    )) : (
-                        <div>
+                {components.length > 0 ? (
+                    <article className={`contentArticle ${components.length === 0 && 'notNews'} `}>
+                    {
+                        components.sort((n1, n2) => {
+                            return n1.orderValue - n2.orderValue;
+                        }).map(c => (
+                                <p key={c.orderValue}>{c.content}</p>
+                        ))
+                    }
+                    </article>
+                    ) : (
+                        <div className='notArticle'>
                             <p className='notNews'>L'article n'existe pas encore</p>
                             <NavLink to={`/admin/evenements/article/${article}`}>Créer l'article</NavLink>
                         </div>
                     )
                 }
-            </article>
             
         </section>
     )
