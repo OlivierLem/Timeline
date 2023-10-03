@@ -56,7 +56,7 @@ export function ForgotPassword() {
                         <div>
                             <input {...register('email')} type="text" placeholder="Email" aria-placeholder="Email"/>
                         </div>
-                        {errors?.email && <p className='errorMessage'>{errors.email.message}</p>}
+                        {errors?.email && <p className='errorMessage'><i className="fa-solid fa-x"></i>{errors.email.message}</p>}
 
                         <button type="submit">Envoyer un mail</button>
                     </form>

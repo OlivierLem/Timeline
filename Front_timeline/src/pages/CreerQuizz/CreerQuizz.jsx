@@ -207,7 +207,7 @@ export default function CreerQuizz () {
                     <input {...register(`responses[${i}].isValid`)} type="checkbox" />
                     <input {...register(`responses[${i}].name`)} type="text" placeholder={`réponse ${i + 1}`} />
                 </div>
-                {errors?.responses?.name &&  <p className={'errorMessage'}>{errors.responses.name.message}</p>}
+                {errors?.responses?.name &&  <p className={'form-error'}><i className="fa-solid fa-x"></i>{errors.responses.name.message}</p>}
             </Fragment>
             )
         }
@@ -251,7 +251,7 @@ export default function CreerQuizz () {
                             <input {...register('times')} type="text" placeholder="times" name="times" />
                             <InfoBulle>Veuillez mettre une durée entre 10 à 100s</InfoBulle>
                         </div>
-                        {errors?.times &&  <p className={'errorMessage'}>{errors.times.message}</p>}
+                        {errors?.times &&  <p className={'form-error'}><i className="fa-solid fa-x"></i>{errors.times.message}</p>}
                         <button type="button" onClick={handleNextStep}>Suivant</button>
                     </div>
                     <div ref={questionRef} className={`questionStep ${stepFormQuizz === 2 ? 'active': ''}`}>
@@ -260,7 +260,7 @@ export default function CreerQuizz () {
                         </div>
                         
                         <input {...register('question')}  type="text" name="question" placeholder="question" />
-                        {errors?.question &&  <p className={'errorMessage'}>{errors.question.message}</p>}
+                        {errors?.question &&  <p className={'form-error'}><i className="fa-solid fa-x"></i>{errors.question.message}</p>}
                         
                         <div ref={reponseRef} className="reponsesQuizz">
                             {renderQuestion(4)}

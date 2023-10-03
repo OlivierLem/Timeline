@@ -67,20 +67,20 @@ export function FormChangePassword () {
                 <label htmlFor="oldPassword">Ancien mots de passe</label>
                 <input type="password"  {...register('oldPassword')} name="oldPassword"/>
             </div>
-            {errors?.oldPassword &&  <p className='errorMessage'>{errors.oldPassword.message}</p>} 
+            {errors?.oldPassword &&  <p className='form-error'><i className="fa-solid fa-x"></i>{errors.oldPassword.message}</p>} 
 
             <div>
                 <label htmlFor="newPassword">nouveau mots de passe</label>
                 <input type="password"  {...register('newPassword')} name="newPassword"/>
             </div>
-            {errors?.newPassword &&  <p className='errorMessage'>{errors.newPassword.message}</p>} 
+            {errors?.newPassword &&  <p className='form-error'><i className="fa-solid fa-x"></i>{errors.newPassword.message}</p>} 
 
             <div>
                 <label htmlFor="confirmPassword">confirmer mots de passe</label>
                 <input type="password" {...register('confirmPassword')} name="confirmPassword"/>
             </div>
-            {errors?.confirmPassword &&  <p className='errorMessage'>{errors.confirmPassword.message}</p>} 
-            {errors.generic && ( <p className='errorMessage'>{errors.generic.message}</p> )}
+            {errors?.confirmPassword &&  <p className='form-error'><i className="fa-solid fa-x"></i>{errors.confirmPassword.message}</p>} 
+            {errors.generic && ( <p className='form-error'><i className="fa-solid fa-x"></i>{errors.generic.message}</p> )}
 
             <button type="submit">modifier mots de passe</button>
         </form>

@@ -12,6 +12,14 @@ const currentDate = new Date();
 const futureDate = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000 );
 const formattedDate = futureDate.toISOString().slice(0,19).replace("T", " ");
 
+const rateLimit = require('express-rate-limit');
+
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 10, // Limite de tentative
+    message: "trop de tentatives de connexion, réessayez plus tard."
+})
+
 //! ajouter variable d'environnement pour son email et le mots de passe
 
 const transporter = nodemailer.createTransport({
@@ -23,7 +31,7 @@ const transporter = nodemailer.createTransport({
 })
 
 // Middleware pour insérer un utilisateur
-router.post('/', async (req, res) => {
+router.post('/', apiLimiter, async (req, res) => {
     const {pseudo, email, password} = req.body;
 
     const passwordCrypt = await bcrypt.hash(password, 8);

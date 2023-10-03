@@ -81,22 +81,22 @@ export function Inscription () {
                                 <label htmlFor="pseudo">Pseudo</label>
                                 <input {...register('pseudo')} type="text" name="pseudo" />
                             </div>
-                            {errors?.pseudo &&  <p className='errorMessage'>{errors.pseudo.message}</p>}
+                            {errors?.pseudo &&  <p className='form-error'><i className="fa-solid fa-x"></i>{errors.pseudo.message}</p>}
                             <div>
                                 <label htmlFor="email">Email</label>
                                 <input {...register('email')} type="text" name="email"  />
                             </div>
-                            {errors?.email && <p className='errorMessage'>{errors.email.message}</p>}
+                            {errors?.email && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.email.message}</p>}
                             <div>
                                 <label htmlFor="password">Mots de passe</label>
                                 <input {...register('password')} type="password" name="password" />
                             </div>
-                            {errors?.password &&  <p className='errorMessage'>{errors.password.message}</p>} 
+                            {errors?.password &&  <p className='form-error'><i className="fa-solid fa-x"></i>{errors.password.message}</p>} 
                             <div>
                                 <label htmlFor="confirm_password">confirmation mots de passe</label>
                                 <input {...register('confirm_password')} type="password" name="confirm_password" />
                             </div>
-                            {errors?.confirm_password &&  <p className='errorMessage'>{errors.confirm_password.message}</p>}
+                            {errors?.confirm_password &&  <p className='form-error'><i className="fa-solid fa-x"></i>{errors.confirm_password.message}</p>}
                             {errors.generic && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.generic.message}</p>}
 
                             <p>En créant un compte, vous acceptez nos <NavLink to='/mentions_legales' target='_blank'>conditions générales</NavLink></p>

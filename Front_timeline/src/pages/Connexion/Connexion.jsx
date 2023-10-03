@@ -86,12 +86,12 @@ export function Connexion () {
                                 <label htmlFor="email">Email</label>
                                 <input {...register('email')} type="text" name="email" />
                             </div>
-                            {errors?.email && <p className='errorMessage'>{errors.email.message}</p> }
+                            {errors?.email && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.email.message}</p> }
                             <div>
                                 <label htmlFor="password">Mots de passe</label>
                                 <input {...register('password')} type="password" name="password"  />
                             </div>
-                            {errors?.password && <p className='errorMessage'>{errors.password.message}</p> }
+                            {errors?.password && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.password.message}</p> }
                             {errors.generic && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.generic.message}</p>}
 
                             <NavLink to='/mots_de_passe_oublie' >Mots de passe oublié ?</NavLink>
