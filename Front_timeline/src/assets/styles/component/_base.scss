@@ -58,7 +58,7 @@ button {
 }
 
 
-.formField > div {
+.formField > div:not(.formField > :is(.mentionCheck, .groupButton)) {
     display: flex;
     position: relative;
     justify-content: center;
@@ -76,7 +76,7 @@ button {
     font-size: 1.2rem;
 }
 
-.formField > div input:not([type='file'], [type='color']) {
+.formField > div input:not([type='file'], [type='color'], [type='checkbox']) {
     font-size: 1.2rem;
     font-weight: bold;
     font-family: 'Nunito', sans-serif;
@@ -151,10 +151,27 @@ button {
     margin: 0;
 }
 
-.formField > p {
-    margin: 0 auto;
-    text-align: center;
+.formField > .mentionCheck {
+    display: flex;
+    flex-direction: row;
+    align-self: self-start;
+    align-items: center;
+    justify-content: start;
     width: 70%;
+    margin: 0 auto;
+    gap: 2rem;
+    font-size: 1.2rem;
+
+    & > input {
+        width: 1.2rem;
+        aspect-ratio: 1 / 1;
+        accent-color: var(--primary);
+    }
+}
+
+.formField .mentionCheck > p {
+    text-align: left;
+    width: 100%;
     font-weight: 700;
     a {
         color: var(--primary);
@@ -333,7 +350,10 @@ button {
 
     .formField .groupButton {
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
         width: 50%;
+        gap: 2rem;
     }
 
     .menuBurger.active {

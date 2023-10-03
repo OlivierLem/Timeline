@@ -13,6 +13,7 @@ export function Inscription () {
         pseudo: '',
         password: '',
         email: '',
+        mentionsAccept: false
     }
 
     const navigate = useNavigate()
@@ -37,6 +38,7 @@ export function Inscription () {
             .string()
             .required('Ce champ est vide')
             .oneOf([yup.ref('password')], "le mots de passe n'est pas le même"),
+        mentionsAccept: yup.boolean().oneOf([true], 'Vous devez accepter nos conditions générale pour vous inscrire')
     })
 
     const { 
@@ -98,8 +100,12 @@ export function Inscription () {
                             </div>
                             {errors?.confirm_password &&  <p className='form-error'><i className="fa-solid fa-x"></i>{errors.confirm_password.message}</p>}
                             {errors.generic && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.generic.message}</p>}
+                            <div className='mentionCheck'>
+                                <input type="checkbox" name='mentionsAccept' {...register('mentionsAccept')} />
+                                <p>Pour s'inscrire veuiller acceptez nos <NavLink to='/mentions_legales' target='_blank'>conditions générales </NavLink></p>
+                            </div>
+                            {errors?.mentionsAccept &&  <p className='form-error'><i className="fa-solid fa-x"></i>{errors.mentionsAccept.message}</p>}
 
-                            <p>En créant un compte, vous acceptez nos <NavLink to='/mentions_legales' target='_blank'>conditions générales</NavLink></p>
                             <div className="groupButton">
                                 <NavLink to='/connexion'>Déjà inscrit ?</NavLink>
                                 <button>S'inscrire</button>

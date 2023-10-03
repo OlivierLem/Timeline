@@ -59,7 +59,15 @@ function verifyToken(token) {
     }
 }
 
-router.post("/", (req, res) => {
+const rateLimit = require('express-rate-limit');
+
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // Limite de tentative
+    message: "trop de tentatives de connexion, réessayez plus tard."
+})
+
+router.post("/", apiLimiter, (req, res) => {
     try {
         const { email } = req.body;
         console.log(req.body);
