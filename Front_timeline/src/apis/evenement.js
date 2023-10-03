@@ -3,7 +3,6 @@ const API_EVENT = '/api/evenement';
 
 // créer un événement
 export async function createEvenement(evenement) {
-    console.log(evenement);
     const response = await fetch(API_EVENT, {
         method: "POST",
 		headers: {

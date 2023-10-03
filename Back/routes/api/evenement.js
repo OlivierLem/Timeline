@@ -13,14 +13,13 @@ function transformLink (value) {
 
 router.post('/', async (req, res) => {
     const { name, date, image } = req.body;
-    console.log();
     const slugName = transformLink(name);
     // requête sql pour inséré dans la table evenements le name, le slugName, et la date
     const sqlInsertEvent = `INSERT INTO evenements (name, slugName, date) VALUES (?, ?, ?)`;
     const valueInsertEvent = [name, slugName, date] 
 
     // on effectue la requêté pour l'insertion
-    /* connection.query(sqlInsertEvent, valueInsertEvent, (err, result) => {
+    connection.query(sqlInsertEvent, valueInsertEvent, (err, result) => {
         if (err) throw err;
 
         // on select l'evenement créer et on récupére son id
@@ -37,7 +36,6 @@ router.post('/', async (req, res) => {
             if(result) {
                 const sqlInsertImage = `INSERT INTO images (url, miniature,idEvenement) VALUES ( ? , 1 , ?)`;
                 const valueImageEvent = [image, idEvenement]
-                console.log(valueImageEvent);
 
                 connection.query(sqlInsertImage, valueImageEvent, (err, result) => {
                     if (err) throw err;
@@ -45,7 +43,7 @@ router.post('/', async (req, res) => {
                 } )
             }
         })
-    })      */
+    })     
 })
 
 router.get('/', async (req, res) => {

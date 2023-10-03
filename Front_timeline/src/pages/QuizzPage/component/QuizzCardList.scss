@@ -53,3 +53,21 @@
 .cardQuizz > a:hover {
     background-color: var(--secondary);
 }
+
+@media screen and (max-width: 450px) {
+    .createQuizzLink {
+        text-align: center;
+        max-width: 100%;
+        overflow-wrap: break-word;
+    }
+
+    .cardQuizz {
+        flex-direction: column;
+
+        & > a {
+            max-width: 100%;
+            overflow-wrap: break-word;
+            align-self: center;
+        }
+    }
+}

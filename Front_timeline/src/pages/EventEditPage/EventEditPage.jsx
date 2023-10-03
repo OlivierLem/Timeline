@@ -74,8 +74,8 @@ export function EventEditPage () {
             event: oneEvent.id,
             periode: idPeriodeFilter
         };
-        console.log(eventAndPeriode)
-        associationEventAndPeriode(eventAndPeriode)
+        await associationEventAndPeriode(eventAndPeriode)
+        navigate(0)
       }) 
 
     // page pour modifier un événement

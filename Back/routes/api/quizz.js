@@ -139,6 +139,7 @@ router.get('/listQuizz', async (req, res) => {
     
     const sqlGetListQuizz = `
         SELECT 
+            quizz.idQuizz,
             periodes.noms, 
             periodes.slugName,
             quizz.type,

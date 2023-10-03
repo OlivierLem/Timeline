@@ -30,8 +30,8 @@ export default function QuizzPage () {
                         </div>
 
                         {    
-                            quizz.map((q, i) => (
-                                <QuizzCardList key={i} quizz={q} />
+                            quizz.map((q) => (
+                                <QuizzCardList quizz={q} />
                             ))
                         }
                     </div>

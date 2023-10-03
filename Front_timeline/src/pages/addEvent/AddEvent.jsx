@@ -6,6 +6,7 @@ import { useState } from "react";
 import moment from 'moment';
 import './AddEvent.scss';
 import InfoBulle from "../../component/infoBulle.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function AddEvent () {
     //! bug l'envoie d'image ne s'envoie plus correctement
@@ -13,6 +14,7 @@ export default function AddEvent () {
     const [selectedFile, setSelectedFile] = useState(null);
     // useState pour l'attribut src de la balise img
     const [previewImage, setPreviewImage] = useState(null);
+    const navigate = useNavigate()
 
     const defaultValues = {
         name: '',
@@ -89,14 +91,16 @@ export default function AddEvent () {
         fileReader.onload = async () => {
             const buffer = fileReader.result;
             const blob = new Blob([buffer], { type: selectedFile.type})
+            const base64 = await convertBlobToBase64(blob)
             try {
-                values.image = blob
+                values.image = base64
                 let {date} = values
                 // on modifie le format de la date
                 date = moment(date, 'DD-MM-YYYY')
                 // on vide les erreurs et on envoie la requête fetch pour insérer un évenement
                 clearErrors();
                 await createEvenement(values);
+                navigate('/')
             } catch (message) {
                 // on vérifie si on à une erreur
                 console.error(message)

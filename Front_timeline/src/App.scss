@@ -4,6 +4,7 @@
     max-width: 1300px;
     min-height: 94vh;
     margin: 3rem auto 0;
+    padding-bottom: 6rem;
     font-family: "Nunito", sans-serif;
 }
 
@@ -180,5 +181,12 @@
 @media screen and (max-width: 800px) {
     .sound {
         display: none;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .app {
+        width: 90VW;
+        margin-inline: auto;
     }
 }

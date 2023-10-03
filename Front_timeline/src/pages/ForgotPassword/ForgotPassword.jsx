@@ -1,11 +1,18 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { resetPassword } from '../../apis/user';
+import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
+import { yupResolver } from "@hookform/resolvers/yup";
+
 
 export function ForgotPassword() {
     const { user } = useContext(AuthContext)
 
+    const defaultValues = {
+        email: '',
+    }
     const navigate = useNavigate()
 
     const [mailNotConfirm, setMailNotConfirm] = useState();
