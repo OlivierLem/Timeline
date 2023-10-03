@@ -33,11 +33,12 @@ router.post('/', async (req, res) => {
 
     connexion.query(sqlInsertUser, valuesInsertUser, (err, result) => {
         if (err) {
-            console.error(err);
             if(err.errno === 1062) {
                 res.status(400).json('email déjà utilisé')
+                return
             } else {
                 res.status(400).json("Oops il y a une erreur !")
+                return
             }
         }
 

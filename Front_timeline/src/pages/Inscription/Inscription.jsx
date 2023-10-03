@@ -54,10 +54,16 @@ export function Inscription () {
         console.log(values);
         try {
             clearErrors();
-            await createUser(values);
-            navigate('/connexion')
+            await createUser(values)
+                .then((message) => {
+                    if(message === 'email déjà utilisé') {
+                        setError('generic', {type: "generic", message})
+                    } else {
+                        navigate('/connexion')
+                    }
+                })            
+            
         } catch (message) {
-            console.error(message)
             setError('generic', {type: "generic", message})
         }
     })
@@ -91,6 +97,8 @@ export function Inscription () {
                                 <input {...register('confirm_password')} type="password" name="confirm_password" />
                             </div>
                             {errors?.confirm_password &&  <p className='errorMessage'>{errors.confirm_password.message}</p>}
+                            {errors.generic && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.generic.message}</p>}
+
                             <p>En créant un compte, vous acceptez nos <NavLink to='/mentions_legales' target='_blank'>conditions générales</NavLink></p>
                             <div className="groupButton">
                                 <NavLink to='/connexion'>Déjà inscrit ?</NavLink>

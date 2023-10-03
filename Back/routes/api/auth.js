@@ -3,18 +3,26 @@ const jsonwebtoken = require("jsonwebtoken")
 const router = require("express").Router()
 const connexion = require("../../database/db")
 const {key, keyPub} = require ("../../keys")
+const rateLimit = require('express-rate-limit');
 
-router.post('/', async (req, res) => {
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 10, // Limite de tentative
+    message: "trop de tentatives de connexion, réessayez plus tard."
+})
+
+router.post('/', apiLimiter, async (req, res) => {
     try {
         const { email, password, stayConnected } = req.body;
         const sql = `SELECT * FROM user WHERE email = ?`
         connexion.query(sql, email, (err, result) => {
             if (err) throw err;
-            
             // récupération des données utilisateur si l'utilisateur à validé son email 
-            if(result) {  
+            if(result && result.length > 0) {  
+
                 if (bcrypt.compareSync(password, result[0].password)) {
                     // si l'utilisateur veut rester connecter création d'un cookie
+                    console.log('bcrypt')
                     if (stayConnected && result[0].email_confirmed === 1) {
                         const token = jsonwebtoken.sign({}, key, {
                             subject: result[0].idUser.toString(),
@@ -30,14 +38,15 @@ router.post('/', async (req, res) => {
                         return
                     }
                     res.json(result)
-                } else {
-                    res.status(400).json('Pseudo et/ou mots de passe incorrect')
-                }
-            } 
+                    return
+                } 
+            } else {
+                console.log('else');
+                res.status(400).json("Vous n'êtes pas encore inscrit")
+            }
         })
         
     } catch (error) {
-        console.error(error)
         res.status(400).json('Pseudo et/ou mots de passe incorrect')
     }
 })

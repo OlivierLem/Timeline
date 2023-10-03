@@ -10,6 +10,7 @@ export async function createUser(newUser) {
         },
         body: JSON.stringify(newUser)
     })
+    return response.json()
 }
 
 export async function changePseudo(value) {
