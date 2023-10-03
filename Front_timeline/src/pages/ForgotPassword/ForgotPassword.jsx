@@ -1,6 +1,6 @@
 import { Navigate, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { resetPassword } from '../../apis/user';
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
@@ -14,18 +14,12 @@ export function ForgotPassword() {
         email: '',
     }
     const navigate = useNavigate()
-
-    const [mailNotConfirm, setMailNotConfirm] = useState();
-    const [currentMail, setCurrentMail] = useState();
      
     const shemaConnexion = yup.object({
         email: yup
             .string()
             .required('Ce champ est vide')
             .email('email incorrect'),
-        password: yup
-            .string()
-            .required('Ce champ est vide'),
     })
 
     const { 
@@ -39,7 +33,8 @@ export function ForgotPassword() {
         resolver: yupResolver(shemaConnexion)
     })
 
-    const submit = handleSubmit( async (values) => {
+    const submit = handleSubmit(async (values) => {
+        console.log(values);
         try {
             clearErrors();
             await resetPassword(values)
@@ -59,8 +54,10 @@ export function ForgotPassword() {
                     <form onSubmit={submit} className="formField">
                         <p>Veuillez saisir votre adresse email ci-dessous et nous vous enverrons un mail pour réinitialiser votre mot de passe.</p>
                         <div>
-                            <input type="text" placeholder="Email" aria-placeholder="Email"/>
+                            <input {...register('email')} type="text" placeholder="Email" aria-placeholder="Email"/>
                         </div>
+                        {errors?.email && <p className='errorMessage'>{errors.email.message}</p>}
+
                         <button type="submit">Envoyer un mail</button>
                     </form>
                 </section>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Réinitialiser le mots de passe</title>
+		<script>
+			var statusF = "<%- JSON.stringify(status) %>";
+			var sameF = "<%- JSON.stringify(same) %>";
+			console.log(statusF);
+			console.log(sameF);
+			if (statusF === "true" && sameF === "false") {
+				if (confirm("Voulez-vous continuer ?")) {
+					window.location.href = "http://localhost:3000/";
+				}
+			}
+			if (sameF === "true") {
+				alert("Le mot de passe doit être différent que l'ancien");
+			}
+		</script>
+	</head>
+	<body>
+        <section>
+            <h1 class="title"><%- email%></h1>
+            <form id="form" class="formField" method="POST">
+                <div>
+                    <label for="password">Mots de passe</label>
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                    />
+                </div>
+                <div>
+                    <label for="password">Confirmer le mots de passe</label>
+                    <input
+                        type="password"
+                        name="confirmPassword"
+                        id="confirmPassword"
+                    />
+                </div>
+                <button type="submit">Changer le mots de passe</button>
+            </form>
+        </section>
+		<script>
+			const form = document.querySelector("form");
+			const passwordField = document.querySelector("#password");
+			const confirmPasswordField = document.querySelector("#confirmPassword");
+
+			console.log(form);
+			console.log(passwordField);
+			console.log(confirmPasswordField);
+
+			form.addEventListener("submit", (event) => {
+				if (passwordField.value !== confirmPasswordField.value) {
+					event.preventDefault(); // Prevent the form from submitting
+					alert("Les mots de passe ne correspondent pas"); // Show an error message to the user
+				}
+			});
+		</script>
+        <style>
+            *, *::before,*::after{
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                border: none;
+            }
+            body, html{
+                font-size: 62.5%;
+            }
+            body{
+                font-family:'Nunito', sans-serif;
+                background-color: #1d1d1e;
+            }
+
+            section  {
+                display: flex;
+                flex-direction: column;
+                gap: 4rem;
+                position:absolute;
+                top:50%;
+                left:50%;
+                transform:translate(-50%, -50%);
+            }
+
+            .title {
+                margin-inline: auto;
+                width: fit-content;
+                min-width: 17rem;
+                font-size: 2.5rem;
+                padding: .5rem 3rem;
+                border: solid 2px #58A0E2;
+                border-radius: 5rem;
+                color: white;
+            }
+            
+            .formField {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                width: 20vw;
+                min-width: 30rem;
+                height: fit-content;
+                gap: 2.5rem;
+                margin: auto;
+                border: solid 2px white;
+                border-radius: 2.5rem;
+                padding: 2rem;
+            }
+            .formField > div {
+                display: flex;
+                position: relative;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                font-size: 1.5rem;
+                font-weight: 700;
+                font-family: 'Nunito', sans-serif;
+                text-align: center;
+                gap: 1.5rem;
+                color: white;
+            }
+
+            .formField > div > label {
+                font-size: 1.6rem;
+            }
+
+            .formField > div input {
+                font-size: 1.2rem;
+                font-weight: bold;
+                font-family: 'Nunito', sans-serif;
+                height: fit-content;
+                width: 70%;
+                padding: .3rem 1rem;
+                border: solid 3px #58A0E2;
+                border-radius: 2rem;
+                color: #3074B2;
+            }
+            .formField button {
+                background-color: #58A0E2;
+                border: none;
+                color: white;
+                width: fit-content;
+                margin: auto;
+                padding: .8rem 2rem;
+                font-size: 1.4rem;
+                font-weight: 600;
+                border-radius: 5rem;
+                transition: background-color ease-in .25s;
+            }
+            .formField button:hover {
+                background-color: #3074B2;
+            }
+        </style>
+	</body>
+</html>

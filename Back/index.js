@@ -17,6 +17,8 @@ app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 
 app.use(routes) // les requête effectué
 
+app.set('view engine', 'ejs');
+
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*")
     res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE")

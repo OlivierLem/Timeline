@@ -163,30 +163,4 @@ router.patch('/changePassword', async (req, res) => {
     }
 })
 
-router.post('/resetPassword', async (req, res) => {
-    const {email} = req.body;
-
-    /* const sql = `SELECT * FROM user WHERE email = ?`
-    connection.query(sql, email, (err, result) => {
-        if (err) throw err;
-        const token = jsonwebtoken.sign({
-            email: result[0].email,
-            id: result[0].id
-        }, "token-secret-key",
-        {
-            expiresIn: '1d',
-        })
-        const link = `http://localhost:8000/api/forgotPassword/${result[0].idser}/${token}`;
-
-        sendMail(email, link, (err, info) => {
-            if (err) {
-                // Gestion des erreurs d'envoi de l'e-mail
-                console.error(`Erreur lors de l'envoi de l'e-mail de confirmation : ${err}`);
-            } else {
-                console.log(`Email de confirmation envoyé : ${info.response}`)
-            }
-        })
-    }) */
-})
-
 module.exports = router;

@@ -1,4 +1,5 @@
 const API_USER = '/api/user'; 
+const API_FORGOTPASSWORD = '/api/forgotPassword'; 
 
 export async function createUser(newUser) {
     // requête http pour ajouter des utilisateur
@@ -33,7 +34,7 @@ export async function changePassword(value) {
 }
 
 export async function resetPassword(value) {
-    const response = await fetch(`${API_USER}/resetPassword`, {
+    const response = await fetch(`${API_FORGOTPASSWORD}/`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
