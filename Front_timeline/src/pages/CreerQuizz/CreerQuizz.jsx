@@ -217,7 +217,7 @@ export default function CreerQuizz () {
     // formulaire pour créer les quizz 
     return (
         <section>
-            <h1>créer un quizz</h1>
+            <h1 className="title">créer un quizz</h1>
             <form action="" className="formQuizz" onSubmit={submit}>
                 <div className={`infoStep`}>
                     <span data-step='paramétres' className={stepFormQuizz >= 1 ? 'active' : undefined}>1</span>
@@ -265,7 +265,7 @@ export default function CreerQuizz () {
                         <div ref={reponseRef} className="reponsesQuizz">
                             {renderQuestion(4)}
                         </div>
-                        <div className="buttonList">
+                        <div className="buttonList" style={{gap: '3rem'}}>
                             <button type="button" onClick={handlePreviousStep}>Précédent</button>
                             {
                                 countQuestion === 0 ? (

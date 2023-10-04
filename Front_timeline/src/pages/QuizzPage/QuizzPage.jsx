@@ -21,7 +21,7 @@ export default function QuizzPage () {
     // affiche le quizz ou un lien pour créer un quizz
     return (
         <section>
-            <h1>Liste des quizz</h1>
+            <h1 className="title">Liste des quizz</h1>
             {
                 quizz && quizz.length > 0 ? (
                     <div className="listCard">

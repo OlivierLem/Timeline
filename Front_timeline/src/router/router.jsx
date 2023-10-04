@@ -22,14 +22,16 @@ import { ConfirmationEmail } from "../pages/ConfirmationMail/ConfirmationMail";
 import { userLoader } from "../loaders/userLoader";
 import Profil from "../pages/Profil/Profil";
 import { MentionsPage } from "../pages/Mentions/MentionsPage";
+import { ErrorPage } from "../pages/ErrorPage";
 
 // const AdminPage = lazy(() => import("../pages/adminPage/AdminPage")) // pour le lazy loading affiché la page que lors de son rendu
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <App />,        
+        element: <App />,  
         loader: userLoader,
+        errorElement: <ErrorPage />,      
         children: [
             {
                 index: true,

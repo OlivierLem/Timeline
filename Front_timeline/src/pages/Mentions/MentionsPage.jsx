@@ -22,7 +22,7 @@ export function MentionsPage () {
             <div className="article">
                 <h5>ARTICLE 2 - L'HEBERGEUR</h5>
                 <p>
-                    L'hébergeur du Site est la société vercel, dont le siège social est situé au _______________ , avec lenuméro de téléphone : _______________ + adresse mail de contact
+                    L'hébergeur du Site est la société vercel, dont le siège social est situé au _______________ , avec le numéro de téléphone : _______________ + adresse mail de contact
                 </p>
             </div>
             <div className="article">
@@ -119,7 +119,7 @@ export function MentionsPage () {
                     L’information contenue dans les cookies est utilisée pour améliorer le site <a href="localhost:3000">history-line.fr</a>.
                 </p>
                 <p>
-                    Nous n'utilisont qu'un seul cookie qui récupére l'identifant de l'utilisateur qui permet de rester connecter et modifier les informations de l'utilisateur.
+                    Nous n'utilisons qu'un seul cookie qui récupère l'identifiant à un utilisateur est qui permet de rester connecter et modifier les informations de l'utilisateur.
                 </p>
                 <p>
                     En s'inscrivant l'utilisateur les accepte.

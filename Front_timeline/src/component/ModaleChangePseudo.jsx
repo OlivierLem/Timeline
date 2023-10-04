@@ -59,7 +59,7 @@ export function ModaleChangePseudo ({id, pseudo}) {
             </div>
             {errors?.pseudo && <p className='form-error'><i className="fa-solid fa-x"></i>{errors.pseudo.message}</p> }
             {errors.generic && ( <p className='form-error'><i className="fa-solid fa-x"></i>{errors.generic.message}</p> )}
-            <button type="submit">modifier mots de passe</button>
+            <button type="submit">modifier son pseudo</button>
         </form>
     )
 }

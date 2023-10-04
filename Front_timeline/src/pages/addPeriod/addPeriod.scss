@@ -10,7 +10,7 @@
 }
 
 .formField > .colorField {
-    flex-direction: row;
+    flex-direction: row !important;
     justify-content: start;
     align-items: center;
     margin: 0 auto;

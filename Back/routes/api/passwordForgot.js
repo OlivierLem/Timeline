@@ -61,7 +61,7 @@ const rateLimit = require('express-rate-limit');
 const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 5, // Limite de tentative
-    message: JSON.stringify("trop de tentatives de connexion, réessayez plus tard.")
+    message: JSON.stringify("trop de tentatives d'envoie de mail, réessayez plus tard.")
 })
 
 router.post("/", apiLimiter, (req, res) => {
