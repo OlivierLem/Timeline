@@ -13,6 +13,11 @@ export default function TimelinePage () {
     const [ showChangeTimeline, setShowChangeTimeline ] = useState(false)
     const timelineRef = useRef()
 
+    const [isDown, setIsDown] = useState(false);
+    const [startX, setStartX] = useState();
+    const [scrollLeft, setScrollLeft] = useState();
+    const [sliderIsActive, setSliderIsActive] = useState(false);
+
     const [periods, setPeriods] = useState([])
     useEffect(() => {
         // récupére la période courrante
@@ -54,6 +59,31 @@ export default function TimelinePage () {
         // on cache le select
         setShowChangeTimeline(!showChangeTimeline)
     }
+
+    function handleMouseDown (e) {
+        setIsDown(true)
+        setSliderIsActive(true)
+        setStartX(() => e.pageX - timelineRef.current.offsetLeft);
+        setScrollLeft(() => timelineRef.current.scrollLeft);
+        console.log(scrollLeft);
+      }
+    
+      function handleMouseUpOrLeave () {
+        setIsDown(false)
+        setSliderIsActive(false)
+      }
+    
+      function handleMouseMove (e) {
+        if(!isDown) return;
+        e.preventDefault();
+    
+        const x = e.pageX - timelineRef.current.offsetLeft;
+        const SCROLL_SPEED = 0.1;
+        if (startX) {
+          let walk = (x - startX) * SCROLL_SPEED;
+          timelineRef.current.scrollLeft = timelineRef.current.scrollLeft - walk;
+        }
+      }
 
     // affiche la timeline 
     return (
@@ -100,7 +130,14 @@ export default function TimelinePage () {
                 </div>
             </div>
             
-            <div ref={timelineRef} className='timeline'>
+            <div 
+                ref={timelineRef} 
+                className={`timeline ${sliderIsActive ? "active" : ""}`}
+                onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUpOrLeave}
+                onMouseLeave={handleMouseUpOrLeave}
+                onMouseMove={handleMouseMove}
+            >
                 <div className='timelineBlock'>
                 
                     {
